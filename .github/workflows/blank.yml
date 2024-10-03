@@ -1,0 +1,38 @@
+# Ação Diária para Salvar Logs do NextDNS
+
+name: Salvar Logs do NextDNS
+
+on:
+  schedule:
+    - cron: '0 1 * * *'
+
+jobs:
+  save-logs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v2
+
+      - name: Instalar dependências
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y curl jq
+
+      - name: Obter logs do NextDNS
+        run: |
+          API_KEY="f31f2871d328a52a45fefadc09a1c67d0dd5d53d"
+          PROFILE_ID="85d564"
+          curl -s -H "Authorization: Bearer $API_KEY" "https://api.nextdns.io/logs/$PROFILE_ID" | jq '.' > logs.json
+
+      - name: Enriquecer logs e separar por dispositivos
+        run: |
+          cat logs.json | jq 'group_by(.device) | map({device: .[0].device, logs: .})' > enriched_logs.json
+
+      - name: Salvar logs no repositório
+        run: |
+          git config --local user.email "diogos0587@gmail.com"
+          git config --local user.name "diogos0587"
+          git add enriched_logs.json
+          git commit -m "Atualização diária dos logs do NextDNS"
+          git push
