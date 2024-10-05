@@ -33,4 +33,5 @@ jobs:
           git config --local user.name "diogos0587"
           git add nextdns_logs_*.json
           git commit -m "Atualização diária dos logs do NextDNS"
+          git pull
           git push
