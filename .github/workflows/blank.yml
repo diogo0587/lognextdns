@@ -21,7 +21,7 @@ jobs:
 
       - name: Obter logs do NextDNS
         run: |
-          API_KEY="f31f2871d328a52a45fefadc09a1c67d0dd5d53d"
+          X-Api-Key="f31f2871d328a52a45fefadc09a1c67d0dd5d53d"
           PROFILE_ID="85d564"
           LOG_FILE="nextdns_logs_$(date +'%Y-%m-%d').json"
 
