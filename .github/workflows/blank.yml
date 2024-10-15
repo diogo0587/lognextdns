@@ -21,11 +21,11 @@ jobs:
 
       - name: Obter logs do NextDNS
         env:
-          X_API_KEY: ${{ secrets.NEXTDNS_API_KEY }}
+          X_API_KEY: "f31f2871d328a52a45fefadc09a1c67d0dd5d53d"
           PROFILE_ID: "85d564"
           LOG_FILE: "nextdns_logs_$(date +'%Y-%m-%d').json"
         run: |
-          curl -s -H "X-Api-Key: $X_API_KEY" "https://api.nextdns.io/profiles/$PROFILE_ID/logs" | jq '.' > $LOG_FILE
+          curl -s -H "Authorization: Bearer $X_API_KEY" "https://api.nextdns.io/profiles/$PROFILE_ID/logs" | jq '.' > $LOG_FILE
 
       - name: Enviar logs para o repositório
         run: |
