@@ -1,37 +1,25 @@
-# Ação Diária para Salvar Logs do NextDNS
-
-name: Salvar Logs do NextDNS
+name: Download NextDNS Logs
 
 on:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 0 * * *'  # Diariamente, às 00:00
+  workflow_dispatch:
 
 jobs:
-  save-logs:
+  download-logs:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout do repositório
-        uses: actions/checkout@v2
-
-      - name: Instalar dependências
+      - uses: actions/checkout@v3
+      - name: Download logs
         run: |
-          sudo apt-get update
-          sudo apt-get install -y curl jq
-
-      - name: Obter logs do NextDNS
-        env:
-          X_API_KEY: "f31f2871d328a52a45fefadc09a1c67d0dd5d53d"
-          PROFILE_ID: "85d564"
-          LOG_FILE: "nextdns_logs_$(date +'%Y-%m-%d').json"
+          curl -X GET \
+          -H "X-Api-Key: Bearer ${{ secrets.NEXTDNS_TOKEN }}" \
+          https://nextdns.github.io/api/logs/85d564 \
+          -o nextdns-logs.json
+      - name: Commit and push
         run: |
-          curl -s -H "Authorization: Bearer $X_API_KEY" "https://api.nextdns.io/profiles/$PROFILE_ID/logs" | jq '.' > $LOG_FILE
-
-      - name: Enviar logs para o repositório
-        run: |
-          git config --global user.name "diogo0587"
-          git config --global user.email "diogos0587@gmail.com"
-          git pull
-          git add nextdns_logs_*.json
-          git commit -m "Atualização diária dos logs do NextDNS"
+          git config user.name 'Seu Nome'
+          git config user.email 'seu.email@example.com'
+          git add nextdns-logs.json
+          git commit -m "Adicionando logs do NextDNS do dia $(date +%Y-%m-%d)"
           git push
