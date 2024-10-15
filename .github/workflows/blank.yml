@@ -2,6 +2,10 @@
 
 name: Salvar Logs do NextDNS
 
+on:
+  schedule:
+    - cron: '0 0 * * *'
+
 jobs:
   save-logs:
     runs-on: ubuntu-latest
