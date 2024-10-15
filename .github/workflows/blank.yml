@@ -29,8 +29,8 @@ jobs:
 
       - name: Enviar logs para o repositório
         run: |
-          git config --global user.name "Seu Nome"
-          git config --global user.email "seuemail@exemplo.com"
+          git config --global user.name "diogo0587"
+          git config --global user.email "diogos0587@gmail.com"
           git add nextdns_logs_*.json
           git commit -m "Atualização diária dos logs do NextDNS"
           git pull
