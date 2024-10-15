@@ -20,18 +20,18 @@ jobs:
           sudo apt-get install -y curl jq
 
       - name: Obter logs do NextDNS
+        env:
+          X_API_KEY: ${{ secrets.NEXTDNS_API_KEY }}
+          PROFILE_ID: "85d564"
+          LOG_FILE: "nextdns_logs_$(date +'%Y-%m-%d').json"
         run: |
-          X-Api-Key="f31f2871d328a52a45fefadc09a1c67d0dd5d53d"
-          PROFILE_ID="85d564"
-          LOG_FILE="nextdns_logs_$(date +'%Y-%m-%d').json"
-
-          curl -s -H "Authorization: Bearer $X-Api-Key" "https://api.nextdns.io/profiles/$PROFILE_ID/logs" | jq '.' > $LOG_FILE
+          curl -s -H "X-Api-Key: $X_API_KEY" "https://api.nextdns.io/profiles/$PROFILE_ID/logs" | jq '.' > $LOG_FILE
 
       - name: Enviar logs para o repositório
         run: |
-          git config --global
+          git config --global user.name "Seu Nome"
+          git config --global user.email "seuemail@exemplo.com"
           git add nextdns_logs_*.json
           git commit -m "Atualização diária dos logs do NextDNS"
           git pull
           git push
-
