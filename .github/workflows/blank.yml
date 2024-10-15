@@ -14,7 +14,7 @@ jobs:
         run: |
           curl -X GET \
           -H "X-Api-Key: Bearer ${{ secrets.NEXTDNS_TOKEN }}" \
-          https://nextdns.github.io/api/logs/85d564 \
+          https://api.nextdns.io/profiles/85d564/logs \
           -o nextdns-logs.json
       - name: Commit and push
         run: |
