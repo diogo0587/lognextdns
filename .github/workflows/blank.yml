@@ -2,10 +2,6 @@
 
 name: Salvar Logs do NextDNS
 
-on:
-  schedule:
-    - cron: '0 1 * * *'
-
 jobs:
   save-logs:
     runs-on: ubuntu-latest
@@ -31,7 +27,7 @@ jobs:
         run: |
           git config --global user.name "diogo0587"
           git config --global user.email "diogos0587@gmail.com"
+          git pull
           git add nextdns_logs_*.json
           git commit -m "Atualização diária dos logs do NextDNS"
-          git pull
           git push
