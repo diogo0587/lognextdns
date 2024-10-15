@@ -25,7 +25,7 @@ jobs:
           PROFILE_ID="85d564"
           LOG_FILE="nextdns_logs_$(date +'%Y-%m-%d').json"
 
-          curl -s -H "Authorization: Bearer $X-Api-Key" "https://api.nextdns.io/v1/log/$PROFILE_ID" | jq '.' > $LOG_FILE
+          curl -s -H "Authorization: Bearer $X-Api-Key" "https://api.nextdns.io/profiles/$PROFILE_ID/logs" | jq '.' > $LOG_FILE
 
       - name: Enviar logs para o repositório
         run: |
@@ -34,3 +34,4 @@ jobs:
           git commit -m "Atualização diária dos logs do NextDNS"
           git pull
           git push
+
