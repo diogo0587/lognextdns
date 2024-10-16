@@ -1,0 +1,32 @@
+name: Capture Logs
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Executa todo dia à meia-noite (UTC)
+    
+jobs:
+  capture-logs:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Install curl
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y curl
+
+    - name: Capture Logs
+      run: |
+        mkdir -p logs
+        curl -X GET "https://api.nextdns.io/85d564/logs" \
+          -H "X-Api-Key: Bearer f31f2871d328a52a45fefadc09a1c67d0dd5d53d" \
+          -o logs/daily_log_$(date +'%Y-%m-%d').json
+
+    - name: Commit and Push Logs
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add logs/
+        git commit -m 'Add daily log file'
+        git push
