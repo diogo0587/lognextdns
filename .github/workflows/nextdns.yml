@@ -3,6 +3,8 @@ name: Capture Logs
 on:
   schedule:
     - cron: '0 0 * * *'  # Executa todo dia à meia-noite (UTC)
+
+  workflow_dispatch:
     
 jobs:
   capture-logs:
