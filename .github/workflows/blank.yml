@@ -18,8 +18,8 @@ jobs:
           -o nextdns-logs.json
       - name: Commit and push
         run: |
-          git config user.name 'Seu Nome'
-          git config user.email 'seu.email@example.com'
+          git config user.name 'Diogo0587'
+          git config user.email 'diogos0587@gmail.com'
           git add nextdns-logs.json
           git commit -m "Adicionando logs do NextDNS do dia $(date +%Y-%m-%d)"
           git push
