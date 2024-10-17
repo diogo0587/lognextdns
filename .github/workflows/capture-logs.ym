@@ -1,0 +1,42 @@
+name: Capture Logs
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Executa todo dia à meia-noite (UTC)
+  workflow_dispatch:
+
+jobs:
+  capture-logs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Install curl
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y curl
+
+    - name: Capture Logs and Verify Response
+      run: |
+        mkdir -p logs
+        response=$(curl -s -w "%{http_code}" -o logs/daily_log_$(date +'%Y-%m-%d').json -X GET "https://api.nextdns.io/profiles/85d564/logs" -H "Authorization: Bearer ${{ secrets.NEXTDNS_API_KEY }}")
+        echo "Resposta da API: $response"
+        status_code=${response: -3}
+        if [ "$status_code" -ne 200 ]; then
+          echo "Erro ao capturar logs. Código de status: $status_code"
+          exit 1
+        fi
+
+    - name: Set Git User
+      run: |
+        git config --global user.name "${{ github.actor }}"
+        git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+
+    - name: Add and Commit Logs
+      run: |
+        git checkout main  # Garanta que está na branch correta
+        git add logs/
+        git commit -m "Add daily log file for $(date +'%Y-%m-%d')"
+        git push origin main  # Garanta que está empurrando para a branch correta
