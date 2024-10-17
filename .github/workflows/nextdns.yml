@@ -17,7 +17,16 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y curl
-
+        
+- name: Capture Logs and Verify Response
+  run: |
+    response=$(curl -s -o logs/daily_log_$(date +'%Y-%m-%d').json -X GET "https://api.nextdns.io/85d564/logs" -H "Authorization: Bearer ${{ secrets.NEXTDNS_API_KEY }}")
+    status_code=${response##* }
+    if [ "$status_code" -ne 200 ]; then
+      echo "Erro ao capturar logs. Código de status: $status_code"
+      exit 1
+    fi
+    
     - name: Capture Logs
       run: |
         
