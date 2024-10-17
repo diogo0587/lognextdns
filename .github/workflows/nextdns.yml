@@ -17,27 +17,23 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y curl
-        
-      - name: Capture Logs and Verify Response
-  run: |
-    response=$(curl -s -o logs/daily_log_$(date +'%Y-%m-%d').json -X GET "https://api.nextdns.io/85d564/logs" -H "Authorization: Bearer ${{ secrets.NEXTDNS_API_KEY }}")
-    status_code=${response##* }
-    if [ "$status_code" -ne 200 ]; then
-      echo "Erro ao capturar logs. Código de status: $status_code"
-      exit 1
-    fi
-    
-    - name: Capture Logs
-      run: |
-        
-        curl -X GET "https://api.nextdns.io/85d564/logs" \
-          -H "X-Api-Key: Bearer f31f2871d328a52a45fefadc09a1c67d0dd5d53d" \
-          -o logs/daily_log_$(date +'%Y-%m-%d').json
 
-    - name: Commit and Push Logs
+    - name: Capture Logs and Verify Response
       run: |
-        git config --global user.name 'github-actions[bot]'
-        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        response=$(curl -s -o logs/daily_log_$(date +'%Y-%m-%d').json -X GET "https://api.nextdns.io/85d564/logs" -H "Authorization: Bearer ${{ secrets.NEXTDNS_API_KEY }}")
+        status_code=${response##* }
+        if [ "$status_code" -ne 200 ]; then
+          echo "Erro ao capturar logs. Código de status: $status_code"
+          exit 1
+        fi
+
+    - name: Set Git User
+      run: |
+        git config --wait --local user.name "${{ github.actor }}"
+        git config --wait --local user.email "${{ github.actor }}@users.noreply.github.com"
+
+    - name: Add and Commit Logs
+      run: |
         git add logs/
-        git commit -m 'Add daily log file'
+        git commit -m "Add daily log file for $(date +'%Y-%m-%d')"
         git push
