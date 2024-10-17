@@ -1,8 +1,7 @@
 {
-  "timestamp": "2024-10-17T23:41:21.765Z",
-  "domain": "www.google-analytics.com",
-  "root": "google-analytics.com",
-  "tracker": "google_analytics",
+  "timestamp": "2024-10-17T23:41:51.609Z",
+  "domain": "api.prefab.cloud",
+  "root": "prefab.cloud",
   "encrypted": false,
   "protocol": "UDP",
   "clientIp": "45.190.211.142",
