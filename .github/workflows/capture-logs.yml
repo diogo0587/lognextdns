@@ -26,6 +26,10 @@ jobs:
           device=$(echo "$log" | jq -r '.device')
           mkdir -p logs/$device
           echo "$log" | jq '.' > logs/$device/daily_log_$(date +'%Y-%m-%d').json
+          url=$(echo "$log" | jq -r '.url')
+          if [ -n "$url" ]; then
+            echo "$url" >> logs/urls_$(date +'%Y-%m-%d').txt
+          fi
         done
 
     - name: Set Git User
