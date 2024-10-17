@@ -21,7 +21,7 @@ jobs:
     - name: Capture Logs and Verify Response
       run: |
         mkdir -p logs
-        response=$(curl -s -w "%{http_code}" -o logs/daily_log_$(date +'%Y-%m-%d').json -X GET "https://api.nextdns.io/profiles/85d564/logs" -H "Authorization: Bearer ${{ secrets.NEXTDNS_API_KEY }}")
+        response=$(curl -s -w "%{http_code}" -o logs/daily_log_$(date +'%Y-%m-%d').json -X GET "https://api.nextdns.io/profiles/85d564/logs" -H "${{ secrets.NEXTDNS_API_KEY }}")
         echo "Resposta da API: $response"
         status_code=${response: -3}
         if [ "$status_code" -ne 200 ]; then
