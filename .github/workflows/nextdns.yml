@@ -20,7 +20,7 @@ jobs:
 
     - name: Capture Logs
       run: |
-        mkdir -p logs
+        
         curl -X GET "https://api.nextdns.io/85d564/logs" \
           -H "X-Api-Key: Bearer f31f2871d328a52a45fefadc09a1c67d0dd5d53d" \
           -o logs/daily_log_$(date +'%Y-%m-%d').json
