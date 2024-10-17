@@ -3,12 +3,12 @@ name: Capture Logs
 on:
   schedule:
     - cron: '0 0 * * *'  # Executa todo dia à meia-noite (UTC)
-
   workflow_dispatch:
-    
+
 jobs:
   capture-logs:
     runs-on: ubuntu-latest
+
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
@@ -20,8 +20,9 @@ jobs:
 
     - name: Capture Logs and Verify Response
       run: |
-        response=$(curl -s -o logs/daily_log_$(date +'%Y-%m-%d').json -X GET "https://api.nextdns.io/85d564/logs" -H "Authorization: Bearer ${{ secrets.NEXTDNS_API_KEY }}")
-        status_code=${response##* }
+        mkdir -p logs
+        response=$(curl -s -w "%{http_code}" -o logs/daily_log_$(date +'%Y-%m-%d').json -X GET "https://api.nextdns.io/85d564/logs" -H "Authorization: Bearer ${{ secrets.NEXTDNS_API_KEY }}")
+        status_code=${response: -3}
         if [ "$status_code" -ne 200 ]; then
           echo "Erro ao capturar logs. Código de status: $status_code"
           exit 1
@@ -29,8 +30,8 @@ jobs:
 
     - name: Set Git User
       run: |
-        git config  --local user.name "${{ github.actor }}"
-        git config  --local user.email "${{ github.actor }}@users.noreply.github.com"
+        git config --local user.name "${{ github.actor }}"
+        git config --local user.email "${{ github.actor }}@users.noreply.github.com"
 
     - name: Add and Commit Logs
       run: |
