@@ -1,0 +1,10 @@
+{
+  "timestamp": "2024-10-19T01:07:46.085Z",
+  "domain": "ws-br-cdn.kwai.net",
+  "root": "kwai.net",
+  "encrypted": false,
+  "protocol": "UDP",
+  "clientIp": "45.190.211.142",
+  "status": "default",
+  "reasons": []
+}
