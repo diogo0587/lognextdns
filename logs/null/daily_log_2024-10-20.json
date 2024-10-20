@@ -1,7 +1,8 @@
 {
-  "timestamp": "2024-10-20T01:01:49.879Z",
-  "domain": "az2-apil2-kixmix.kwaipros.com",
-  "root": "kwaipros.com",
+  "timestamp": "2024-10-20T03:17:14.636Z",
+  "domain": "id.google.com.br",
+  "root": "google.com.br",
+  "tracker": "google",
   "encrypted": false,
   "protocol": "UDP",
   "clientIp": "45.190.211.142",
