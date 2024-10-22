@@ -21,7 +21,7 @@ jobs:
     - name: Capture Logs and Separate by Device
       run: |
         mkdir -p logs
-        curl -s -X GET "https://api.nextdns.io/profiles/85d564/logs" -H "X-Api-Key: f31f2871d328a52a45fefadc09a1c67d0dd5d53d" -o logs/daily_log$(date +'%Y-%m-%d').json
+        curl -s -X GET "https://api.nextdns.io/profiles/85d564/logs?raw=1" -H "X-Api-Key: f31f2871d328a52a45fefadc09a1c67d0dd5d53d" -o logs/daily_log$(date +'%Y-%m-%d').json
 
         # Extrair URLs do arquivo JSON
         jq -r '.data[].url' logs/daily_log.json > logs/urls_$(date +'%Y-%m-%d').txt
