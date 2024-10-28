@@ -1,10 +1,8 @@
 services:
-  - type: cron
+  - type: web
     name: capture-logs
     env: node
     region: oregon
-    schedule:
-      - cron: '0 0 * * *'  # Executa todo dia à meia-noite (UTC)
     envVars:
       - key: NEXTDNS_PROFILE
         value: "your_nextdns_profile_id"
