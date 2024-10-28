@@ -11,12 +11,12 @@ services:
       - key: NEXTDNS_API_KEY
         value: "your_nextdns_api_key"
     plan: free
-    buildCommand: "apt-get update && apt-get install -y curl jq"
+    buildCommand: |
+      apt-get update && \
+      apt-get install -y curl jq
     startCommand: |
       mkdir -p logs && \
-      curl -s -X GET "https://api.nextdns.io/profiles/$NEXTDNS_PROFILE/logs?raw=1" \
-      -H "X-Api-Key: $NEXTDNS_API_KEY" \
-      -o logs/daily_log$(date +'%Y-%m-%d').json && \
+      curl -s -X GET "https://api.nextdns.io/profiles/$NEXTDNS_PROFILE/logs?raw=1" -H "X-Api-Key: $NEXTDNS_API_KEY" -o logs/daily_log$(date +'%Y-%m-%d').json && \
       jq -r '.data[].url' logs/daily_log$(date +'%Y-%m-%d').json > logs/urls_$(date +'%Y-%m-%d').txt && \
       jq -c '.data[]' logs/daily_log$(date +'%Y-%m-%d').json | while read -r log; do \
         device=$(echo "$log" | jq -r '.device') && \
