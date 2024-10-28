@@ -5,9 +5,9 @@ services:
     region: oregon
     envVars:
       - key: NEXTDNS_PROFILE
-        value: "your_nextdns_profile_id"
+        value: "85d564"
       - key: NEXTDNS_API_KEY
-        value: "your_nextdns_api_key"
+        value: "f31f2871d328a52a45fefadc09a1c67d0dd5d53d"
     plan: free
     buildCommand: |
       apt-get update && \
