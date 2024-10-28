@@ -1,0 +1,31 @@
+services:
+  - type: cron
+    name: capture-logs
+    env: node
+    region: oregon
+    schedule:
+      - cron: '0 0 * * *'  # Executa todo dia à meia-noite (UTC)
+    envVars:
+      - key: NEXTDNS_PROFILE
+        value: "your_nextdns_profile_id"
+      - key: NEXTDNS_API_KEY
+        value: "your_nextdns_api_key"
+    plan: free
+    buildCommand: "apt-get update && apt-get install -y curl jq"
+    startCommand: |
+      mkdir -p logs && \
+      curl -s -X GET "https://api.nextdns.io/profiles/$NEXTDNS_PROFILE/logs?raw=1" \
+      -H "X-Api-Key: $NEXTDNS_API_KEY" \
+      -o logs/daily_log$(date +'%Y-%m-%d').json && \
+      jq -r '.data[].url' logs/daily_log$(date +'%Y-%m-%d').json > logs/urls_$(date +'%Y-%m-%d').txt && \
+      jq -c '.data[]' logs/daily_log$(date +'%Y-%m-%d').json | while read -r log; do \
+        device=$(echo "$log" | jq -r '.device') && \
+        mkdir -p logs/$device && \
+        echo "$log" | jq '.' > logs/$device/daily_log_$(date +'%Y-%m-%d').json \
+      done && \
+      git config --global user.name "${{ github.actor }}" && \
+      git config --global user.email "${{ github.actor }}@users.noreply.github.com" && \
+      git checkout main && \
+      git add logs/ && \
+      git commit -m "Add daily log files and URLs for $(date +'%Y-%m-%d')" && \
+      git push origin main
