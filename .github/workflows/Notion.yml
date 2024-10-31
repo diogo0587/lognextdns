@@ -54,11 +54,11 @@ jobs:
         urls=$(cat logs/urls_$(date +'%Y-%m-%d').txt)
         for url in $urls; do
           curl -X POST "https://api.notion.com/v1/pages" \
-            -H "Authorization: Bearer ntn_s89151370367mefauCHhowNBl5K1tCLlw6xB4X0lRvX7AJO" \
+            -H "Authorization: Bearer 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" \
             -H "Content-Type: application/json" \
             -H "Notion-Version: 2022-06-28" \
             -d '{
-                  "parent": { "page_id": "13021362320c807c83b2e9b2edd428d6" },
+                  "parent": { "page_id": "130980e6fd0080a5b58def1831ca721f" },
                   "properties": {
                       "title": {
                           "title": [
