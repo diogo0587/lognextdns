@@ -1,4 +1,4 @@
-name: Capture Logs
+name: Capture Logs Notion
 on:
   schedule:
     - cron: '0 0 * * *'  # Executa todo dia à meia-noite (UTC)
@@ -37,9 +37,13 @@ jobs:
     - name: Add and Commit Logs
       run: |
         git checkout main  # Garanta que está na branch correta
-        git add logs/
-        git commit -m "Add daily log files and URLs for $(date +'%Y-%m-%d')"
-        git push origin main  # Garanta que está empurrando para a branch correta
+        if [[ `git status --porcelain` ]]; then
+          git add logs/
+          git commit -m "Add daily log files and URLs for $(date +'%Y-%m-%d')"
+          git push origin main  # Garanta que está empurrando para a branch correta
+        else
+          echo "No changes to commit"
+        fi
 
     - name: Add URLs to Notion
       run: |
