@@ -1,8 +1,8 @@
 {
-  "timestamp": "2024-10-31T04:16:31.824Z",
-  "domain": "m.ykimg.com",
-  "root": "ykimg.com",
-  "type": "A",
+  "timestamp": "2024-10-31T04:17:07.992Z",
+  "domain": "akv2-br-cdn.kwai.net",
+  "root": "kwai.net",
+  "type": "AAAA",
   "dnssec": false,
   "encrypted": false,
   "protocol": "UDP",
