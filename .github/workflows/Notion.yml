@@ -1,4 +1,4 @@
-name: Capture Logs Notion
+name: Capture Logs
 on:
   schedule:
     - cron: '0 0 * * *'  # Executa todo dia à meia-noite (UTC)
@@ -33,6 +33,10 @@ jobs:
       run: |
         git config --global user.name "${{ github.actor }}"
         git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+
+    - name: Pull Latest Changes
+      run: |
+        git pull origin main
 
     - name: Add and Commit Logs
       run: |
