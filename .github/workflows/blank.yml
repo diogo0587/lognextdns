@@ -28,7 +28,7 @@ jobs:
 
         # Separar logs por dispositivo e enriquecer com campos disponíveis
         jq -c '.data[]' logs/daily_log_$(date +'%Y-%m-%d').json | while read -r log; do
-          device=$(echo "$log" | jq -r '.device')
+          device=$(echo "$log" | jq -r '.device // "unknown_device"')
           enriched_log=$(echo "$log" | jq '{
             timestamp: .timestamp,
             source: "NextDNS",
