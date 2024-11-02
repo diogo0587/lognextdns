@@ -1,61 +1,64 @@
-name: Download NextDNS Logs
+name: Capture Logs
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # Diariamente, às 00:00
+    - cron: '0 0 * * *'  # Executa todo dia à meia-noite (UTC)
   workflow_dispatch:
 
 jobs:
-  download-logs:
+  capture-logs:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
+    - name: Checkout Repository
+      uses: actions/checkout@v3
 
-      - name: Download logs
-        run: |
-          curl -X GET \
-          -H "X-Api-Key: Bearer ${{ secrets.NEXTDNS_TOKEN }}" \
-          https://api.nextdns.io/profiles/85d564/logs \
-          -o nextdns-logs.json
+    - name: Install curl and jq
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y curl jq
 
-      - name: Enrich logs
-        run: |
-          python -c "
-import json
-import datetime
+    - name: Capture Logs and Separate by Device
+      run: |
+        mkdir -p logs
+        curl -s -X GET "https://api.nextdns.io/profiles/85d564/logs?raw=1" -H "X-Api-Key: f31f2871d328a52a45fefadc09a1c67d0dd5d53d" -o logs/daily_log_$(date +'%Y-%m-%d').json
 
-# Leia os logs baixados
-with open('nextdns-logs.json', 'r') as file:
-    logs = json.load(file)
+        # Extrair URLs do arquivo JSON
+        jq -r '.data[].url' logs/daily_log_$(date +'%Y-%m-%d').json > logs/urls_$(date +'%Y-%m-%d').txt
 
-# Enriquecer os logs com todos os campos disponíveis
-for log in logs:
-    log['timestamp'] = datetime.datetime.now().isoformat()
-    log['source'] = 'NextDNS'
-    log['client_ip'] = log.get('clientIp', 'N/A')
-    log['client_name'] = log.get('clientName', 'N/A')
-    log['domain'] = log.get('domain', 'N/A')
-    log['query_type'] = log.get('queryType', 'N/A')
-    log['status'] = log.get('status', 'N/A')
-    log['resolver'] = log.get('resolver', 'N/A')
-    log['protocol'] = log.get('protocol', 'N/A')
-    log['elapsed'] = log.get('elapsed', 'N/A')
-    log['metadata'] = log.get('metadata', {})
-    log['response_flags'] = log.get('responseFlags', [])
-    log['upstream'] = log.get('upstream', 'N/A')
-    log['location'] = log.get('location', 'N/A')
-    log['device_name'] = log.get('deviceName', 'N/A')
-    log['tags'] = log.get('tags', [])
+        # Separar logs por dispositivo e enriquecer com campos disponíveis
+        jq -c '.data[]' logs/daily_log_$(date +'%Y-%m-%d').json | while read -r log; do
+          device=$(echo "$log" | jq -r '.device')
+          enriched_log=$(echo "$log" | jq '{
+            timestamp: .timestamp,
+            source: "NextDNS",
+            client_ip: .clientIp,
+            client_name: .clientName,
+            domain: .domain,
+            query_type: .queryType,
+            status: .status,
+            resolver: .resolver,
+            protocol: .protocol,
+            elapsed: .elapsed,
+            metadata: .metadata,
+            response_flags: .responseFlags,
+            upstream: .upstream,
+            location: .location,
+            device_name: .deviceName,
+            tags: .tags
+          }')
+          mkdir -p logs/$device
+          echo "$enriched_log" > logs/$device/daily_log_$(date +'%Y-%m-%d').json
+        done
 
-# Salve os logs enriquecidos
-with open('nextdns-logs-enriched.json', 'w') as file:
-    json.dump(logs, file, indent=2)
-"
+    - name: Set Git User
+      run: |
+        git config --global user.name "${{ github.actor }}"
+        git config --global user.email "${{ github.actor }}@users.noreply.github.com"
 
-      - name: Commit and push
-        run: |
-          git config user.name 'Diogo0587'
-          git config user.email 'diogos0587@gmail.com'
-          git add nextdns-logs-enriched.json
-          git commit -m "Adicionando logs enriquecidos do NextDNS do dia $(date +%Y-%m-%d)"
-          git push
+    - name: Add and Commit Logs
+      run: |
+        git checkout main  # Garanta que está na branch correta
+        git add logs/
+        git commit -m "Add daily log files and URLs for $(date +'%Y-%m-%d')"
+        git push origin main  # Garanta que está empurrando para a branch correta
