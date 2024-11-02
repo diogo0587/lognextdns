@@ -1,0 +1,12 @@
+{
+  "timestamp": "2024-11-02T01:16:03.885Z",
+  "domain": "dt5dh7.ctrl.codesandbox.io",
+  "root": "codesandbox.io",
+  "type": "AAAA",
+  "dnssec": false,
+  "encrypted": false,
+  "protocol": "UDP",
+  "clientIp": "45.190.211.235",
+  "status": "default",
+  "reasons": []
+}
