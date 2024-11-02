@@ -1,12 +1,10 @@
 {
-  "timestamp": "2024-11-02T01:16:03.885Z",
-  "domain": "dt5dh7.ctrl.codesandbox.io",
-  "root": "codesandbox.io",
-  "type": "AAAA",
-  "dnssec": false,
+  "timestamp": "2024-10-22T01:31:26.633Z",
+  "domain": "api.amazonalexa.com",
+  "root": "amazonalexa.com",
   "encrypted": false,
   "protocol": "UDP",
-  "clientIp": "45.190.211.235",
+  "clientIp": "45.190.211.142",
   "status": "default",
   "reasons": []
 }
