@@ -1,0 +1,64 @@
+name: Capture Logs Rich
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Executa todo dia à meia-noite (UTC)
+  workflow_dispatch:
+
+jobs:
+  capture-logs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Install curl and jq
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y curl jq
+
+    - name: Capture Logs and Separate by Device
+      run: |
+        mkdir -p logs
+        curl -s -X GET "https://api.nextdns.io/profiles/85d564/logs?raw=1" -H "X-Api-Key: f31f2871d328a52a45fefadc09a1c67d0dd5d53d" -o logs/daily_log_$(date +'%Y-%m-%d').json
+
+        # Extrair URLs do arquivo JSON
+        jq -r '.data[].url' logs/daily_log_$(date +'%Y-%m-%d').json > logs/urls_$(date +'%Y-%m-%d').txt
+
+        # Separar logs por dispositivo e enriquecer com campos disponíveis
+        jq -c '.data[]' logs/daily_log_$(date +'%Y-%m-%d').json | while read -r log; do
+          device=$(echo "$log" | jq -r '.device')
+          enriched_log=$(echo "$log" | jq '{
+            timestamp: .timestamp,
+            source: "NextDNS",
+            client_ip: .clientIp,
+            client_name: .clientName,
+            domain: .domain,
+            query_type: .queryType,
+            status: .status,
+            resolver: .resolver,
+            protocol: .protocol,
+            elapsed: .elapsed,
+            metadata: .metadata,
+            response_flags: .responseFlags,
+            upstream: .upstream,
+            location: .location,
+            device_name: .deviceName,
+            tags: .tags
+          }')
+          mkdir -p logs/$device
+          echo "$enriched_log" > logs/$device/daily_log_$(date +'%Y-%m-%d').json
+        done
+
+    - name: Set Git User
+      run: |
+        git config --global user.name "${{ github.actor }}"
+        git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+
+    - name: Add and Commit Logs
+      run: |
+        git checkout main  # Garanta que está na branch correta
+        git add logs/
+        git commit -m "Add daily log files and URLs for $(date +'%Y-%m-%d')"
+        git push origin main  # Garanta que está empurrando para a branch correta
