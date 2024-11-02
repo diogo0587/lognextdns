@@ -1,4 +1,4 @@
-name: Capture Logs Rich
+name: Capture Logs enriqueça 
 
 on:
   schedule:
@@ -11,7 +11,7 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v3
 
     - name: Install curl and jq
       run: |
