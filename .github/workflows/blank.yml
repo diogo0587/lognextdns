@@ -10,16 +10,52 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - name: Download logs
         run: |
           curl -X GET \
           -H "X-Api-Key: Bearer ${{ secrets.NEXTDNS_TOKEN }}" \
           https://api.nextdns.io/profiles/85d564/logs \
           -o nextdns-logs.json
+
+      - name: Enrich logs
+        run: |
+          python -c "
+import json
+import datetime
+
+# Leia os logs baixados
+with open('nextdns-logs.json', 'r') as file:
+    logs = json.load(file)
+
+# Enriquecer os logs com todos os campos disponíveis
+for log in logs:
+    log['timestamp'] = datetime.datetime.now().isoformat()
+    log['source'] = 'NextDNS'
+    log['client_ip'] = log.get('clientIp', 'N/A')
+    log['client_name'] = log.get('clientName', 'N/A')
+    log['domain'] = log.get('domain', 'N/A')
+    log['query_type'] = log.get('queryType', 'N/A')
+    log['status'] = log.get('status', 'N/A')
+    log['resolver'] = log.get('resolver', 'N/A')
+    log['protocol'] = log.get('protocol', 'N/A')
+    log['elapsed'] = log.get('elapsed', 'N/A')
+    log['metadata'] = log.get('metadata', {})
+    log['response_flags'] = log.get('responseFlags', [])
+    log['upstream'] = log.get('upstream', 'N/A')
+    log['location'] = log.get('location', 'N/A')
+    log['device_name'] = log.get('deviceName', 'N/A')
+    log['tags'] = log.get('tags', [])
+
+# Salve os logs enriquecidos
+with open('nextdns-logs-enriched.json', 'w') as file:
+    json.dump(logs, file, indent=2)
+"
+
       - name: Commit and push
         run: |
           git config user.name 'Diogo0587'
           git config user.email 'diogos0587@gmail.com'
-          git add nextdns-logs.json
-          git commit -m "Adicionando logs do NextDNS do dia $(date +%Y-%m-%d)"
+          git add nextdns-logs-enriched.json
+          git commit -m "Adicionando logs enriquecidos do NextDNS do dia $(date +%Y-%m-%d)"
           git push
