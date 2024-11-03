@@ -1,0 +1,12 @@
+{
+  "timestamp": "2024-11-03T01:15:11.677Z",
+  "domain": "us.ot.io.mi.com",
+  "root": "mi.com",
+  "type": "A",
+  "dnssec": false,
+  "encrypted": false,
+  "protocol": "UDP",
+  "clientIp": "45.190.211.235",
+  "status": "default",
+  "reasons": []
+}
