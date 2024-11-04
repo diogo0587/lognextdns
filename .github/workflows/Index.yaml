@@ -22,13 +22,16 @@ jobs:
         echo "Fetching logs from NextDNS"
         curl -s -X GET "https://api.nextdns.io/profiles/85d564/logs?raw=1" -H "X-Api-Key: f31f2871d328a52a45fefadc09a1c67d0dd5d53d" -o logs/daily_log$(date +'%Y-%m-%d').json
         echo "Logs fetched: $(cat logs/daily_log$(date +'%Y-%m-%d').json)"
-        domains=$(jq -r '.data[].domain' logs/daily_log$(date +'%Y-%m-%d').json)
-        echo "Extracted Domains: $domains"
-        echo "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>NextDNS Logs</title></head><body><h1>NextDNS Logs for $(date +'%Y-%m-%d')</h1><ul>" > logs/index.html
-        for domain in $domains; do
-          echo "<li><a href=\"http://$domain\">$domain</a></li>" >> logs/index.html
+        echo "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>NextDNS Logs</title><style>body{font-family: Arial, sans-serif;}table{width: 100%; border-collapse: collapse;}th,td{text-align: left; padding: 8px;}th{background-color: #f2f2f2;}tr:nth-child(even){background-color: #f9f9f9;}tr:hover{background-color: #f1f1f1;}h1{text-align: center;}</style></head><body><h1>NextDNS Logs for $(date +'%Y-%m-%d')</h1><table border=\"1\"><tr><th>Timestamp</th><th>Domain</th><th>Type</th><th>Status</th><th>Client IP</th></tr>" > logs/index.html
+        jq -c '.data[]' logs/daily_log$(date +'%Y-%m-%d').json | while read -r log; do
+          timestamp=$(echo "$log" | jq -r '.timestamp')
+          domain=$(echo "$log" | jq -r '.domain')
+          type=$(echo "$log" | jq -r '.type')
+          status=$(echo "$log" | jq -r '.status')
+          client_ip=$(echo "$log" | jq -r '.clientIp')
+          echo "<tr><td>$timestamp</td><td><a href=\"http://$domain\">$domain</a></td><td>$type</td><td>$status</td><td>$client_ip</td></tr>" >> logs/index.html
         done
-        echo "</ul></body></html>" >> logs/index.html
+        echo "</table></body></html>" >> logs/index.html
 
     - name: Set Git User
       run: |
