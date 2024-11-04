@@ -1,0 +1,37 @@
+name: Run NextDNS MQTT Script
+
+on:
+  schedule:
+    - cron: "0 * * * *"  # Executa a cada hora
+  push:
+    branches:
+      - main
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        pip install paho-mqtt requests
+
+    - name: Run script
+      run: |
+        python nextdns_mqtt.py
+
+    - name: Commit and Push Logs
+      run: |
+        git config --local user.email "github-actions@github.com"
+        git config --local user.name "GitHub Actions"
+        git add nextdns_logs.json
+        git commit -m "Atualização de logs do NextDNS: $(date)"
+        git push origin main
