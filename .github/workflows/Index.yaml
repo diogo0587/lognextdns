@@ -1,0 +1,48 @@
+name: Capture Logs
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Executa todo dia à meia-noite (UTC)
+  workflow_dispatch:
+
+jobs:
+  capture-logs:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Install curl and jq
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y curl jq
+
+    - name: Capture Logs and Generate HTML
+      run: |
+        mkdir -p logs
+        curl -s -X GET "https://api.nextdns.io/profiles/85d564/logs?raw=1" -H "X-Api-Key: f31f2871d328a52a45fefadc09a1c67d0dd5d53d" -o logs/daily_log$(date +'%Y-%m-%d').json
+        urls=$(jq -r '.data[].url' logs/daily_log$(date +'%Y-%m-%d').json)
+        echo "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>NextDNS Logs</title></head><body><h1>NextDNS Logs for $(date +'%Y-%m-%d')</h1><ul>" > logs/index.html
+        for url in $urls; do
+          echo "<li><a href=\"$url\">$url</a></li>" >> logs/index.html
+        done
+        echo "</ul></body></html>" >> logs/index.html
+
+    - name: Set Git User
+      run: |
+        git config --global user.name "${{ github.actor }}"
+        git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+
+    - name: Pull Latest Changes
+      run: |
+        git pull origin main
+
+    - name: Add and Commit Logs and HTML
+      run: |
+        git checkout main
+        if [[ `git status --porcelain` ]]; then
+          git add logs/
+          git commit -m "Add daily log files and HTML for $(date +'%Y-%m-%d')"
+          git push origin main
+        else
+          echo "No changes to commit"
+        fi
