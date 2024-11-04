@@ -1,0 +1,13 @@
+{
+  "timestamp": "2024-11-04T01:17:57.576Z",
+  "domain": "www.googletagmanager.com",
+  "root": "googletagmanager.com",
+  "tracker": "google_tag_manager",
+  "type": "A",
+  "dnssec": false,
+  "encrypted": false,
+  "protocol": "UDP",
+  "clientIp": "45.190.211.235",
+  "status": "default",
+  "reasons": []
+}
