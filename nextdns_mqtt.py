@@ -15,7 +15,7 @@ MQTT_PORT = 8883
 MQTT_TOPIC = 'nextdns/logs'
 MQTT_USERNAME = 'Diogo'
 MQTT_PASSWORD = 'Diogo'
-MQTT_CA_CERT = 'path/to/ca_certificate.pem'  # Caminho para o certificado CA
+MQTT_CA_CERT = 'emqxsl-ca.crt'  # Caminho para o certificado CA
 
 # Caminho do arquivo de logs
 LOG_FILE_PATH = 'nextdns_logs.json'
