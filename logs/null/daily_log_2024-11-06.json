@@ -1,0 +1,13 @@
+{
+  "timestamp": "2024-11-06T01:15:59.678Z",
+  "domain": "www.google.com",
+  "root": "google.com",
+  "tracker": "google",
+  "type": "A",
+  "dnssec": false,
+  "encrypted": false,
+  "protocol": "UDP",
+  "clientIp": "45.190.211.235",
+  "status": "default",
+  "reasons": []
+}
