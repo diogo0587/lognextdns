@@ -1,0 +1,12 @@
+{
+  "timestamp": "2024-11-07T01:11:05.176Z",
+  "domain": "az2-apil2-kixmix.kwai-pro.com",
+  "root": "kwai-pro.com",
+  "type": "A",
+  "dnssec": false,
+  "encrypted": false,
+  "protocol": "UDP",
+  "clientIp": "45.190.211.235",
+  "status": "default",
+  "reasons": []
+}
