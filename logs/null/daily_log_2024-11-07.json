@@ -1,12 +1,10 @@
 {
-  "timestamp": "2024-11-07T01:11:05.176Z",
-  "domain": "az2-apil2-kixmix.kwai-pro.com",
-  "root": "kwai-pro.com",
-  "type": "A",
-  "dnssec": false,
+  "timestamp": "2024-10-22T01:31:26.633Z",
+  "domain": "api.amazonalexa.com",
+  "root": "amazonalexa.com",
   "encrypted": false,
   "protocol": "UDP",
-  "clientIp": "45.190.211.235",
+  "clientIp": "45.190.211.142",
   "status": "default",
   "reasons": []
 }
