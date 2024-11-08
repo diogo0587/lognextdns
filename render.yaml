@@ -10,7 +10,6 @@ services:
         value: "f31f2871d328a52a45fefadc09a1c67d0dd5d53d"
     plan: free
     buildCommand: |
-      # No need for apt-get update or install curl/jq
       echo "Using pre-configured image"
     startCommand: |
       mkdir -p logs && \
@@ -21,9 +20,7 @@ services:
         mkdir -p logs/$device && \
         echo "$log" | jq '.' > logs/$device/daily_log_$(date +'%Y-%m-%d').json; \
       done && \
-      git config --global user.name "${{ github.actor }}" && \
-      git config --global user.email "${{ github.actor }}@users.noreply.github.com" && \
-      git checkout main && \
+      git init && \
       git add logs/ && \
       git commit -m "Add daily log files and URLs for $(date +'%Y-%m-%d')" && \
-      git push origin main
+      git push -f
