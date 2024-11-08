@@ -1,0 +1,13 @@
+{
+  "timestamp": "2024-11-08T01:18:01.539Z",
+  "domain": "rr3---sn-ov8xaauxaxjvhcg-jbie.googlevideo.com",
+  "root": "googlevideo.com",
+  "tracker": "youtube",
+  "type": "A",
+  "dnssec": false,
+  "encrypted": false,
+  "protocol": "UDP",
+  "clientIp": "45.190.211.235",
+  "status": "default",
+  "reasons": []
+}
