@@ -1,0 +1,57 @@
+stages:
+  - capture
+  - enrich
+  - analyze
+  - deploy
+
+variables:
+  NEXTDNS_API_KEY: "f31f2871d328a52a45fefadc09a1c67d0dd5d53d"
+  NEXTDNS_PROFILE_ID: "85d564"
+
+capture_logs:
+  stage: capture
+  image: python:3.9
+  script:
+    - apt-get update && apt-get install -y curl jq
+    - curl -s -X GET "https://api.nextdns.io/profiles/${NEXTDNS_PROFILE_ID}/logs?raw=1" -H "X-Api-Key: ${NEXTDNS_API_KEY}" -o logs/daily_log_$(date +'%Y-%m-%d').json
+  artifacts:
+    paths:
+      - logs/
+
+enrich_logs:
+  stage: enrich
+  image: python:3.9
+  script:
+    - pip install jq
+    - jq '.data | map(. + {"timestamp": now | todate})' logs/daily_log_$(date +'%Y-%m-%d').json > logs/enriched_daily_log_$(date +'%Y-%m-%d').json
+  needs:
+    - capture_logs
+  artifacts:
+    paths:
+      - logs/
+
+analyze_urls:
+  stage: analyze
+  image: python:3.9
+  script:
+    - pip install jq
+    - jq -r '.[].url' logs/enriched_daily_log_$(date +'%Y-%m-%d').json > logs/urls_$(date +'%Y-%m-%d').txt
+    - cat logs/urls_$(date +'%Y-%m-%d').txt | while read url; do
+        echo "Analyzing $url";
+        # Exemplo de verificação de segurança
+        safety_response=$(curl -s --request GET --url "https://www.virustotal.com/api/v3/urls/$(echo -n $url | base64)" --header "x-apikey: YOUR_VIRUSTOTAL_API_KEY");
+        echo "Safety check: $safety_response";
+        # Adicione outras análises aqui
+      done
+  needs:
+    - enrich_logs
+  artifacts:
+    paths:
+      - logs/
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploy step - Add your deployment scripts here"
+  needs:
+    - analyze_urls
