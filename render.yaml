@@ -10,10 +10,10 @@ services:
         value: "f31f2871d328a52a45fefadc09a1c67d0dd5d53d"
     plan: free
     buildCommand: |
-      sudo mkdir -p /var/lib/apt/lists/partial && \
-      sudo chmod 755 /var/lib/apt/lists/partial && \
-      sudo apt-get update -o Acquire::CompressionTypes::Order::=gz && \
-      sudo apt-get install -y curl jq
+      mkdir -p /var/lib/apt/lists/partial && \
+      chmod 755 /var/lib/apt/lists/partial && \
+      apt-get update -o Acquire::CompressionTypes::Order::=gz && \
+      apt-get install -y curl jq
     startCommand: |
       mkdir -p logs && \
       curl -s -X GET "https://api.nextdns.io/profiles/$NEXTDNS_PROFILE/logs?raw=1" -H "X-Api-Key: $NEXTDNS_API_KEY" -o logs/daily_log_$(date +'%Y-%m-%d').json && \
