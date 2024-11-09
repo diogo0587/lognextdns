@@ -1,0 +1,80 @@
+name: NextDNS Logs
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Executa diariamente à meia-noite UTC
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Create Directory Structure
+      run: |
+        mkdir -p app logs .github/workflows
+
+    - name: Create main.py Script
+      run: |
+        echo "import os" > app/main.py
+        echo "import requests" >> app/main.py
+        echo "import json" >> app/main.py
+        echo "from datetime import datetime" >> app/main.py
+        echo "def capture_logs():" >> app/main.py
+        echo "    nextdns_api_key = os.getenv('NEXTDNS_API_KEY')" >> app/main.py
+        echo "    nextdns_profile_id = os.getenv('NEXTDNS_PROFILE_ID')" >> app/main.py
+        echo "    response = requests.get(f'https://api.nextdns.io/profiles/{nextdns_profile_id}/logs?raw=1', headers={'X-Api-Key': nextdns_api_key})" >> app/main.py
+        echo "    logs = response.json()" >> app/main.py
+        echo "    file_name = f'logs/daily_log_{datetime.now().strftime('%Y-%m-%d')}.json'" >> app/main.py
+        echo "    os.makedirs(os.path.dirname(file_name), exist_ok=True)" >> app/main.py
+        echo "    with open(file_name, 'w') as file:" >> app/main.py
+        echo "        json.dump(logs, file)" >> app/main.py
+        echo "    print(f'Logs capturados e salvos em {file_name}')" >> app/main.py
+        echo "def enrich_logs():" >> app/main.py
+        echo "    input_file = f'logs/daily_log_{datetime.now().strftime('%Y-%m-%d')}.json'" >> app/main.py
+        echo "    output_file = f'logs/enriched_daily_log_{datetime.now().strftime('%Y-%m-%d')}.json'" >> app/main.py
+        echo "    with open(input_file, 'r') as file:" >> app/main.py
+        echo "        logs = json.load(file)" >> app/main.py
+        echo "    enriched_logs = []" >> app/main.py
+        echo "    for log in logs['data']:" >> app/main.py
+        echo "        log['timestamp'] = datetime.now().isoformat()" >> app/main.py
+        echo "        enriched_logs.append(log)" >> app/main.py
+        echo "    with open(output_file, 'w') as file:" >> app/main.py
+        echo "        json.dump(enriched_logs, file)" >> app/main.py
+        echo "    print(f'Logs enriquecidos salvos em {output_file}')" >> app/main.py
+        echo "def analyze_urls():" >> app/main.py
+        echo "    input_file = f'logs/enriched_daily_log_{datetime.now().strftime('%Y-%m-%d')}.json'" >> app/main.py
+        echo "    with open(input_file, 'r') as file:" >> app/main.py
+        echo "        logs = json.load(file)" >> app/main.py
+        echo "    for log in logs:" >> app/main.py
+        echo "        url = log.get('url', 'N/A')" >> app/main.py
+        echo "        print(f'Analisando {url}')" >> app/main.py
+        echo "        safety_response = requests.get(f'https://www.virustotal.com/api/v3/urls/{url}', headers={'x-apikey': os.getenv('YOUR_VIRUSTOTAL_API_KEY')})" >> app/main.py
+        echo "        log['safety'] = safety_response.json()" >> app/main.py
+        echo "    output_file = f'logs/analyzed_daily_log_{datetime.now().strftime('%Y-%m-%d')}.json'" >> app/main.py
+        echo "    with open(output_file, 'w') as file:" >> app/main.py
+        echo "        json.dump(logs, file)" >> app/main.py
+        echo "    print(f'Logs analisados salvos em {output_file}')" >> app/main.py
+        echo "if __name__ == '__main__':" >> app/main.py
+        echo "    capture_logs()" >> app/main.py
+        echo "    enrich_logs()" >> app/main.py
+        echo "    analyze_urls()" >> app/main.py
+
+    - name: Create requirements.txt
+      run: echo "requests" > requirements.txt
+
+    - name: Create Dockerfile
+      run: |
+        echo "FROM python:3.9" > Dockerfile
+        echo "WORKDIR /app" >> Dockerfile
+        echo "COPY requirements.txt ." >> Dockerfile
+        echo "RUN pip install --no-cache-dir -r requirements.txt" >> Dockerfile
+        echo "COPY . ." >> Dockerfile
+        echo "RUN mkdir /app/logs" >> Dockerfile
+        echo "ENV NEXTDNS_API_KEY='f31f2871d328a52a45fefadc09a1c67
