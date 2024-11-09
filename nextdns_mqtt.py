@@ -59,4 +59,4 @@ while True:
     for log in logs['data']:
         payload = json.dumps(log)
         client.publish(MQTT_TOPIC, payload)
-    time.sleep(60)  # Intervalo de 60 segundos
+    time.sleep(660)  # Intervalo de 60 segundos
