@@ -4,8 +4,8 @@ import json
 from datetime import datetime
 
 def capture_logs():
-    nextdns_api_key = os.getenv('NEXTDNS_API_KEY')
-    nextdns_profile_id = os.getenv('NEXTDNS_PROFILE_ID')
+    nextdns_api_key = os.getenv('f31f2871d328a52a45fefadc09a1c67d0dd5d53d')
+    nextdns_profile_id = os.getenv('85d564')
 
     response = requests.get(f"https://api.nextdns.io/profiles/{nextdns_profile_id}/logs?raw=1", 
                             headers={"X-Api-Key": nextdns_api_key})
