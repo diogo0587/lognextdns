@@ -1,69 +1,64 @@
-name: NextDNS Log Collector
+name: Workflow Menu
 
 on:
-  schedule:
-    - cron: '0 0 * * *' # Executa diariamente à meia-noite UTC
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Escolha uma ação'
+        required: true
+        default: 'status'
+        options:
+          - start
+          - stop
+          - status
 
 jobs:
-  collect-logs:
+  menu:
     runs-on: ubuntu-latest
-
+    outputs:
+      status: ${{ steps.set-status.outputs.workflow_status }}
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+    - name: Check out the repo
+      uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-
-    - name: Install dependencies
+    - name: Perform action
+      id: perform-action
       run: |
-        python -m pip install --upgrade pip
-        pip install requests
+        case "${{ github.event.inputs.action }}" in
+          start)
+            echo "##[group]Starting workflow"
+            echo "No additional steps required here. The scheduled workflow will run automatically."
+            echo "##[endgroup]"
+            ;;
+          stop)
+            echo "##[group]Stopping workflow"
+            echo "Creating stop file..."
+            touch .stop-nextdns-workflow
+            git config --global user.email "github-actions@github.com"
+            git config --global user.name "GitHub Actions"
+            git add .stop-nextdns-workflow
+            git commit -m "Stopping workflow"
+            git push
+            echo "##[endgroup]"
+            ;;
+          status)
+            echo "##[group]Workflow Status"
+            if [ -f ".stop-nextdns-workflow" ]; then
+              echo "Workflow is currently stopped."
+              echo "workflow_status=stopped" >> $GITHUB_ENV
+            else
+              echo "Workflow is currently running."
+              echo "workflow_status=running" >> $GITHUB_ENV
+            fi
+            echo "##[endgroup]"
+            ;;
+        esac
 
-    - name: Run NextDNS Log Collector
+    - name: Set status output
+      id: set-status
       run: |
-        cat > nextdns_log_collector.py <<'EOF'
-        import requests
-        import csv
-        from datetime import datetime, timedelta
-
-        # Configurações
-        api_key = "1f31f2871d328a52a45fefadc09a1c67d0dd5d53d"
-        profile_id = "85d564"
-        output_csv = "/var/log/nextdns_logs.csv"
-        fetch_interval = 86400  # Intervalo de coleta em segundos (1 dia)
-
-        # Função para coletar logs
-        def collect_logs():
-            yesterday = (datetime.utcnow() - timedelta(days=1)).strftime('%Y-%m-%dT%H:%M:%S') + 'Z'
-            now = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S') + 'Z'
-            url = f"https://api.nextdns.io/profiles/{profile_id}/logs/download?from={yesterday}&to={now}&limit=500"
-            headers = {"X-Api-Key": api_key}
-            response = requests.get(url, headers=headers)
-            if response.status_code == 200:
-                logs = response.json()
-                save_logs_to_csv(logs, profile_id)
-
-        # Função para salvar logs em CSV
-        def save_logs_to_csv(logs, profile_id):
-            with open(output_csv, "a", newline="") as csvfile:
-                fieldnames = ["timestamp", "profile", "log"]
-                writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-                
-                # Escrever cabeçalho apenas na primeira vez
-                if csvfile.tell() == 0:
-                    writer.writeheader()
-
-                for log in logs:
-                    writer.writerow({
-                        "timestamp": datetime.now().isoformat(),
-                        "profile": profile_id,
-                        "log": log
-                    })
-
-        # Coletar logs
-        collect_logs()
-        EOF
-        python nextdns_log_collector.py
+        if [ -f ".stop-nextdns-workflow" ]; then
+          echo "::set-output name=workflow_status::stopped"
+        else
+          echo "::set-output name=workflow_status::running"
+        fi
