@@ -1,13 +1,10 @@
 {
-  "timestamp": "2024-11-14T01:18:55.222Z",
-  "domain": "api-2-0.spot.im",
-  "root": "spot.im",
-  "tracker": "spot.im",
-  "type": "A",
-  "dnssec": false,
+  "timestamp": "2024-10-22T01:31:26.633Z",
+  "domain": "api.amazonalexa.com",
+  "root": "amazonalexa.com",
   "encrypted": false,
   "protocol": "UDP",
-  "clientIp": "2804:678c:c176:d500:d47:6f35:ada:bde0",
+  "clientIp": "45.190.211.142",
   "status": "default",
   "reasons": []
 }
