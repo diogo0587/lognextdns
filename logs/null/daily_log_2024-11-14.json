@@ -1,0 +1,13 @@
+{
+  "timestamp": "2024-11-14T01:18:55.222Z",
+  "domain": "api-2-0.spot.im",
+  "root": "spot.im",
+  "tracker": "spot.im",
+  "type": "A",
+  "dnssec": false,
+  "encrypted": false,
+  "protocol": "UDP",
+  "clientIp": "2804:678c:c176:d500:d47:6f35:ada:bde0",
+  "status": "default",
+  "reasons": []
+}
