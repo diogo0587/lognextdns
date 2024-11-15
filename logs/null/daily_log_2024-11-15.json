@@ -1,0 +1,13 @@
+{
+  "timestamp": "2024-11-15T01:20:47.221Z",
+  "domain": "content-autofill.googleapis.com",
+  "root": "content-autofill.googleapis.com",
+  "tracker": "googleapis.com",
+  "type": "AAAA",
+  "dnssec": false,
+  "encrypted": false,
+  "protocol": "UDP",
+  "clientIp": "45.190.211.230",
+  "status": "default",
+  "reasons": []
+}
