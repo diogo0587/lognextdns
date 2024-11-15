@@ -1,13 +1,10 @@
 {
-  "timestamp": "2024-11-15T01:20:47.221Z",
-  "domain": "content-autofill.googleapis.com",
-  "root": "content-autofill.googleapis.com",
-  "tracker": "googleapis.com",
-  "type": "AAAA",
-  "dnssec": false,
+  "timestamp": "2024-10-22T01:31:26.633Z",
+  "domain": "api.amazonalexa.com",
+  "root": "amazonalexa.com",
   "encrypted": false,
   "protocol": "UDP",
-  "clientIp": "45.190.211.230",
+  "clientIp": "45.190.211.142",
   "status": "default",
   "reasons": []
 }
