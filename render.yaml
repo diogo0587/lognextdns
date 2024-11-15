@@ -8,19 +8,32 @@ services:
         value: "85d564"
       - key: NEXTDNS_API_KEY
         value: "f31f2871d328a52a45fefadc09a1c67d0dd5d53d"
+      - key: GIT_REPO_URL
+        value: "https://github.com/diogo0587/lognextdns"
     plan: free
     buildCommand: |
-      echo "Using pre-configured image"
+      apt-get update && apt-get install -y jq curl git
     startCommand: |
-      mkdir -p logs && \
-      curl -s -X GET "https://api.nextdns.io/profiles/$NEXTDNS_PROFILE/logs/download" -H "X-Api-Key: $NEXTDNS_API_KEY" -o logs/daily_log_$(date +'%Y-%m-%d').json && \
-      jq -r '.data[].url' logs/daily_log_$(date +'%Y-%m-%d').json > logs/urls_$(date +'%Y-%m-%d').txt && \
-      jq -c '.data[]' logs/daily_log_$(date +'%Y-%m-%d').json | while read -r log; do \
-        device=$(echo "$log" | jq -r '.device') && \
-        mkdir -p logs/$device && \
-        echo "$log" | jq '.' > logs/$device/daily_log_$(date +'%Y-%m-%d').json; \
-      done && \
-      git init && \
-      git add logs/ && \
-      git commit -m "Add daily log files and URLs for $(date +'%Y-%m-%d')" && \
-      git push -f
+      #!/bin/bash
+      set -e
+
+      # ... (código anterior permanece o mesmo)
+
+      echo "Initializing git repository..."
+      git config --global user.email "diogos0587@gmail.com"
+      git config --global user.name "Diogo0587"
+      git init
+      
+      echo "Adding files to git..."
+      git add logs/
+      
+      echo "Committing changes..."
+      git commit -m "Add daily log files and URLs for $(date +'%Y-%m-%d')"
+      
+      echo "Pushing to remote repository..."
+      if ! git push -f $GIT_REPO_URL main; then
+        echo "Failed to push to remote repository. Exiting."
+        exit 1
+      fi
+      
+      echo "Script completed successfully."
