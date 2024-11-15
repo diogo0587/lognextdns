@@ -1,0 +1,18 @@
+{
+  "timestamp": "2024-11-15T01:21:49.074Z",
+  "source": "NextDNS",
+  "client_ip": "45.190.211.230",
+  "client_name": null,
+  "domain": "intake-analytics.wikimedia.org",
+  "query_type": null,
+  "status": "default",
+  "resolver": null,
+  "protocol": "UDP",
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
+}
