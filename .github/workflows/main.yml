@@ -17,7 +17,10 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: 3.8
+        import: logging
 
+
+# Use logger.info(), logger.error(), etc. para registrar mensagens
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
