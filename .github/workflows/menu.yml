@@ -1,0 +1,64 @@
+name: Workflow Menu
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Escolha uma ação'
+        required: true
+        default: 'status'
+        options:
+          - start
+          - stop
+          - status
+
+jobs:
+  menu:
+    runs-on: ubuntu-latest
+    outputs:
+      status: ${{ steps.set-status.outputs.workflow_status }}
+    steps:
+    - name: Check out the repo
+      uses: actions/checkout@v3
+
+    - name: Perform action
+      id: perform-action
+      run: |
+        case "${{ github.event.inputs.action }}" in
+          start)
+            echo "##[group]Starting workflow"
+            echo "No additional steps required here. The scheduled workflow will run automatically."
+            echo "##[endgroup]"
+            ;;
+          stop)
+            echo "##[group]Stopping workflow"
+            echo "Creating stop file..."
+            touch .stop-nextdns-workflow
+            git config --global user.email "github-actions@github.com"
+            git config --global user.name "GitHub Actions"
+            git add .stop-nextdns-workflow
+            git commit -m "Stopping workflow"
+            git push
+            echo "##[endgroup]"
+            ;;
+          status)
+            echo "##[group]Workflow Status"
+            if [ -f ".stop-nextdns-workflow" ]; then
+              echo "Workflow is currently stopped."
+              echo "workflow_status=stopped" >> $GITHUB_ENV
+            else
+              echo "Workflow is currently running."
+              echo "workflow_status=running" >> $GITHUB_ENV
+            fi
+            echo "##[endgroup]"
+            ;;
+        esac
+
+    - name: Set status output
+      id: set-status
+      run: |
+        if [ -f ".stop-nextdns-workflow" ]; then
+          echo "::set-output name=workflow_status::stopped"
+        else
+          echo "::set-output name=workflow_status::running"
+        fi
