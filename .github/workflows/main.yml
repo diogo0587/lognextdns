@@ -1,4 +1,4 @@
-name: Workflow Menu
+name: Workflow Menu 1
 
 on:
   workflow_dispatch:
