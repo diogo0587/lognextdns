@@ -1,4 +1,4 @@
-name: Capture and Publish NextDNS Logs
+name: Capture and Publish NextDNS Logs with Pagination
 
 on:
   schedule:
@@ -17,28 +17,61 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y curl jq
 
-    - name: Capture Logs and Generate HTML
+    - name: Capture Logs and Generate HTML with Pagination
       run: |
         echo "Fetching logs from NextDNS"
         curl -s -X GET "https://api.nextdns.io/profiles/85d564/logs?raw=1" -H "X-Api-Key: f31f2871d328a52a45fefadc09a1c67d0dd5d53d" -o daily_log$(date +'%Y-%m-%d').json
         echo "Logs fetched: $(cat daily_log$(date +'%Y-%m-%d').json)"
-        echo "<!DOCTYPE html><html lang=\"pt-BR\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>NextDNS Logs</title><style>body{font-family: Arial, sans-serif;}table{width: 100%; border-collapse: collapse;}th,td{text-align: left; padding: 8px;}th{background-color: #f2f2f2;}tr:nth-child(even){background-color: #f9f9f9;}tr:hover{background-color: #f1f1f1;}h1{text-align: center;}</style></head><body><h1>NextDNS Logs para $(date +'%Y-%m-%d')</h1><table border=\"1\"><tr><th>Timestamp</th><th>Domínio</th><th>Tipo</th><th>Status</th><th>IP do Cliente</th></tr>" > index.html
-        jq -c '.data[]' daily_log$(date +'%Y-%m-%d').json | while read -r log; do
-          timestamp=$(echo "$log" | jq -r '.timestamp')
-          domain=$(echo "$log" | jq -r '.domain')
-          type=$(echo "$log" | jq -r '.type')
-          status=$(echo "$log" | jq -r '.status')
-          client_ip=$(echo "$log" | jq -r '.clientIp')
-          echo "<tr><td>$timestamp</td><td><a href=\"http://$domain\">$domain</a></td><td>$type</td><td>$status</td><td>$client_ip</td></tr>" >> index.html
+        
+        # Função para criar cabeçalho HTML
+        create_header() {
+          echo "<!DOCTYPE html><html lang=\"pt-BR\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>NextDNS Logs - Página $1</title><style>body{font-family: Arial, sans-serif;}table{width: 100%; border-collapse: collapse;}th,td{text-align: left; padding: 8px;}th{background-color: #f2f2f2;}tr:nth-child(even){background-color: #f9f9f9;}tr:hover{background-color: #f1f1f1;}h1{text-align: center;}.pagination{text-align: center; margin-top: 20px;}.pagination a{margin: 0 5px;}</style></head><body><h1>NextDNS Logs para $(date +'%Y-%m-%d') - Página $1</h1><table border=\"1\"><tr><th>Timestamp</th><th>Domínio</th><th>Tipo</th><th>Status</th><th>IP do Cliente</th></tr>"
+        }
+
+        # Função para criar rodapé HTML com paginação
+        create_footer() {
+          echo "</table><div class=\"pagination\">"
+          for ((i=1; i<=$total_pages; i++)); do
+            if [ $i -eq $1 ]; then
+              echo "<strong>$i</strong>"
+            else
+              echo "<a href=\"page$i.html\">$i</a>"
+            fi
+          done
+          echo "</div></body></html>"
+        }
+
+        # Configurações de paginação
+        items_per_page=100
+        total_items=$(jq '.data | length' daily_log$(date +'%Y-%m-%d').json)
+        total_pages=$(( (total_items + items_per_page - 1) / items_per_page ))
+
+        # Gerar páginas HTML
+        for ((page=1; page<=total_pages; page++)); do
+          start_index=$(( (page - 1) * items_per_page ))
+          end_index=$(( page * items_per_page ))
+
+          create_header $page > page$page.html
+          jq -c ".data[$start_index:$end_index][]" daily_log$(date +'%Y-%m-%d').json | while read -r log; do
+            timestamp=$(echo "$log" | jq -r '.timestamp')
+            domain=$(echo "$log" | jq -r '.domain')
+            type=$(echo "$log" | jq -r '.type')
+            status=$(echo "$log" | jq -r '.status')
+            client_ip=$(echo "$log" | jq -r '.clientIp')
+            echo "<tr><td>$timestamp</td><td><a href=\"http://$domain\">$domain</a></td><td>$type</td><td>$status</td><td>$client_ip</td></tr>" >> page$page.html
+          done
+          create_footer $page >> page$page.html
         done
-        echo "</table></body></html>" >> index.html
+
+        # Criar página index.html que redireciona para a primeira página
+        echo "<meta http-equiv=\"refresh\" content=\"0; url=page1.html\">" > index.html
 
     - name: Commit and Push Changes
       run: |
         git config --global user.name 'GitHub Action'
         git config --global user.email 'action@github.com'
-        git add index.html daily_log$(date +'%Y-%m-%d').json
-        git commit -m "Update logs and HTML for $(date +'%Y-%m-%d')"
+        git add index.html page*.html daily_log$(date +'%Y-%m-%d').json
+        git commit -m "Update logs and HTML with pagination for $(date +'%Y-%m-%d')"
         git push
 
     - name: Deploy to GitHub Pages
