@@ -25,7 +25,7 @@ jobs:
         
         # Função para criar cabeçalho HTML
         create_header() {
-          echo "<!DOCTYPE html><html lang=\"pt-BR\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>NextDNS Logs - Página $1</title><style>body{font-family: Arial, sans-serif;}table{width: 100%; border-collapse: collapse;}th,td{text-align: left; padding: 8px;}th{background-color: #f2f2f2;}tr:nth-child(even){background-color: #f9f9f9;}tr:hover{background-color: #f1f1f1;}h1{text-align: center;}.pagination{text-align: center; margin-top: 20px;}.pagination a{margin: 0 5px;}</style></head><body><h1>NextDNS Logs para $(date +'%Y-%m-%d') - Página $1</h1><table border=\"1\"><tr><th>Timestamp</th><th>Domínio</th><th>Tipo</th><th>Status</th><th>IP do Cliente</th></tr>"
+          echo "<!DOCTYPE html><html lang=\"pt-BR\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>NextDNS Logs - Página $1</title><style>body{font-family: Arial, sans-serif;}table{width: 100%; border-collapse: collapse;}th,td{text-align: left; padding: 8px;}th{background-color: #f2f2f2;}tr:nth-child(even){background-color: #f9f9f9;}tr:hover{background-color: #f1f1f1;}h1{text-align: center;}.pagination{text-align: center; margin-top: 20px;}.pagination a{margin: 0 5px;}</style></head><body><h1>NextDNS Logs para $(date +'%Y-%m-%d') - Página $1</h1><table border=\"1\"><tr><th>Timestamp (GMT-3)</th><th>Domínio</th><th>Tipo</th><th>Status</th><th>IP do Cliente</th></tr>"
         }
 
         # Função para criar rodapé HTML com paginação
@@ -54,11 +54,13 @@ jobs:
           create_header $page > page$page.html
           jq -c ".data[$start_index:$end_index][]" daily_log$(date +'%Y-%m-%d').json | while read -r log; do
             timestamp=$(echo "$log" | jq -r '.timestamp')
+            # Converter timestamp UTC para GMT-3
+            timestamp_gmt3=$(TZ='America/Sao_Paulo' date -d "@$timestamp" +'%Y-%m-%d %H:%M:%S')
             domain=$(echo "$log" | jq -r '.domain')
             type=$(echo "$log" | jq -r '.type')
             status=$(echo "$log" | jq -r '.status')
             client_ip=$(echo "$log" | jq -r '.clientIp')
-            echo "<tr><td>$timestamp</td><td><a href=\"http://$domain\">$domain</a></td><td>$type</td><td>$status</td><td>$client_ip</td></tr>" >> page$page.html
+            echo "<tr><td>$timestamp_gmt3</td><td><a href=\"http://$domain\">$domain</a></td><td>$type</td><td>$status</td><td>$client_ip</td></tr>" >> page$page.html
           done
           create_footer $page >> page$page.html
         done
@@ -75,8 +77,4 @@ jobs:
         git push
 
     - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: .
-        publish_branch: gh-pages
+      uses: actions/deploy-pages@v2
