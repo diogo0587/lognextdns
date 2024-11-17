@@ -1,17 +1,36 @@
-name: Capture Logs
+name: Capture and Publish NextDNS Logs
+
 on:
   schedule:
     - cron: '0 0 * * *'  # Executa todo dia à meia-noite (UTC)
-  workflow_dispatch:
+  workflow_dispatch:  # Permite execução manual
 
 jobs:
-  capture-logs:
+  capture-and-publish-logs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
+
+    - name: Configure Git
+      run: |
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+
+    - name: Create gh-pages branch if it doesn't exist
+      run: |
+        if ! git ls-remote --exit-code --heads origin gh-pages; then
+          git checkout --orphan gh-pages
+          git rm -rf .
+          git commit --allow-empty -m "Initial gh-pages commit"
+          git push origin gh-pages
+        fi
+
+    - name: Checkout gh-pages
+      uses: actions/checkout@v4
       with:
         ref: gh-pages
+        fetch-depth: 0
 
     - name: Install curl and jq
       run: |
@@ -34,13 +53,15 @@ jobs:
         done
         echo "</table></body></html>" >> index.html
 
-    - name: Set Git User
-      run: |
-        git config --global user.name "GitHub Actions"
-        git config --global user.email "actions@github.com"
-
-    - name: Add and Commit Logs and HTML
+    - name: Commit and Push Changes
       run: |
         git add index.html daily_log$(date +'%Y-%m-%d').json
         git commit -m "Update logs and HTML for $(date +'%Y-%m-%d')"
-        git push
+        git push origin gh-pages
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: .
+        publish_branch: gh-pages
