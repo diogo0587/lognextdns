@@ -1,4 +1,4 @@
-python
+
 from transformers import pipeline
 import json
 
