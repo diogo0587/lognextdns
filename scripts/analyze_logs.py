@@ -21,7 +21,4 @@ for log in logs:
 
 # Salvar os resultados
 with open("logs/nextdns_logs_analysis.json", "w") as file:
-    json.dump(results, file, indent=2)
-
-
-### 5. Arquivo de Dependências (`requirements.txt`)
+    json.dump(results, file, indent=2);
