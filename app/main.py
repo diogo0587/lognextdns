@@ -43,7 +43,7 @@ def analyze_urls():
         url = log.get('url', 'N/A')
         print(f"Analisando {url}")
         safety_response = requests.get(f"https://www.virustotal.com/api/v3/urls/{url}", 
-                                       headers={"x-apikey": os.getenv('YOUR_VIRUSTOTAL_API_KEY')})
+                                       headers={"x-apikey": os.getenv('fa2dfb67d3b08050bc4de23a62b101c1ff9e5b975368d3ea9a17c3ef433de027')})
         log['safety'] = safety_response.json()
 
     output_file = f"logs/analyzed_daily_log_{datetime.now().strftime('%Y-%m-%d')}.json"
