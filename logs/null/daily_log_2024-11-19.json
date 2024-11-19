@@ -1,0 +1,12 @@
+{
+  "timestamp": "2024-11-19T01:19:35.672Z",
+  "domain": "p16-webcast.tiktokcdn.com",
+  "root": "tiktokcdn.com",
+  "type": "AAAA",
+  "dnssec": false,
+  "encrypted": false,
+  "protocol": "UDP",
+  "clientIp": "2804:678c:c176:d500:d47:6f35:ada:bde0",
+  "status": "default",
+  "reasons": []
+}
