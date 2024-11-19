@@ -1,27 +1,56 @@
 from transformers import pipeline
 import json
+import logging
 
-# Carregar o classificador
-classifier = pipeline('sentiment-analysis')
+# Configurar logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-# Carregar os logs
-with open("logs/nextdns_logs.json", "r") as file:
-    logs = json.load(file)
+def carregar_logs(caminho_arquivo):
+    try:
+        with open(caminho_arquivo, "r") as file:
+            return json.load(file)
+    except FileNotFoundError:
+        logger.error(f"Arquivo não encontrado: {caminho_arquivo}")
+        return []
+    except json.JSONDecodeError:
+        logger.error(f"Erro ao decodificar JSON do arquivo: {caminho_arquivo}")
+        return []
 
-# Analisar os logs
-results = []
-for log in logs:
-    analysis = classifier(log['message'])
-    results.append({
-        "timestamp": log["timestamp"],
-        "message": log["message"],
-        "sentiment": analysis[0]
-    })
+def salvar_resultados(resultados, caminho_arquivo):
+    try:
+        with open(caminho_arquivo, "w") as file:
+            json.dump(resultados, file, indent=2)
+        logger.info(f"Resultados salvos em: {caminho_arquivo}")
+    except IOError:
+        logger.error(f"Erro ao salvar resultados em: {caminho_arquivo}")
 
-# Salvar os resultados
-with open("logs/nextdns_logs_analysis.json", "w") as file:
-    json.dump(results, file, indent=2)
-```
+def main():
+    # Carregar o classificador
+    classifier = pipeline('sentiment-analysis')
 
-### 5. Arquivo de Dependências (`requirements.txt`)
+    # Carregar os logs
+    logs = carregar_logs("logs/nextdns_logs.json")
+    if not logs:
+        return
 
+    # Analisar os logs
+    results = []
+    for log in logs:
+        try:
+            analysis = classifier(log['message'])
+            results.append({
+                "timestamp": log["timestamp"],
+                "message": log["message"],
+                "sentiment": analysis[0]
+            })
+        except KeyError as e:
+            logger.error(f"Chave não encontrada no log: {e}")
+        except Exception as e:
+            logger.error(f"Erro ao analisar log: {e}")
+
+    # Salvar os resultados
+    salvar_resultados(results, "logs/nextdns_logs_analysis.json")
+
+if __name__ == "__main__":
+    main()
