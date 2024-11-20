@@ -1,13 +1,10 @@
 {
-  "timestamp": "2024-11-20T01:14:12.209Z",
-  "domain": "mobile.events.data.microsoft.com",
-  "root": "microsoft.com",
-  "tracker": "microsoft",
-  "type": "AAAA",
-  "dnssec": false,
+  "timestamp": "2024-10-22T01:31:26.633Z",
+  "domain": "api.amazonalexa.com",
+  "root": "amazonalexa.com",
   "encrypted": false,
   "protocol": "UDP",
-  "clientIp": "2804:678c:c176:d500:d47:6f35:ada:bde0",
+  "clientIp": "45.190.211.142",
   "status": "default",
   "reasons": []
 }
