@@ -1,0 +1,103 @@
+name: Setup and Run NextDNS to Datadog Integration
+
+on:
+  schedule:
+    # Executa o workflow a cada hora
+    - cron: '0 * * * *'
+  workflow_dispatch:  # Permite execução manual via interface do GitHub
+
+jobs:
+  setup_and_run:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout do código do repositório
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Configurar Python no ambiente de execução
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      # Criar estrutura de arquivos e scripts se não existirem
+      - name: Create project structure
+        run: |
+          mkdir -p scripts
+          if [ ! -f scripts/nextdns_to_datadog.py ]; then
+            cat <<EOF > scripts/nextdns_to_datadog.py
+import requests
+import json
+
+# Configurações das APIs
+NEXTDNS_API_KEY = "f31f2871d328a52a45fefadc09a1c67d0dd5d53d"
+NEXTDNS_PROFILE_ID = "85d564"
+DATADOG_API_KEY = "d7e56f14479e7ba8972734af40821cc42914f097"
+
+# Função para baixar logs do NextDNS
+def download_nextdns_logs():
+    url = f"https://api.nextdns.io/profiles/{NEXTDNS_PROFILE_ID}/logs/download"
+    headers = {"X-Api-Key": NEXTDNS_API_KEY}
+    
+    response = requests.get(url, headers=headers)
+    
+    if response.status_code == 200:
+        print("Logs do NextDNS baixados com sucesso.")
+        return response.content.decode("utf-8")  # Retorna o conteúdo CSV como string
+    else:
+        print(f"Erro ao baixar logs: {response.status_code}, {response.text}")
+        return None
+
+# Função para enviar logs ao Datadog
+def send_logs_to_datadog(logs):
+    url = "https://http-intake.logs.datadoghq.com/v1/input"
+    headers = {
+        "Content-Type": "application/json",
+        "DD-API-KEY": DATADOG_API_KEY
+    }
+    
+    # Processar cada linha do CSV e enviar como log individual
+    for line in logs.splitlines()[1:]:  # Ignora o cabeçalho
+        columns = line.split(",")  # Divide as colunas (CSV)
+        
+        # Exemplo de mapeamento dos campos
+        log_entry = {
+            "timestamp": columns[0],
+            "domain": columns[1],
+            "query_type": columns[2],
+            "status": columns[6],
+            "reasons": columns[7],
+            "tags": ["source:nextdns", f"profile:{NEXTDNS_PROFILE_ID}"]
+        }
+        
+        # Enviar log ao Datadog
+        response = requests.post(url, headers=headers, data=json.dumps(log_entry))
+        
+        if response.status_code == 202:
+            print(f"Log enviado: {log_entry}")
+        else:
+            print(f"Erro ao enviar log: {response.status_code}, {response.text}")
+
+# Execução principal
+if __name__ == "__main__":
+    logs_csv = download_nextdns_logs()
+    
+    if logs_csv:
+        send_logs_to_datadog(logs_csv)
+EOF
+          fi
+
+      # Instalar dependências necessárias para Python
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      # Executar o script Python criado dinamicamente
+      - name: Run NextDNS to Datadog script
+        env:
+          NEXTDNS_API_KEY: ${{ secrets.NEXTDNS_API_KEY }}
+          NEXTDNS_PROFILE_ID: ${{ secrets.NEXTDNS_PROFILE_ID }}
+          DATADOG_API_KEY: ${{ secrets.DATADOG_API_KEY }}
+        run: python scripts/nextdns_to_datadog.py
