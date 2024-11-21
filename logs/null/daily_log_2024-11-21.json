@@ -1,0 +1,12 @@
+{
+  "timestamp": "2024-11-21T01:17:38.270Z",
+  "domain": "cdn-static.ap4r.com",
+  "root": "ap4r.com",
+  "type": "A",
+  "dnssec": false,
+  "encrypted": false,
+  "protocol": "UDP",
+  "clientIp": "45.190.211.150",
+  "status": "default",
+  "reasons": []
+}
