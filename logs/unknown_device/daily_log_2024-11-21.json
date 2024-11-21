@@ -1,0 +1,18 @@
+{
+  "timestamp": "2024-11-21T01:17:45.943Z",
+  "source": "NextDNS",
+  "client_ip": "45.190.211.150",
+  "client_name": null,
+  "domain": "tx-pro-pull.kwai.net",
+  "query_type": null,
+  "status": "default",
+  "resolver": null,
+  "protocol": "UDP",
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
+}
