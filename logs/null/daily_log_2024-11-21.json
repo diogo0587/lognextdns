@@ -1,12 +1,10 @@
 {
-  "timestamp": "2024-11-21T01:17:38.270Z",
-  "domain": "cdn-static.ap4r.com",
-  "root": "ap4r.com",
-  "type": "A",
-  "dnssec": false,
+  "timestamp": "2024-10-22T01:31:26.633Z",
+  "domain": "api.amazonalexa.com",
+  "root": "amazonalexa.com",
   "encrypted": false,
   "protocol": "UDP",
-  "clientIp": "45.190.211.150",
+  "clientIp": "45.190.211.142",
   "status": "default",
   "reasons": []
 }
