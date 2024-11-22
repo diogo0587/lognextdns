@@ -97,7 +97,7 @@ EOF
       # Executar o script Python criado dinamicamente
       - name: Run NextDNS to Datadog script
         env:
-          NEXTDNS_API_KEY: ${{ secrets.NEXTDNS_API_KEY }}
-          NEXTDNS_PROFILE_ID: ${{ secrets.NEXTDNS_PROFILE_ID }}
-          DATADOG_API_KEY: ${{ secrets.DATADOG_API_KEY }}
+          NEXTDNS_API_KEY: "f31f2871d328a52a45fefadc09a1c67d0dd5d53d"
+          NEXTDNS_PROFILE_ID: "85d564"
+          DATADOG_API_KEY: "d7e56f14479e7ba8972734af40821cc42914f097"
         run: python scripts/nextdns_to_datadog.py
