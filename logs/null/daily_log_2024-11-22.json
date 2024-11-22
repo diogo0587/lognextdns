@@ -1,0 +1,13 @@
+{
+  "timestamp": "2024-11-22T01:21:31.435Z",
+  "domain": "graph.facebook.com",
+  "root": "facebook.com",
+  "tracker": "facebook_graph",
+  "type": "A",
+  "dnssec": false,
+  "encrypted": false,
+  "protocol": "UDP",
+  "clientIp": "2804:678c:c176:d500:d47:6f35:ada:bde0",
+  "status": "default",
+  "reasons": []
+}
