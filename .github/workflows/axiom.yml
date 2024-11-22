@@ -1,0 +1,91 @@
+name: NextDNS to Axiom Log Transfer
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Executa diariamente à meia-noite
+  workflow_dispatch:  # Permite execução manual
+
+jobs:
+  transfer_logs:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests
+
+    - name: Transfer logs from NextDNS to Axiom
+      env:
+        NEXTDNS_API_KEY: f31f2871d328a52a45fefadc09a1c67d0dd5d53d
+        NEXTDNS_PROFILE_ID: 85d564
+        AXIOM_API_TOKEN: xaat-8f7f2330-3544-48cf-bf26-3bc1e789dd67
+        AXIOM_DATASET: nextdns_logs
+      run: |
+        python - <<EOF
+        import os
+        import requests
+        import json
+        from datetime import datetime, timedelta
+
+        # Criar diretório de logs
+        os.makedirs('logs', exist_ok=True)
+
+        # Obter logs do NextDNS
+        end_time = datetime.utcnow()
+        start_time = end_time - timedelta(days=1)
+
+        url = f'https://api.nextdns.io/profiles/{os.environ["NEXTDNS_PROFILE_ID"]}/logs'
+        headers = {'X-Api-Key': os.environ["NEXTDNS_API_KEY"]}
+        params = {'from': start_time.isoformat(), 'to': end_time.isoformat()}
+
+        response = requests.get(url, headers=headers, params=params)
+        nextdns_logs = response.json()
+
+        # Preparar logs para envio ao Axiom
+        axiom_logs = []
+        for log in nextdns_logs['data']:
+            axiom_log = {
+                'timestamp': log['timestamp'],
+                'domain': log['domain'],
+                'status': log['status'],
+                'reason': log.get('reason'),
+                'device_name': log.get('device', {}).get('name'),
+                'client_ip': log.get('client', {}).get('ip'),
+                'protocol': log.get('protocol')
+            }
+            axiom_logs.append(axiom_log)
+
+        # Salvar logs formatados localmente
+        with open('logs/nextdns_logs_for_axiom.json', 'w') as f:
+            json.dump(axiom_logs, f, indent=2)
+
+        print('Logs formatados salvos localmente.')
+
+        # Enviar logs para o Axiom
+        axiom_url = f'https://api.axiom.co/v1/datasets/{os.environ["AXIOM_DATASET"]}/ingest'
+        axiom_headers = {
+            'Authorization': f'Bearer {os.environ["AXIOM_API_TOKEN"]}',
+            'Content-Type': 'application/json'
+        }
+
+        response = requests.post(axiom_url, headers=axiom_headers, json=axiom_logs)
+
+        if response.status_code == 200:
+            print('Logs enviados com sucesso para o Axiom')
+        else:
+            print(f'Erro ao enviar logs: {response.status_code}, {response.text}')
+        EOF
+
+    - name: Upload logs as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: nextdns-logs
+        path: logs/nextdns_logs_for_axiom.json
