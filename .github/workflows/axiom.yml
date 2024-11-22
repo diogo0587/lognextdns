@@ -85,7 +85,7 @@ jobs:
         EOF
 
     - name: Upload logs as artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: nextdns-logs
         path: logs/nextdns_logs_for_axiom.json
