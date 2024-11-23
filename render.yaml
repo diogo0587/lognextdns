@@ -1,41 +1,12 @@
 services:
   - type: web
     name: capture-logs
-    env: node
+    env: python
     region: oregon
     envVars:
       - key: NEXTDNS_PROFILE
         value: "85d564"
       - key: NEXTDNS_API_KEY
         value: "f31f2871d328a52a45fefadc09a1c67d0dd5d53d"
-      - key: GIT_REPO_URL
-        value: "https://github.com/diogo0587/lognextdns"
-    plan: free
-    buildCommand: |
-      apt-get update && apt-get install -y jq curl git
-    startCommand: |
-      #!/bin/bash
-      set -e
-
-      echo "Inicializando repositório git..."
-      git config --global user.email "diogos0587@gmail.com"
-      git config --global user.name "Diogo0587"
-      git init
-      
-      echo "Obtendo logs do NextDNS..."
-      response=$(curl -s -H 'X-Api-Key: f31f2871d328a52a45fefadc09a1c67d0dd5d53d' 'https://api.nextdns.io/profiles/$NEXTDNS_PROFILE/logs?raw=1')
-      echo "$response" > logs/daily_log_$(date +'%Y-%m-%d').json
-
-      echo "Adicionando arquivos ao git..."
-      git add logs/
-      
-      echo "Realizando commit das alterações..."
-      git commit -m "Adicionar arquivos de log diários para $(date +'%Y-%m-%d')"
-      
-      echo "Enviando para o repositório remoto..."
-      if ! git push -f $GIT_REPO_URL main; then
-        echo "Falha ao enviar para o repositório remoto. Encerrando."
-        exit 1
-      fi
-
-      echo "Script concluído com sucesso."
+    buildCommand: pip install requests pyyaml
+    startCommand: python generate_logs.py && python -m http.server 8080
