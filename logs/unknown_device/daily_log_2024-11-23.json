@@ -1,0 +1,18 @@
+{
+  "timestamp": "2024-11-23T01:22:53.244Z",
+  "source": "NextDNS",
+  "client_ip": "2804:678c:c176:d500:e18f:7ae:e449:180a",
+  "client_name": null,
+  "domain": "phw5z4ko5b.trkcliq.com",
+  "query_type": null,
+  "status": "default",
+  "resolver": null,
+  "protocol": "UDP",
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
+}
