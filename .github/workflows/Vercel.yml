@@ -1,0 +1,68 @@
+services:
+  - type: web
+    name: capture-logs
+    env: node
+    region: oregon
+    envVars:
+      - key: NEXTDNS_PROFILE
+        value: "85d564"
+      - key: NEXTDNS_API_KEY
+        value: "f31f2871d328a52a45fefadc09a1c67d0dd5d53d"
+      - key: GIT_REPO_URL
+        value: "https://github.com/diogo0587/lognextdns"
+    plan: free
+    buildCommand: |
+      apt-get update && apt-get install -y jq curl git
+      npm install
+      npm i @vercel/analytics
+    startCommand: |
+      #!/bin/bash
+      set -e
+
+      echo "Inicializando repositório git..."
+      git config --global user.email "diogos0587@gmail.com"
+      git config --global user.name "Diogo0587"
+      git init
+      
+      echo "Obtendo logs do NextDNS..."
+      response=$(curl -s -H 'X-Api-Key: f31f2871d328a52a45fefadc09a1c67d0dd5d53d' 'https://api.nextdns.io/profiles/$NEXTDNS_PROFILE/logs?raw=1')
+      
+      echo "Gerando página HTML com Analytics..."
+      cat << EOF > index.html
+      <!DOCTYPE html>
+      <html lang="pt-BR">
+      <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <title>NextDNS Logs</title>
+          <script type="module">
+            import { inject } from '@vercel/analytics';
+            inject();
+          </script>
+      </head>
+      <body>
+          <h1>NextDNS Logs</h1>
+          <pre id="logs"></pre>
+          <script>
+              document.getElementById('logs').textContent = JSON.stringify(${response}, null, 2);
+          </script>
+      </body>
+      </html>
+      EOF
+      
+      echo "Adicionando arquivos ao git..."
+      git add index.html
+      
+      echo "Realizando commit das alterações..."
+      git commit -m "Atualizar logs do NextDNS e adicionar Analytics para $(date +'%Y-%m-%d')"
+      
+      echo "Enviando para o repositório remoto..."
+      if ! git push -f $GIT_REPO_URL main; then
+        echo "Falha ao enviar para o repositório remoto. Encerrando."
+        exit 1
+      fi
+
+      echo "Script concluído com sucesso."
+      
+      # Iniciar um servidor web simples para servir o arquivo HTML
+      npx http-server -p 8080
