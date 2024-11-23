@@ -17,23 +17,25 @@ services:
       #!/bin/bash
       set -e
 
-      # ... (código anterior permanece o mesmo)
-
-      echo "Initializing git repository..."
+      echo "Inicializando repositório git..."
       git config --global user.email "diogos0587@gmail.com"
       git config --global user.name "Diogo0587"
       git init
       
-      echo "Adding files to git..."
+      echo "Obtendo logs do NextDNS..."
+      response=$(curl -s -H 'X-Api-Key: f31f2871d328a52a45fefadc09a1c67d0dd5d53d' 'https://api.nextdns.io/profiles/$NEXTDNS_PROFILE/logs?raw=1')
+      echo "$response" > logs/daily_log_$(date +'%Y-%m-%d').json
+
+      echo "Adicionando arquivos ao git..."
       git add logs/
       
-      echo "Committing changes..."
-      git commit -m "Add daily log files and URLs for $(date +'%Y-%m-%d')"
+      echo "Realizando commit das alterações..."
+      git commit -m "Adicionar arquivos de log diários para $(date +'%Y-%m-%d')"
       
-      echo "Pushing to remote repository..."
+      echo "Enviando para o repositório remoto..."
       if ! git push -f $GIT_REPO_URL main; then
-        echo "Failed to push to remote repository. Exiting."
+        echo "Falha ao enviar para o repositório remoto. Encerrando."
         exit 1
       fi
-      
-      echo "Script completed successfully."
+
+      echo "Script concluído com sucesso."
