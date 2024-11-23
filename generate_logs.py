@@ -1,5 +1,5 @@
-import yaml
 import requests
+import json
 
 def get_nextdns_logs():
     url = "https://api.nextdns.io/profiles/85d564/logs?raw=1"
@@ -25,10 +25,10 @@ def create_html(logs):
     <body>
         <h1>NextDNS Logs</h1>
         <table>
-            <tr><th>Timestamp</th><th>URL</th><th>Device</th><th>Status</th></tr>
+            <tr><th>Timestamp</th><th>Domain</th><th>Device</th><th>Action</th></tr>
     """
     for log in logs:
-        html_content += f"<tr><td>{log['timestamp']}</td><td>{log['url']}</td><td>{log['device']}</td><td>{log['status']}</td></tr>"
+        html_content += f"<tr><td>{log.get('timestamp', 'N/A')}</td><td>{log.get('domain', 'N/A')}</td><td>{log.get('device', 'N/A')}</td><td>{log.get('action', 'N/A')}</td></tr>"
     html_content += "</table></body></html>"
     return html_content
 
@@ -37,3 +37,5 @@ html_page = create_html(logs)
 
 with open('public/nextdns_logs.html', 'w') as file:
     file.write(html_page)
+
+print("HTML page generated successfully.")
