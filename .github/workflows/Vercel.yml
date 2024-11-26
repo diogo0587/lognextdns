@@ -1,4 +1,4 @@
-name: NextDNS Logs Sync
+name: Atualizar Logs NextDNS
 
 on:
   schedule:
@@ -6,46 +6,40 @@ on:
   workflow_dispatch:  # Permite execução manual
 
 jobs:
-  sync-nextdns-logs:
+  update-logs:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout do repositório
         uses: actions/checkout@v3
 
-      - name: Set up Python
+      - name: Configurar Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.x'
 
-      - name: Install dependencies
+      - name: Instalar dependências
         run: |
-          python -m pip install --upgrade pip
           pip install requests psycopg2-binary
 
-      - name: Fetch and process NextDNS logs
-        env:
-          NEXTDNS_API_KEY: ${{ secrets.NEXTDNS_API_KEY }}
-          NEXTDNS_PROFILE_ID: "85d564"
-          DB_URL: "postgres://default:0jBoHRKeQkP8@ep-blue-sky-a4giv1wk.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require"
+      - name: Obter e processar logs do NextDNS
         run: |
           python - <<EOF
-          import os
           import requests
           import json
           import psycopg2
           from datetime import datetime
 
-          # Fetch NextDNS logs
-          url = f"https://api.nextdns.io/profiles/{os.environ['NEXTDNS_PROFILE_ID']}/logs"
-          headers = {"X-Api-Key": os.environ['NEXTDNS_API_KEY']}
+          # Obter logs do NextDNS
+          url = "https://api.nextdns.io/profiles/85d564/logs"
+          headers = {"X-Api-Key": "f31f2871d328a52a45fefadc09a1c67d0dd5d53d"}
           response = requests.get(url, headers=headers)
           logs = response.json()["data"]
 
-          # Connect to PostgreSQL
-          conn = psycopg2.connect(os.environ['DB_URL'])
+          # Conectar ao PostgreSQL
+          conn = psycopg2.connect("postgres://default:0jBoHRKeQkP8@ep-blue-sky-a4giv1wk.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require")
           cur = conn.cursor()
 
-          # Create table if not exists
+          # Criar tabela se não existir
           cur.execute("""
           CREATE TABLE IF NOT EXISTS nextdns_logs (
               id SERIAL PRIMARY KEY,
@@ -61,7 +55,7 @@ jobs:
           )
           """)
 
-          # Insert logs into database
+          # Inserir logs no banco de dados
           for log in logs:
               cur.execute("""
               INSERT INTO nextdns_logs (timestamp, domain, root, tracker, encrypted, protocol, client_ip, status, reasons)
@@ -82,17 +76,16 @@ jobs:
           cur.close()
           conn.close()
 
-          print(f"Processed {len(logs)} log entries.")
+          print(f"Processados {len(logs)} registros de log.")
           EOF
 
-      - name: Generate HTML report
+      - name: Gerar relatório HTML
         run: |
           python - <<EOF
           import psycopg2
-          import os
           from datetime import datetime
 
-          conn = psycopg2.connect(os.environ['DB_URL'])
+          conn = psycopg2.connect("postgres://default:0jBoHRKeQkP8@ep-blue-sky-a4giv1wk.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require")
           cur = conn.cursor()
 
           cur.execute("SELECT COUNT(*) FROM nextdns_logs")
@@ -113,12 +106,12 @@ jobs:
           <head>
               <meta charset="utf-8">
               <meta name="viewport" content="width=device-width, initial-scale=1">
-              <title>NextDNS Logs Report</title>
+              <title>Relatório de Logs NextDNS</title>
           </head>
           <body>
-              <h1>NextDNS Logs Report</h1>
-              <p>Total logs: {total_logs}</p>
-              <h2>Top 10 Domains</h2>
+              <h1>Relatório de Logs NextDNS</h1>
+              <p>Total de logs: {total_logs}</p>
+              <h2>Top 10 Domínios</h2>
               <ul>
                   {"".join(f"<li>{domain}: {count}</li>" for domain, count in top_domains)}
               </ul>
@@ -126,7 +119,7 @@ jobs:
               <ul>
                   {"".join(f"<li>{tracker}: {count}</li>" for tracker, count in top_trackers)}
               </ul>
-              <p>Generated at: {datetime.now().isoformat()}</p>
+              <p>Gerado em: {datetime.now().isoformat()}</p>
           </body>
           </html>
           """
@@ -135,11 +128,17 @@ jobs:
               f.write(html_content)
           EOF
 
-      - name: Deploy report to GitHub Pages
+      - name: Commit e push das alterações
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add nextdns_report.html
+          git commit -m "Atualizar relatório de logs NextDNS"
+          git push
+
+      - name: Deploy para GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: .
           publish_branch: gh-pages
-          destination_dir: reports
-          keep_files: true
