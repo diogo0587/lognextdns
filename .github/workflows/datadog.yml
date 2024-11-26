@@ -1,16 +1,15 @@
-name: Setup and Run NextDNS to Datadog Integration
+name: NextDNS to Datadog Integration
 
 on:
   schedule:
-    - cron: '0 * * * *'  # Executa o workflow a cada hora
-  workflow_dispatch:  # Permite execução manual via interface do GitHub
+    - cron: '0 */6 * * *'  # Executa a cada 6 horas
+  workflow_dispatch:  # Permite execução manual
 
 jobs:
-  setup_and_run:
+  sync-nextdns-to-datadog:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Set up Python
@@ -18,69 +17,69 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Create project structure and script
-        run: |
-          mkdir -p scripts
-          cat <<EOF > scripts/nextdns_to_datadog.py
-          import requests
-          import json
-          import os
-
-          # Configurações das APIs
-          NEXTDNS_API_KEY = "f31f2871d328a52a45fefadc09a1c67d0dd5d53d"
-          NEXTDNS_PROFILE_ID = "85d564"
-          DATADOG_API_KEY = "b16b8a914f958a81621c4134d970f18d14db31a5"
-
-          def download_nextdns_logs():
-              url = f"https://api.nextdns.io/profiles/{NEXTDNS_PROFILE_ID}/logs/download"
-              headers = {"X-Api-Key": NEXTDNS_API_KEY}
-              
-              response = requests.get(url, headers=headers)
-              
-              if response.status_code == 200:
-                  print("Logs do NextDNS baixados com sucesso.")
-                  return response.content.decode("utf-8")
-              else:
-                  print(f"Erro ao baixar logs: {response.status_code}, {response.text}")
-                  return None
-
-          def send_logs_to_datadog(logs):
-              url = "https://http-intake.logs.datadoghq.com/v1/input"
-              headers = {
-                  "Content-Type": "application/json",
-                  "DD-API-KEY": DATADOG_API_KEY
-              }
-              
-              for line in logs.splitlines()[1:]:
-                  columns = line.split(",")
-                  
-                  log_entry = {
-                      "timestamp": columns[0],
-                      "domain": columns[1],
-                      "query_type": columns[2],
-                      "status": columns[6],
-                      "reasons": columns[7],
-                      "tags": ["source:nextdns", f"profile:{NEXTDNS_PROFILE_ID}"]
-                  }
-                  
-                  response = requests.post(url, headers=headers, data=json.dumps(log_entry))
-                  
-                  if response.status_code == 202:
-                      print(f"Log enviado: {log_entry}")
-                  else:
-                      print(f"Erro ao enviar log: {response.status_code}, {response.text}")
-
-          if __name__ == "__main__":
-              logs_csv = download_nextdns_logs()
-              
-              if logs_csv:
-                  send_logs_to_datadog(logs_csv)
-          EOF
-
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Run NextDNS to Datadog script
-        run: python scripts/nextdns_to_datadog.py
+      - name: Fetch and send NextDNS logs to Datadog
+        run: |
+          python - <<EOF
+          import requests
+          import json
+          from datetime import datetime
+
+          NEXTDNS_API_KEY = "f31f2871d328a52a45fefadc09a1c67d0dd5d53d"
+          NEXTDNS_PROFILE_ID = "85d564"
+          DATADOG_API_KEY = "b16b8a914f958a81621c4134d970f18d14db31a5"
+          DATADOG_APP_KEY = "4758b553-896e-44a7-bf81-9a2063ed32ed"
+
+          def obter_logs_nextdns():
+              url = f"https://api.nextdns.io/profiles/{NEXTDNS_PROFILE_ID}/logs"
+              headers = {"X-Api-Key": NEXTDNS_API_KEY}
+              response = requests.get(url, headers=headers)
+              return response.json()["data"]
+
+          def enviar_logs_datadog(logs):
+              url = "https://http-intake.logs.datadoghq.com/v1/input"
+              headers = {
+                  "Content-Type": "application/json",
+                  "DD-API-KEY": DATADOG_API_KEY,
+                  "DD-APPLICATION-KEY": DATADOG_APP_KEY
+              }
+              
+              for log in logs:
+                  log_entry = {
+                      "ddsource": "nextdns",
+                      "ddtags": f"profile:{NEXTDNS_PROFILE_ID}",
+                      "hostname": "nextdns-api",
+                      "service": "nextdns",
+                      "timestamp": log["timestamp"],
+                      "domain": log["domain"],
+                      "root": log["root"],
+                      "tracker": log.get("tracker", ""),
+                      "encrypted": log["encrypted"],
+                      "protocol": log["protocol"],
+                      "client_ip": log["clientIp"],
+                      "status": log["status"],
+                      "reasons": log["reasons"]
+                  }
+                  
+                  response = requests.post(url, headers=headers, json=log_entry)
+                  
+                  if response.status_code == 202:
+                      print(f"Log enviado: {log['domain']}")
+                  else:
+                      print(f"Erro ao enviar log: {response.status_code}, {response.text}")
+
+          logs = obter_logs_nextdns()
+          enviar_logs_datadog(logs)
+          print(f"Processados {len(logs)} logs.")
+          EOF
+
+      - name: Commit and push if there are changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Atualizar logs do NextDNS no Datadog" && git push)
