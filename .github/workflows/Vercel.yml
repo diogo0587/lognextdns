@@ -35,8 +35,8 @@ jobs:
           from datetime import datetime
 
           # Fetch NextDNS logs
-          url = f"https://api.nextdns.io/profiles/{os.environ['NEXTDNS_PROFILE_ID']}/logs"
-          headers = {"X-Api-Key": os.environ['NEXTDNS_API_KEY']}
+          url = f"https://api.nextdns.io/profiles/{['NEXTDNS_PROFILE_ID']}/logs"
+          headers = {"X-Api-Key": ['NEXTDNS_API_KEY']}
           response = requests.get(url, headers=headers)
           logs = response.json()["data"]
 
