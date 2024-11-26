@@ -3,6 +3,8 @@ name: Atualizar Logs NextDNS
 on:
   schedule:
     - cron: '0 */6 * * *'  # Executa a cada 6 horas
+  push:
+    branches: [ main ]  # Executa em cada push para a branch main
   workflow_dispatch:  # Permite execução manual
 
 jobs:
@@ -17,10 +19,20 @@ jobs:
         with:
           node-version: '16'
 
-      - name: Instalar dependências
+      - name: Verificar diretório e conteúdo
         run: |
-          npm install
-          npm install @vercel/analytics
+          pwd
+          ls -la
+
+      - name: Criar package.json se não existir
+        run: |
+          if [ ! -f package.json ]; then
+            npm init -y
+            npm install @vercel/analytics
+          fi
+
+      - name: Instalar dependências
+        run: npm install
 
       - name: Obter logs do NextDNS e gerar página HTML
         env:
