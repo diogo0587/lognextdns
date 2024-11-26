@@ -54,18 +54,23 @@ jobs:
                       log['protocol'],
                       log['clientIp'],
                       log['status'],
-                      json.dumps(log['reasons'])
+                      json.dumps(log.get('reasons', []))
                   ))
 
-          logs = obter_logs_nextdns()
-          conn = psycopg2.connect(DB_URL)
-          cur = conn.cursor()
-          inserir_logs(cur, logs)
-          conn.commit()
-          cur.close()
-          conn.close()
-
-          print(f"Processados {len(logs)} registros de log.")
+          try:
+              logs = obter_logs_nextdns()
+              conn = psycopg2.connect(DB_URL)
+              cur = conn.cursor()
+              inserir_logs(cur, logs)
+              conn.commit()
+              print(f"Processados {len(logs)} registros de log.")
+          except Exception as e:
+              print(f"Erro: {e}")
+          finally:
+              if 'cur' in locals():
+                  cur.close()
+              if 'conn' in locals():
+                  conn.close()
           EOF
 
       - name: Commit and push if there are changes
