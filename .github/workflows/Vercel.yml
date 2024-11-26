@@ -1,4 +1,4 @@
-name: Atualizar Logs NextDNS
+name: Atualizar Logs NextDNS e Banco de Dados
 
 on:
   schedule:
@@ -8,7 +8,7 @@ on:
   workflow_dispatch:  # Permite execução manual
 
 jobs:
-  update-logs:
+  update-logs-and-db:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout do repositório
@@ -28,14 +28,16 @@ jobs:
         run: |
           if [ ! -f package.json ]; then
             npm init -y
+            npm install @vercel/analytics
           fi
 
       - name: Instalar dependências
-        run: |
-          npm i @vercel/analytics
-          npm install
+        run: npm install
 
-      - name: Obter logs do NextDNS e gerar página HTML
+      - name: Instalar PostgreSQL client
+        run: sudo apt-get install -y postgresql-client
+
+      - name: Obter logs do NextDNS, gerar página HTML e atualizar banco de dados
         env:
           NEXTDNS_PROFILE: ${{ secrets.NEXTDNS_PROFILE }}
           NEXTDNS_API_KEY: ${{ secrets.NEXTDNS_API_KEY }}
@@ -50,7 +52,8 @@ jobs:
               <meta name="viewport" content="width=device-width, initial-scale=1">
               <title>NextDNS Logs</title>
               <script type="module">
-                import { Analytics } from "@vercel/analytics/react";
+                import { inject } from '@vercel/analytics';
+                inject();
               </script>
           </head>
           <body>
@@ -59,10 +62,28 @@ jobs:
               <script>
                   document.getElementById('logs').textContent = JSON.stringify($response, null, 2);
               </script>
-              <Analytics />
           </body>
           </html>
           EOF
+
+          # Conectar ao PostgreSQL e criar tabela
+          psql "postgres://default:0jBoHRKeQkP8@ep-blue-sky-a4giv1wk.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require" << EOF
+          CREATE TABLE IF NOT EXISTS nextdns_logs (
+            id SERIAL PRIMARY KEY,
+            timestamp TIMESTAMP,
+            domain VARCHAR(255),
+            root VARCHAR(255),
+            tracker VARCHAR(255),
+            encrypted BOOLEAN,
+            protocol VARCHAR(50),
+            client_ip VARCHAR(50),
+            status VARCHAR(50)
+          );
+          EOF
+
+          # Inserir dados na tabela
+          echo "$response" | jq -r '.data[] | [.timestamp, .domain, .root, .tracker, .encrypted, .protocol, .clientIp, .status] | @csv' |
+          psql "postgres://default:0jBoHRKeQkP8@ep-blue-sky-a4giv1wk.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require" -c "COPY nextdns_logs (timestamp, domain, root, tracker, encrypted, protocol, client_ip, status) FROM STDIN WITH CSV"
 
       - name: Configurar Git
         run: |
@@ -80,11 +101,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: .
-
-      - name: Deploy para Vercel
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-        run: |
-          npx vercel --token $VERCEL_TOKEN --prod
