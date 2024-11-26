@@ -29,7 +29,7 @@ jobs:
           # Configurações das APIs
           NEXTDNS_API_KEY = "f31f2871d328a52a45fefadc09a1c67d0dd5d53d"
           NEXTDNS_PROFILE_ID = "85d564"
-          DATADOG_API_KEY = "d7e56f14479e7ba8972734af40821cc42914f097"
+          DATADOG_API_KEY = "b16b8a914f958a81621c4134d970f18d14db31a5"
 
           def download_nextdns_logs():
               url = f"https://api.nextdns.io/profiles/{NEXTDNS_PROFILE_ID}/logs/download"
