@@ -1,0 +1,23 @@
+{
+  "name": "lognextdns",
+  "version": "1.0.0",
+  "description": "[![diogo0587's GitHub | Stats](https://stats.quira.sh/diogo0587/github?theme=dark)](https://quira.sh?utm_source=widgets&utm_campaign=diogo0587)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diogo0587/lognextdns.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/diogo0587/lognextdns/issues"
+  },
+  "homepage": "https://github.com/diogo0587/lognextdns#readme",
+  "dependencies": {
+    "@vercel/analytics": "^1.4.1"
+  }
+}
