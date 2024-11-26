@@ -29,6 +29,7 @@ jobs:
           DB_URL: "postgres://default:0jBoHRKeQkP8@ep-blue-sky-a4giv1wk.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require"
         run: |
           python - <<EOF
+          import os
           import requests
           import json
           import psycopg2
