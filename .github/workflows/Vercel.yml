@@ -28,11 +28,12 @@ jobs:
         run: |
           if [ ! -f package.json ]; then
             npm init -y
-            npm install @vercel/analytics
           fi
 
       - name: Instalar dependências
-        run: npm install
+        run: |
+          npm i @vercel/analytics
+          npm install
 
       - name: Obter logs do NextDNS e gerar página HTML
         env:
@@ -49,8 +50,7 @@ jobs:
               <meta name="viewport" content="width=device-width, initial-scale=1">
               <title>NextDNS Logs</title>
               <script type="module">
-                import { inject } from '@vercel/analytics';
-                inject();
+                import { Analytics } from "@vercel/analytics/react";
               </script>
           </head>
           <body>
@@ -59,6 +59,7 @@ jobs:
               <script>
                   document.getElementById('logs').textContent = JSON.stringify($response, null, 2);
               </script>
+              <Analytics />
           </body>
           </html>
           EOF
@@ -79,3 +80,11 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: .
+
+      - name: Deploy para Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          npx vercel --token $VERCEL_TOKEN --prod
