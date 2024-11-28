@@ -65,6 +65,8 @@ jobs:
                 raise Exception(f"Falha ao criar o banco de dados: {response.text}")
 
         def add_entry(url, device, timestamp, status):
+            if not url or url == 'N/A':
+                return False
             data = {
                 "parent": {"database_id": NOTION_DATABASE_ID},
                 "properties": {
@@ -95,7 +97,9 @@ jobs:
         # Buscar e processar logs
         logs = fetch_nextdns_logs()
         for log in logs:
-            url = log.get('url', 'N/A')
+            url = log.get('url', '')
+            if not url:
+                continue
             device = log.get('device', 'Unknown')
             timestamp = log.get('timestamp', datetime.now().isoformat())
             status = log.get('status', 'Unknown')
