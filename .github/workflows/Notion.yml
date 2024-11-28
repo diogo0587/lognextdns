@@ -82,7 +82,7 @@ jobs:
             headers = {'X-Api-Key': NEXTDNS_API_KEY}
             response = requests.get(url, headers=headers)
             if response.status_code == 200:
-                return response.json()['data']
+                return response.json().get('data', [])
             else:
                 raise Exception(f"Falha ao obter logs do NextDNS: {response.text}")
 
@@ -95,16 +95,16 @@ jobs:
         # Buscar e processar logs
         logs = fetch_nextdns_logs()
         for log in logs:
-            success = add_entry(
-                log['url'],
-                log['device'],
-                log['timestamp'],
-                log['status']
-            )
+            url = log.get('url', 'N/A')
+            device = log.get('device', 'Unknown')
+            timestamp = log.get('timestamp', datetime.now().isoformat())
+            status = log.get('status', 'Unknown')
+
+            success = add_entry(url, device, timestamp, status)
             if success:
-                print(f"Entrada adicionada para {log['url']}")
+                print(f"Entrada adicionada para {url}")
             else:
-                print(f"Falha ao adicionar entrada para {log['url']}")
+                print(f"Falha ao adicionar entrada para {url}")
 
         print("Processamento de logs concluído.")
         EOF
