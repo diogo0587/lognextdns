@@ -1,0 +1,18 @@
+{
+  "timestamp": "2024-11-28T01:29:33.633Z",
+  "source": "NextDNS",
+  "client_ip": "45.190.211.150",
+  "client_name": null,
+  "domain": "cdn-static.kwai.net",
+  "query_type": null,
+  "status": "default",
+  "resolver": null,
+  "protocol": "UDP",
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
+}
