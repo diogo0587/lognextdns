@@ -6,7 +6,7 @@ import json
 classifier = pipeline('sentiment-analysis')
 
 # Carregar os logs
-with open("logs/daily_logs.json", "r") as file:
+with open("logs/daily_log.json", "r") as file:
     logs = json.load(file)
 
 # Analisar os logs
