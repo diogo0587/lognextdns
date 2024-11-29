@@ -1,29 +1,3 @@
-name: Capture and Process NextDNS Logs
-
-on:
-  schedule:
-    - cron: '0 0 * * *'  # Executa diariamente à meia-noite (UTC)
-  workflow_dispatch:
-
-jobs:
-  process-logs:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.x'
-
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install requests
-
     - name: Check Notion Database and Process Logs
       run: |
         python - <<EOF
@@ -54,10 +28,18 @@ jobs:
                 "parent": {"type": "page_id", "page_id": "14821362320c8080b2cbff4ec64ebc04"},
                 "title": [{"type": "text", "text": {"content": "Logs NextDNS"}}],
                 "properties": {
-                    "URL": {"title": {}},
+                    "Domain": {"title": {}},
                     "Device": {"rich_text": {}},
                     "Timestamp": {"date": {}},
-                    "Status": {"select": {}}
+                    "Status": {"select": {
+                        "options": [
+                            {"name": "Blocked", "color": "red"},
+                            {"name": "Allowed", "color": "green"}
+                        ]
+                    }},
+                    "Query Type": {"select": {}},
+                    "Client IP": {"rich_text": {}},
+                    "Protocol": {"select": {}}
                 }
             }
             response = requests.post(url, headers=NOTION_HEADERS, json=data)
@@ -66,16 +48,17 @@ jobs:
             else:
                 raise Exception(f"Falha ao criar o banco de dados: {response.text}")
 
-        def add_entry(url, device, timestamp, status):
-            if not url or url == 'N/A':
-                return False
+        def add_entry(domain, device, timestamp, status, query_type, client_ip, protocol):
             data = {
                 "parent": {"database_id": NOTION_DATABASE_ID},
                 "properties": {
-                    "URL": {"title": [{"text": {"content": url}}]},
+                    "Domain": {"title": [{"text": {"content": domain}}]},
                     "Device": {"rich_text": [{"text": {"content": device}}]},
                     "Timestamp": {"date": {"start": timestamp}},
-                    "Status": {"select": {"name": status}}
+                    "Status": {"select": {"name": status}},
+                    "Query Type": {"select": {"name": query_type}},
+                    "Client IP": {"rich_text": [{"text": {"content": client_ip}}]},
+                    "Protocol": {"select": {"name": protocol}}
                 }
             }
             response = requests.post('https://api.notion.com/v1/pages', headers=NOTION_HEADERS, json=data)
@@ -99,27 +82,19 @@ jobs:
         # Buscar e processar logs
         logs = fetch_nextdns_logs()
         for log in logs:
-            url = log.get('url', '')
-            if not url:
-                continue
-            device = log.get('device', 'Unknown')
-            timestamp = log.get('timestamp', datetime.now().isoformat())
-            status = log.get('status', 'Unknown')
+            domain = log.get('domain', 'N/A')
+            device = log.get('device', {}).get('name', 'Unknown')
+            timestamp = datetime.fromtimestamp(log.get('timestamp', 0)).isoformat()
+            status = 'Blocked' if log.get('blocked') else 'Allowed'
+            query_type = log.get('type', 'Unknown')
+            client_ip = log.get('clientIp', 'Unknown')
+            protocol = log.get('protocol', 'Unknown')
 
-            success = add_entry(url, device, timestamp, status)
+            success = add_entry(domain, device, timestamp, status, query_type, client_ip, protocol)
             if success:
-                print(f"Entrada adicionada para {url}")
+                print(f"Entrada adicionada para {domain}")
             else:
-                print(f"Falha ao adicionar entrada para {url}")
+                print(f"Falha ao adicionar entrada para {domain}")
 
         print("Processamento de logs concluído.")
         EOF
-
-    - name: Commit and Push Logs
-      run: |
-        git config --global user.name "GitHub Action"
-        git config --global user.email "action@github.com"
-        git pull origin main
-        git add .
-        git diff-index --quiet HEAD || git commit -m "Update logs $(date +'%Y-%m-%d')"
-        git push
