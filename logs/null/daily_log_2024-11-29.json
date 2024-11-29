@@ -1,10 +1,18 @@
 {
-  "timestamp": "2024-10-22T01:31:26.633Z",
-  "domain": "api.amazonalexa.com",
-  "root": "amazonalexa.com",
-  "encrypted": false,
-  "protocol": "UDP",
-  "clientIp": "45.190.211.142",
+  "timestamp": "2024-11-29T01:03:04.569Z",
+  "source": "NextDNS",
+  "client_ip": "2804:678c:c176:d500:d47:6f35:ada:bde0",
+  "client_name": null,
+  "domain": "ssdk-sg.pangle.io",
+  "query_type": null,
   "status": "default",
-  "reasons": []
+  "resolver": null,
+  "protocol": "UDP",
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
 }
