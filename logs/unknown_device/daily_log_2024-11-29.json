@@ -1,0 +1,18 @@
+{
+  "timestamp": "2024-11-29T01:02:05.431Z",
+  "source": "NextDNS",
+  "client_ip": "2804:678c:c176:d500:4929:a1fd:ee4:3693",
+  "client_name": null,
+  "domain": "nc-unit1-mqtt.nordvpn.com",
+  "query_type": null,
+  "status": "blocked",
+  "resolver": null,
+  "protocol": "UDP",
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
+}
