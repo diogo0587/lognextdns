@@ -11,6 +11,8 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -117,6 +119,7 @@ jobs:
       run: |
         git config --global user.name "GitHub Action"
         git config --global user.email "action@github.com"
+        git pull origin main
         git add .
-        git commit -m "Update logs $(date +'%Y-%m-%d')" || echo "No changes to commit"
+        git diff-index --quiet HEAD || git commit -m "Update logs $(date +'%Y-%m-%d')"
         git push
