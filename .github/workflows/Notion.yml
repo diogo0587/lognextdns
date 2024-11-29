@@ -51,7 +51,7 @@ jobs:
         def create_database():
             url = 'https://api.notion.com/v1/databases'
             data = {
-                "parent": {"type": "page_id", "page_id": "PÁGINA_ID_AQUI"},
+                "parent": {"type": "page_id", "page_id": "14821362320c8080b2cbff4ec64ebc04"},
                 "title": [{"type": "text", "text": {"content": "Logs NextDNS"}}],
                 "properties": {
                     "URL": {"title": {}},
