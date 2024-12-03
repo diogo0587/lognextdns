@@ -32,7 +32,7 @@ jobs:
           NEXTDNS_API_KEY = "f31f2871d328a52a45fefadc09a1c67d0dd5d53d"
           NEXTDNS_PROFILE_ID = "85d564"
           DATADOG_API_KEY = "74655038e58c4e2e9c279c8b058ec7c8f34c8ce4"
-        #  DATADOG_APP_KEY = "d40dab5f-44b3-4d04-84dc-4e1bb00f2a6a"
+        
 
           def obter_logs_nextdns():
               url = f"https://api.nextdns.io/profiles/{NEXTDNS_PROFILE_ID}/logs"
