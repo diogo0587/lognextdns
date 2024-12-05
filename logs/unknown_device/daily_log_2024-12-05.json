@@ -1,0 +1,18 @@
+{
+  "timestamp": "2024-12-05T01:34:21.360Z",
+  "source": "NextDNS",
+  "client_ip": "2804:678c:c176:d500:747d:c09a:7a3e:5ffb",
+  "client_name": null,
+  "domain": "in.appcenter.ms",
+  "query_type": null,
+  "status": "default",
+  "resolver": null,
+  "protocol": "UDP",
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
+}
