@@ -6,6 +6,9 @@
     "version" : "Kihb"
   },
   "servers" : [ {
+    "description" : "SwaggerHub API Auto Mocking",
+    "url" : "https://virtserver.swaggerhub.com/DIOGOS0587/1234diogo1234/Kihb"
+  }, {
     "url" : "https://virtserver.swaggerhub.com/DIOGOS0587/Teste/1.0.0"
   }, {
     "url" : "https://api.nextdns.io"
