@@ -1,0 +1,18 @@
+{
+  "timestamp": "2024-12-06T01:35:02.661Z",
+  "source": "NextDNS",
+  "client_ip": "45.190.211.163",
+  "client_name": null,
+  "domain": "apresolve.spotify.com",
+  "query_type": null,
+  "status": "default",
+  "resolver": null,
+  "protocol": "UDP",
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
+}
