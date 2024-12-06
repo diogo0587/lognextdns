@@ -90,7 +90,7 @@
         "parameters" : [ {
           "name" : "X-Api-Key",
           "in" : "header",
-          "required" : false,
+          "required" : true,
           "style" : "simple",
           "explode" : false,
           "schema" : {
