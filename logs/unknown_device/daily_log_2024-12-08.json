@@ -1,0 +1,18 @@
+{
+  "timestamp": "2024-12-08T01:37:28.827Z",
+  "source": "NextDNS",
+  "client_ip": "45.190.211.190",
+  "client_name": null,
+  "domain": "video.google.com",
+  "query_type": null,
+  "status": "default",
+  "resolver": null,
+  "protocol": "UDP",
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
+}
