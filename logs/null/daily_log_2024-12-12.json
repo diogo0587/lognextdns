@@ -1,10 +1,18 @@
 {
-  "timestamp": "2024-10-22T01:31:26.633Z",
-  "domain": "api.amazonalexa.com",
-  "root": "amazonalexa.com",
-  "encrypted": false,
+  "timestamp": "2024-12-11T17:14:31.288Z",
+  "source": "NextDNS",
+  "client_ip": "2804:678c:c176:d500:4929:a1fd:ee4:3693",
+  "client_name": null,
+  "domain": "os4work.com",
+  "query_type": null,
+  "status": "blocked",
+  "resolver": null,
   "protocol": "UDP",
-  "clientIp": "45.190.211.142",
-  "status": "default",
-  "reasons": []
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
 }
