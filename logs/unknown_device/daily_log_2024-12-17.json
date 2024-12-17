@@ -1,0 +1,18 @@
+{
+  "timestamp": "2024-12-15T22:58:01.068Z",
+  "source": "NextDNS",
+  "client_ip": "2804:678c:c176:d500:5aea:63a9:8413:d455",
+  "client_name": null,
+  "domain": "people-pa.googleapis.com",
+  "query_type": null,
+  "status": "default",
+  "resolver": null,
+  "protocol": "UDP",
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
+}
