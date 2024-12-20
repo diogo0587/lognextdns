@@ -1,9 +1,25 @@
 name: Check Notion Database and Process Logs
+
+jobs:
+  process_logs:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+
+    - name: Install dependencies
+name: Check Notion Database and Process Logs
+
 on:
   push:
     branches:
-    - main
-    - release/*
+      - main
+      - release/*
 
 jobs:
   process_logs:
@@ -23,22 +39,17 @@ jobs:
         pip install requests
 
     - name: Run Python Script
-      env:
-        NOTION_API_KEY: 'ntn_G89151370362xFd0vbIxGyRniZndeBtI9z3HgYgt7Z6fvY'
-        NOTION_DATABASE_ID: '14c21362320c81e78569fe440f1ae157'
-        NEXTDNS_API_KEY: 'f31f2871d328a52a45fefadc09a1c67d0dd5d53d'
-        NEXTDNS_PROFILE_ID: '85d564'
       run: |
         python - <<EOF
         import requests
         import json
         from datetime import datetime
 
-        # Configurações
-        NOTION_API_KEY = os.environ.get('NOTION_API_KEY')
-        NOTION_DATABASE_ID = os.environ.get('NOTION_DATABASE_ID')
-        NEXTDNS_API_KEY = os.environ.get('NEXTDNS_API_KEY')
-        NEXTDNS_PROFILE_ID = os.environ.get('NEXTDNS_PROFILE_ID')
+        # Configurações (chaves e IDs fixos no código)
+        NOTION_API_KEY = 'ntn_G89151370362xFd0vbIxGyRniZndeBtI9z3HgYgt7Z6fvY'
+        NOTION_DATABASE_ID = '14c21362320c81e78569fe440f1ae157'
+        NEXTDNS_API_KEY = 'f31f2871d328a52a45fefadc09a1c67d0dd5d53d'
+        NEXTDNS_PROFILE_ID = '85d564'
 
         NOTION_HEADERS = {
             'Authorization': f'Bearer {NOTION_API_KEY}',
@@ -113,7 +124,14 @@ jobs:
         for log in logs:
             domain = log.get('domain', 'N/A')
             device = log.get('device', {}).get('name', 'Unknown')
-            timestamp = datetime.fromtimestamp(int(log.get('timestamp', '0'))).isoformat()
+            
+            # Corrigindo a conversão do timestamp para inteiro antes de usar datetime.fromtimestamp()
+            try:
+                timestamp_value = int(log.get('timestamp', 0))  # Garantir que seja um inteiro
+                timestamp = datetime.fromtimestamp(timestamp_value).isoformat()
+            except ValueError:
+                timestamp = datetime.now().isoformat()  # Usar data atual como fallback
+            
             status = 'Blocked' if log.get('blocked') else 'Allowed'
             query_type = log.get('type', 'Unknown')
             client_ip = log.get('clientIp', 'Unknown')
