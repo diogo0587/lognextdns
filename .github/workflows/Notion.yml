@@ -1,20 +1,5 @@
 name: Check Notion Database and Process Logs
 
-jobs:
-  process_logs:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.8'
-
-    - name: Install dependencies
-name: Check Notion Database and Process Logs
-
 on:
   push:
     branches:
@@ -145,3 +130,4 @@ jobs:
 
         print("Processamento de logs concluído.")
         EOF
+        
