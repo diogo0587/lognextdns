@@ -1,4 +1,28 @@
-    - name: Check Notion Database and Process Logs
+name: Check Notion Database and Process Logs
+on:
+  push:
+    branches:
+    - main
+    - release/*
+
+jobs:
+  process_logs:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests
+
+    - name: Run script
       run: |
         python - <<EOF
         import requests
