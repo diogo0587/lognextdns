@@ -126,4 +126,4 @@ jobs:
             protocol = log.get('protocol', 'Unknown')
 
             add_entry(domain, device, timestamp, status, query_type, client_ip, protocol)
-EOF
+         EOF
