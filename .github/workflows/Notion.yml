@@ -14,26 +14,30 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
-          python-version: '3.8'
+          python-version: '3.10'
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests
+          pip install -r requirements.txt
 
       - name: Run Python Script
+        env:
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          NEXTDNS_API_KEY: ${{ secrets.NEXTDNS_API_KEY }}
+          NEXTDNS_PROFILE_ID: ${{ secrets.NEXTDNS_PROFILE_ID }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
         run: |
           python - <<EOF
           import requests
-          import json
+          import os
 
-          # Configurações (chaves e IDs fixos no código)
-          NOTION_API_KEY = 'ntn_G89151370362xFd0vbIxGyRniZndeBtI9z3HgYgt7Z6fvY'
-          NEXTDNS_API_KEY = 'f31f2871d328a52a45fefadc09a1c67d0dd5d53d'
-          NEXTDNS_PROFILE_ID = '85d564'
-          NOTION_DATABASE_ID = '15921362320c806b8a99d04cf87147c2'
+          NOTION_API_KEY = os.getenv('NOTION_API_KEY')
+          NEXTDNS_API_KEY = os.getenv('NEXTDNS_API_KEY')
+          NEXTDNS_PROFILE_ID = os.getenv('NEXTDNS_PROFILE_ID')
+          NOTION_DATABASE_ID = os.getenv('NOTION_DATABASE_ID')
 
           NOTION_HEADERS = {
               'Authorization': f'Bearer {NOTION_API_KEY}',
@@ -42,80 +46,82 @@ jobs:
           }
 
           def check_database_exists(db_id):
-              url = f'https://api.notion.com/v1/databases/{db_id}'
-              response = requests.get(url, headers=NOTION_HEADERS)
-              if response.status_code == 200:
+              try:
+                  url = f'https://api.notion.com/v1/databases/{db_id}'
+                  response = requests.get(url, headers=NOTION_HEADERS)
+                  response.raise_for_status()
                   print("Banco de dados já existe.")
                   return True
-              else:
-                  print(f"Banco de dados não encontrado ou erro na verificação: {response.text}")
+              except requests.RequestException as e:
+                  print(f"Banco de dados não encontrado ou erro na verificação: {e}")
                   return False
 
           def create_database():
-              url = 'https://api.notion.com/v1/databases'
-              data = {
-                  "parent": {"type": "page_id", "page_id": "16421362320c80acaf6a000c4fd3f582"},
-                  "title": [{"type": "text", "text": {"content": "Logs NextDNS"}}],
-                  "properties": {
-                      "Domain": {"title": {}},
-                      "Device": {"rich_text": {}},
-                      "Timestamp": {"date": {}},
-                      "Status": {"select": {
-                          "options": [
-                              {"name": "Blocked", "color": "red"},
-                              {"name": "Allowed", "color": "green"}
-                          ]
-                      }},
-                      "Query Type": {"select": {}},
-                      "Client IP": {"rich_text": {}},
-                      "Protocol": {"select": {}}
+              try:
+                  url = 'https://api.notion.com/v1/databases'
+                  data = {
+                      "parent": {"type": "page_id", "page_id": "16421362320c80acaf6a000c4fd3f582"},
+                      "title": [{"type": "text", "text": {"content": "Logs NextDNS"}}],
+                      "properties": {
+                          "Domain": {"title": {}},
+                          "Device": {"rich_text": {}},
+                          "Timestamp": {"date": {}},
+                          "Status": {"select": {
+                              "options": [
+                                  {"name": "Blocked", "color": "red"},
+                                  {"name": "Allowed", "color": "green"}
+                              ]
+                          }},
+                          "Query Type": {"select": {}},
+                          "Client IP": {"rich_text": {}},
+                          "Protocol": {"select": {}}
+                      }
                   }
-              }
-              response = requests.post(url, headers=NOTION_HEADERS, json=data)
-              if response.status_code == 200:
+                  response = requests.post(url, headers=NOTION_HEADERS, json=data)
+                  response.raise_for_status()
                   print("Banco de dados criado com sucesso.")
                   return response.json()['id']
-              else:
-                  raise Exception(f"Falha ao criar o banco de dados: {response.text}")
+              except requests.RequestException as e:
+                  raise Exception(f"Falha ao criar o banco de dados: {e}")
 
           def add_entry(domain, device, timestamp, status, query_type, client_ip, protocol):
-              data = {
-                  "parent": {"database_id": NOTION_DATABASE_ID},
-                  "properties": {
-                      "Domain": {"title": [{"text": {"content": domain}}]},
-                      "Device": {"rich_text": [{"text": {"content": device}}]},
-                      "Timestamp": {"date": {"start": timestamp}},
-                      "Status": {"select": {"name": status}},
-                      "Query Type": {"select": {"name": query_type}},
-                      "Client IP": {"rich_text": [{"text": {"content": client_ip}}]},
-                      "Protocol": {"select": {"name": protocol}}
+              try:
+                  data = {
+                      "parent": {"database_id": NOTION_DATABASE_ID},
+                      "properties": {
+                          "Domain": {"title": [{"text": {"content": domain}}]},
+                          "Device": {"rich_text": [{"text": {"content": device}}]},
+                          "Timestamp": {"date": {"start": timestamp}},
+                          "Status": {"select": {"name": status}},
+                          "Query Type": {"select": {"name": query_type}},
+                          "Client IP": {"rich_text": [{"text": {"content": client_ip}}]},
+                          "Protocol": {"select": {"name": protocol}}
+                      }
                   }
-              }
-              response = requests.post('https://api.notion.com/v1/pages', headers=NOTION_HEADERS, json=data)
-              if response.status_code == 200:
+                  response = requests.post('https://api.notion.com/v1/pages', headers=NOTION_HEADERS, json=data)
+                  response.raise_for_status()
                   print(f"Entrada adicionada com sucesso para o domínio {domain}.")
                   return True
-              else:
-                  print(f"Falha ao adicionar entrada: {response.text}")
+              except requests.RequestException as e:
+                  print(f"Falha ao adicionar entrada: {e}")
                   return False
 
           def fetch_nextdns_logs():
-              url = f'https://api.nextdns.io/profiles/{NEXTDNS_PROFILE_ID}/logs'
-              headers = {'X-Api-Key': NEXTDNS_API_KEY}
-              response = requests.get(url, headers=headers)
-              if response.status_code == 200:
+              try:
+                  url = f'https://api.nextdns.io/profiles/{NEXTDNS_PROFILE_ID}/logs'
+                  headers = {'X-Api-Key': NEXTDNS_API_KEY}
+                  response = requests.get(url, headers=headers)
+                  response.raise_for_status()
                   print("Logs do NextDNS obtidos com sucesso.")
                   return response.json().get('data', [])
-              else:
-                  raise Exception(f"Falha ao obter logs do NextDNS: {response.text}")
+              except requests.RequestException as e:
+                  raise Exception(f"Falha ao obter logs do NextDNS: {e}")
 
-          # Verificar e criar banco de dados se necessário
           if not check_database_exists(NOTION_DATABASE_ID):
               print("Banco de dados não encontrado. Criando um novo...")
               NOTION_DATABASE_ID = create_database()
               print(f"Novo banco de dados criado com ID: {NOTION_DATABASE_ID}")
 
-          # Buscar e processar logs
           logs = fetch_nextdns_logs()
           for log in logs:
               domain = log.get('domain', 'N/A')
@@ -127,5 +133,4 @@ jobs:
               protocol = log.get('protocol', 'N/A')
 
               add_entry(domain, device, timestamp, status, query_type, client_ip, protocol)
-              
-         
+          EOF
