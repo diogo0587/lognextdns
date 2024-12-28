@@ -55,8 +55,7 @@ jobs:
                   "parent": {"type": "page_id", "page_id": "16421362320c80acaf6a000c4fd3f582"},
                   "title": [{"type": "text", "text": {"content": "Logs NextDNS"}}],
                   "properties": {
-                      "Domain": {"title": {}},
-                      "Device": {"rich_text": {}},
+                      "Domain": {"url": {}},
                       "Timestamp": {"date": {}},
                       "Status": {"select": {
                           "options": [
@@ -64,8 +63,6 @@ jobs:
                               {"name": "Allowed", "color": "green"}
                           ]
                       }},
-                      "Query Type": {"select": {}},
-                      "Client IP": {"rich_text": {}},
                       "Protocol": {"select": {}}
                   }
               }
@@ -78,16 +75,13 @@ jobs:
               else:
                   raise Exception(f"Falha ao criar o banco de dados: {response.text}")
 
-          def add_entry(domain, device, timestamp, status, query_type, client_ip, protocol):
+          def add_entry(domain, timestamp, status, protocol):
               data = {
                   "parent": {"database_id": NOTION_DATABASE_ID},
                   "properties": {
-                      "Domain": {"title": [{"text": {"content": domain}}]},
-                      "Device": {"rich_text": [{"text": {"content": device}}]},
+                      "Domain": {"url": domain},
                       "Timestamp": {"date": {"start": timestamp}},
                       "Status": {"select": {"name": status}},
-                      "Query Type": {"select": {"name": query_type}},
-                      "Client IP": {"rich_text": [{"text": {"content": client_ip}}]},
                       "Protocol": {"select": {"name": protocol}}
                   }
               }
@@ -117,12 +111,9 @@ jobs:
           logs = fetch_nextdns_logs()
           for log in logs:
               domain = log.get('domain', 'N/A')
-              device = log.get('device', 'N/A')
               timestamp = log.get('timestamp', '')
               status = log.get('status', 'Allowed' if log.get('allowed') else 'Blocked')
-              query_type = log.get('queryType', 'N/A')
-              client_ip = log.get('clientIp', 'N/A')
               protocol = log.get('protocol', 'N/A')
 
-              add_entry(domain, device, timestamp, status, query_type, client_ip, protocol)
+              add_entry(domain, timestamp, status, protocol)
           EOF
