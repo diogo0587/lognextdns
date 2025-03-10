@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-03-10T00:32:27.441Z",
+  "source": "NextDNS",
+  "client_ip": "2804:678c:c176:d500:8f57:cc54:aa18:8a99",
+  "client_name": null,
+  "domain": "push-rtmp-l11-va01.tiktokrow-cdn.com",
+  "query_type": null,
+  "status": "default",
+  "resolver": null,
+  "protocol": "UDP",
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
+}
