@@ -1,9 +1,9 @@
 {
-  "timestamp": "2025-03-11T00:37:10.612Z",
+  "timestamp": "2025-03-11T08:42:50.529Z",
   "source": "NextDNS",
-  "client_ip": "2804:678c:c176:d500:c6d3:a9ca:2371:133f",
+  "client_ip": "2804:678c:c176:d500:f798:bc4b:b766:80d5",
   "client_name": null,
-  "domain": "cdn2.onlyfans.com",
+  "domain": "api.twitter.com",
   "query_type": null,
   "status": "default",
   "resolver": null,
