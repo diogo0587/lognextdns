@@ -1,9 +1,9 @@
 {
-  "timestamp": "2025-03-12T00:37:02.343Z",
+  "timestamp": "2025-03-12T09:31:11.089Z",
   "source": "NextDNS",
-  "client_ip": "2804:678c:c176:d500:7695:dcd9:cf67:a5c5",
+  "client_ip": "2804:678c:c176:d500:6564:8473:4f15:23a2",
   "client_name": null,
-  "domain": "star-randsrv.bsg.brave.com",
+  "domain": "gist-queue-consumer-api.cloud.gist.build",
   "query_type": null,
   "status": "default",
   "resolver": null,
