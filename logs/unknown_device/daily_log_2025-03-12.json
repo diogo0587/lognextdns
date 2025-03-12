@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-03-12T00:37:02.343Z",
+  "source": "NextDNS",
+  "client_ip": "2804:678c:c176:d500:7695:dcd9:cf67:a5c5",
+  "client_name": null,
+  "domain": "star-randsrv.bsg.brave.com",
+  "query_type": null,
+  "status": "default",
+  "resolver": null,
+  "protocol": "UDP",
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
+}
