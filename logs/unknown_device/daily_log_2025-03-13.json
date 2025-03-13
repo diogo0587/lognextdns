@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-03-13T00:32:47.777Z",
+  "source": "NextDNS",
+  "client_ip": "2804:678c:c176:d500:3a8b:1b6d:e3a8:7c2a",
+  "client_name": null,
+  "domain": "aggr19-normal.tiktokv.com",
+  "query_type": null,
+  "status": "default",
+  "resolver": null,
+  "protocol": "UDP",
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
+}
