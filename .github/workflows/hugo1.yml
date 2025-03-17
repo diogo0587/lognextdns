@@ -22,7 +22,7 @@ jobs:
           hugo-version: '0.86.0' # Use the latest stable version
 
       - name: Cache Hugo files
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         env:
           cache-name: cache-hugo
         with:
