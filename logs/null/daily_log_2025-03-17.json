@@ -1,10 +1,18 @@
 {
-  "timestamp": "2024-10-22T01:31:26.633Z",
-  "domain": "api.amazonalexa.com",
-  "root": "amazonalexa.com",
-  "encrypted": false,
-  "protocol": "UDP",
-  "clientIp": "45.190.211.142",
+  "timestamp": "2025-03-13T17:26:22.734Z",
+  "source": "NextDNS",
+  "client_ip": "2804:678c:c176:d500:8d7a:1a8c:fad3:ff23",
+  "client_name": null,
+  "domain": "i.ytimg.com",
+  "query_type": null,
   "status": "default",
-  "reasons": []
+  "resolver": null,
+  "protocol": "UDP",
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
 }
