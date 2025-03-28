@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-03-17T21:31:53.781Z",
+  "source": "NextDNS",
+  "client_ip": "45.190.211.131",
+  "client_name": null,
+  "domain": "beacons4.gvt2.com",
+  "query_type": null,
+  "status": "blocked",
+  "resolver": null,
+  "protocol": "TCP",
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
+}
