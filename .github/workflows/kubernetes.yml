@@ -9,76 +9,98 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      # Passo 1: Clonar o repositório
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Fetch NextDNS logs
-      uses: fjogeleit/http-request-action@v1
-      id: nextdns_request
-      with:
-        url: 'https://api.nextdns.io/profiles/85d564/logs'
-        method: 'GET'
-        customHeaders: '{"X-Api-Key": "f31f2871d328a52a45fefadc09a1c67d0dd5d53d"}'
+      # Passo 2: Buscar os logs do NextDNS
+      - name: Fetch NextDNS logs
+        uses: fjogeleit/http-request-action@v1
+        id: nextdns_request
+        with:
+          url: 'https://api.nextdns.io/profiles/85d564/logs'
+          method: 'GET'
+          customHeaders: '{"X-Api-Key": "f31f2871d328a52a45fefadc09a1c67d0dd5d53d"}'
 
-    - name: Set up Hugo
-      uses: peaceiris/actions-hugo@v2
-      with:
-        hugo-version: 'latest'
-        extended: true
+      # Passo 3: Configurar Hugo
+      - name: Set up Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: 'latest'
+          extended: true
 
-    - name: Create Hugo site
-      run: |
-        hugo new site dashboard
-        cd dashboard
-        git init
-        git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke
-        echo "theme = 'ananke'" >> config.toml
+      # Passo 4: Criar o site Hugo e configurar o tema
+      - name: Create Hugo site and configure theme
+        run: |
+          hugo new site dashboard
+          cd dashboard
+          git init
+          git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke
+          echo "theme = 'ananke'" >> config.toml
 
-    - name: Generate dashboard content
-      run: |
-        python3 - <<EOF
-        import json
-        import os
-        from datetime import datetime
+          # Criar layouts básicos para evitar erros de renderização
+          mkdir -p layouts/_default
+          cat <<EOF > layouts/_default/baseof.html
+          <!DOCTYPE html>
+          <html>
+          <head>
+              <title>{{ .Title }}</title>
+          </head>
+          <body>
+              {{ block "main" . }}{{ end }}
+          </body>
+          </html>
+          EOF
 
-        logs = json.loads('${{ steps.nextdns_request.outputs.response }}')
+      # Passo 5: Gerar conteúdo do dashboard com base nos logs do NextDNS
+      - name: Generate dashboard content from logs
+        run: |
+          python3 - <<EOF
+          import json
+          import os
+          from datetime import datetime
 
-        os.makedirs('dashboard/content/posts', exist_ok=True)
+          logs = json.loads('${{ steps.nextdns_request.outputs.response }}')
 
-        for i, log in enumerate(logs['data']):
-            with open(f'dashboard/content/posts/log-{i+1}.md', 'w') as f:
-                f.write(f"""
-        ---
-        title: "Log Entry {i+1}"
-        date: {datetime.now().isoformat()}
-        ---
+          os.makedirs('dashboard/content/posts', exist_ok=True)
 
-        Domain: {log.get('domain', 'N/A')}
-        Status: {log.get('status', 'N/A')}
-        Timestamp: {log.get('timestamp', 'N/A')}
-        """)
+          for i, log in enumerate(logs['data']):
+              with open(f'dashboard/content/posts/log-{i+1}.md', 'w') as f:
+                  f.write(f"""
+---
+title: "Log Entry {i+1}"
+date: {datetime.now().isoformat()}
+---
 
-        with open('dashboard/content/_index.md', 'w') as f:
-            f.write("""
-        ---
-        title: "NextDNS Logs Dashboard"
-        ---
+Domain: {log.get('domain', 'N/A')}
+Status: {log.get('status', 'N/A')}
+Timestamp: {log.get('timestamp', 'N/A')}
+""")
 
-        Bem-vindo ao Dashboard de Logs do NextDNS. Abaixo estão as entradas de log mais recentes.
-        """)
-        EOF
+          with open('dashboard/content/_index.md', 'w') as f:
+              f.write("""
+---
+title: "NextDNS Logs Dashboard"
+---
 
-    - name: Build Hugo site
-      run: |
-        cd dashboard
-        hugo --minify
+Bem-vindo ao Dashboard de Logs do NextDNS. Abaixo estão as entradas de log mais recentes.
+""")
+          EOF
 
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dashboard/public
+      # Passo 6: Construir o site Hugo com otimização (minify)
+      - name: Build Hugo site
+        run: |
+          cd dashboard
+          hugo --minify
 
-    - name: Display GitHub Pages URL
-      run: |
-        echo "O dashboard foi publicado em: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
+      # Passo 7: Publicar no GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dashboard/public
+
+      # Passo 8: Exibir URL do GitHub Pages no terminal
+      - name: Display GitHub Pages URL
+        run: |
+          echo "O dashboard foi publicado em: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
