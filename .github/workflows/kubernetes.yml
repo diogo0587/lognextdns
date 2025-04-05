@@ -13,7 +13,26 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Passo 2: Buscar os logs do NextDNS
+      # Passo 2: Configurar Node.js (para dependências npm)
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # Passo 3: Garantir que o package.json existe
+      - name: Check and create package.json if missing
+        run: |
+          if [ ! -f "package.json" ]; then
+            echo "package.json não encontrado. Criando um novo..."
+            npm init -y
+          fi
+
+      # Passo 4: Instalar dependências npm (se necessário)
+      - name: Install dependencies
+        run: |
+          npm install
+
+      # Passo 5: Buscar os logs do NextDNS
       - name: Fetch NextDNS logs
         uses: fjogeleit/http-request-action@v1
         id: nextdns_request
@@ -22,14 +41,14 @@ jobs:
           method: 'GET'
           customHeaders: '{"X-Api-Key": "f31f2871d328a52a45fefadc09a1c67d0dd5d53d"}'
 
-      # Passo 3: Configurar Hugo
+      # Passo 6: Configurar Hugo
       - name: Set up Hugo
         uses: peaceiris/actions-hugo@v2
         with:
           hugo-version: 'latest'
           extended: true
 
-      # Passo 4: Criar o site Hugo e configurar o tema
+      # Passo 7: Criar o site Hugo e configurar o tema
       - name: Create Hugo site and configure theme
         run: |
           hugo new site dashboard
@@ -52,7 +71,7 @@ jobs:
           </html>
           EOF
 
-      # Passo 5: Gerar conteúdo do dashboard com base nos logs do NextDNS
+      # Passo 8: Gerar conteúdo do dashboard com base nos logs do NextDNS
       - name: Generate dashboard content from logs
         run: |
           python3 - <<EOF
@@ -87,20 +106,20 @@ Bem-vindo ao Dashboard de Logs do NextDNS. Abaixo estão as entradas de log mais
 """)
           EOF
 
-      # Passo 6: Construir o site Hugo com otimização (minify)
+      # Passo 9: Construir o site Hugo com otimização (minify)
       - name: Build Hugo site
         run: |
           cd dashboard
           hugo --minify
 
-      # Passo 7: Publicar no GitHub Pages
+      # Passo 10: Publicar no GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dashboard/public
 
-      # Passo 8: Exibir URL do GitHub Pages no terminal
+      # Passo 11: Exibir URL do GitHub Pages no terminal
       - name: Display GitHub Pages URL
         run: |
           echo "O dashboard foi publicado em: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
