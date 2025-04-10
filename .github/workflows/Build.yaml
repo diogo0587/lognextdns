@@ -1,0 +1,217 @@
+name: Build Hugo Site with NextDNS Logs and Deploy to Pages
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Executa diariamente à meia-noite
+  workflow_dispatch:  # Permite execução manual
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup Hugo
+      uses: peaceiris/actions-hugo@v2
+      with:
+        hugo-version: 'latest'
+        extended: true
+
+    - name: Verificar instalação do Hugo
+      run: hugo version
+
+    - name: Fetch NextDNS logs
+      uses: fjogeleit/http-request-action@v1
+      id: nextdns_request
+      with:
+        url: 'https://api.nextdns.io/profiles/85d564/logs'
+        method: 'GET'
+        customHeaders: '{"X-Api-Key": "f31f2871d328a52a45fefadc09a1c67d0dd5d53d"}'
+
+    - name: Preparar site Hugo
+      run: |
+        if [ ! -f "hugo.toml" ]; then
+          hugo new site . --force
+        fi
+        if [ ! -d "themes/ananke" ]; then
+          git clone https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke
+        fi
+        echo 'theme = "ananke"' > hugo.toml
+        echo 'baseURL = "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"' >> hugo.toml
+        echo 'paginate = 10' >> hugo.toml
+
+    - name: Create Hugo layouts
+      run: |
+        mkdir -p layouts/_default
+        cat << EOF > layouts/_default/baseof.html
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+            <title>{{ .Title }}</title>
+        </head>
+        <body>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">NextDNS Dashboard</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/search">Search Logs</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div class="container mt-4">
+                {{ .Content }}
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        </body>
+        </html>
+        EOF
+
+        cat << EOF > layouts/_default/list.html
+        {{ define "main" }}
+        <h1>{{ .Title }}</h1>
+        <form method="GET" action="/search">
+            <div class="mb-3">
+                <label for="query" class="form-label">Search Logs</label>
+                <input type="text" class="form-control" id="query" name="query" placeholder="Enter domain or status">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        <ul class="list-group mt-4">
+            {{ range .Paginator.Pages }}
+            <li class="list-group-item">
+                <h5>{{ .Title }}</h5>
+                <p>Domain: {{ .Params.domain }}</p>
+                <p>Status: {{ .Params.status }}</p>
+                <p>Timestamp: {{ .Params.timestamp }}</p>
+            </li>
+            {{ end }}
+        </ul>
+        <nav aria-label="Page navigation example" class="mt-4">
+            <ul class="pagination">
+                {{ if .Paginator.HasPrev }}
+                <li class="page-item">
+                    <a class="page-link" href="{{ .Paginator.Prev.URL }}">Previous</a>
+                </li>
+                {{ end }}
+                {{ if .Paginator.HasNext }}
+                <li class="page-item">
+                    <a class="page-link" href="{{ .Paginator.Next.URL }}">Next</a>
+                </li>
+                {{ end }}
+            </ul>
+        </nav>
+        {{ end }}
+        EOF
+
+    - name: Generate content
+      run: |
+        mkdir -p content/posts
+        python3 - <<EOF
+        import json
+        import os
+        from datetime import datetime
+        
+        logs = json.loads('${{ steps.nextdns_request.outputs.response }}')
+        
+        with open('content/_index.md', 'w') as f:
+            f.write("""
+        ---
+        title: "NextDNS Logs Dashboard"
+        ---
+        
+        Bem-vindo ao Dashboard de Logs do NextDNS. Abaixo estão as entradas de log mais recentes.
+        """)
+        
+        for i, log in enumerate(logs['data'][:10]):
+            with open(f'content/posts/log-{i+1}.md', 'w') as f:
+                f.write(f"""
+        ---
+        title: "Log Entry {i+1}"
+        date: {datetime.now().isoformat()}
+        domain: "{log.get('domain', 'N/A')}"
+        status: "{log.get('status', 'N/A')}"
+        timestamp: "{log.get('timestamp', 'N/A')}"
+        ---
+        
+        Domain: {log.get('domain', 'N/A')}
+        Status: {log.get('status', 'N/A')}
+        Timestamp: {log.get('timestamp', 'N/A')}
+        """)
+        EOF
+
+    - name: Build Hugo site
+      run: hugo --minify
+
+    - name: Update README.md
+      run: |
+        echo "# NextDNS Logs Dashboard" > README.md
+        echo "" >> README.md
+        echo "Última atualização: $(date)" >> README.md
+        echo "" >> README.md
+        echo "Visite o dashboard: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/" >> README.md
+        echo "" >> README.md
+        echo "## Logs Recentes" >> README.md
+        echo "" >> README.md
+        python3 - <<EOF
+        import json
+        logs = json.loads('${{ steps.nextdns_request.outputs.response }}')
+        with open('README.md', 'a') as f:
+            for log in logs['data'][:10]:
+                f.write(f"- {log['timestamp']}: {log['domain']} ({log['status']})\n")
+        EOF
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.email "action@github.com"
+        git config --global user.name "GitHub Action"
+        git add .
+        git stash
+        git pull --rebase origin main
+        git stash pop
+        git add .
+        git commit -m "Update site and README with latest logs"
+        git push
+
+    - name: Setup Pages
+      uses: actions/configure-pages@v3
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v2
+      with:
+        path: './public'
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+
+      - name: Display GitHub Pages URL
+        run: |
+          echo "O dashboard foi publicado em: ${{ steps.deployment.outputs.page_url }}"
