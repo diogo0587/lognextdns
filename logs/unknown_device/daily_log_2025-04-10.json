@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-04-10T00:40:26.343Z",
+  "source": "NextDNS",
+  "client_ip": "45.190.211.250",
+  "client_name": null,
+  "domain": "pull-hls-l77-va01.tiktokcdn.com",
+  "query_type": null,
+  "status": "default",
+  "resolver": null,
+  "protocol": "UDP",
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
+}
