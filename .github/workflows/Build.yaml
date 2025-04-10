@@ -38,16 +38,16 @@ jobs:
 
       - name: Preparar site Hugo
         run: |
-          # Se o arquivo de configuração não existir, cria um novo site (o --force sobrescreve)
-          if [ ! -f "hugo.toml" ]; then
+          # Se o arquivo de configuração não existir, cria um novo site
+          if [ ! -f "config.toml" ]; then
             hugo new site . --force
           fi
-          # Clonar o tema Ananke se não existir
+          # Clonar o tema Ananke, se necessário
           if [ ! -d "themes/ananke" ]; then
             git clone https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke
           fi
-          # Gerar o arquivo de configuração do Hugo (sobrescrevendo o existente)
-          cat <<EOT > hugo.toml
+          # Gerar (ou sobrescrever) o arquivo de configuração padrão do Hugo
+          cat <<EOT > config.toml
 theme = "ananke"
 baseURL = "https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY##*/}/"
 paginate = 10
@@ -56,7 +56,7 @@ EOT
       - name: Criar templates Hugo
         run: |
           mkdir -p layouts/_default layouts/page
-          
+
           # Template base com Bootstrap e menu de navegação
           cat <<'EOF' > layouts/_default/baseof.html
 <!DOCTYPE html>
@@ -68,7 +68,6 @@ EOT
   <title>{{ .Title }}</title>
 </head>
 <body>
-  <!-- Menu de navegação -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">NextDNS Dashboard</a>
@@ -97,11 +96,10 @@ EOT
 </html>
 EOF
 
-          # Template para páginas de listagem (home)
+          # Template para páginas de listagem com paginação
           cat <<'EOF' > layouts/_default/list.html
 {{ define "main" }}
   <h1>{{ .Title }}</h1>
-  <!-- Listagem dos logs com paginação -->
   <ul class="list-group">
     {{ range .Paginator.Pages }}
       <li class="list-group-item">
@@ -129,7 +127,7 @@ EOF
 {{ end }}
 EOF
 
-          # Template para a página de busca – JavaScript chama a API do NextDNS automaticamente
+          # Template para a página de busca – a API é chamada via JavaScript
           cat <<'EOF' > layouts/page/search.html
 {{ define "main" }}
   <h1>Search Logs</h1>
@@ -278,5 +276,4 @@ EOF
         uses: actions/deploy-pages@v2
 
       - name: Display GitHub Pages URL
-        run: |
-          echo "O dashboard foi publicado em: ${{ steps.deployment.outputs.page_url }}"
+        run: echo "O dashboard foi publicado em: ${{ steps.deployment.outputs.page_url }}"
