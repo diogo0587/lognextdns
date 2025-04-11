@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-04-11T00:42:21.897Z",
+  "source": "NextDNS",
+  "client_ip": "45.190.211.250",
+  "client_name": null,
+  "domain": "rtb.adentifi.com",
+  "query_type": null,
+  "status": "default",
+  "resolver": null,
+  "protocol": "UDP",
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
+}
