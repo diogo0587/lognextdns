@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-04-12T00:40:14.195Z",
+  "source": "NextDNS",
+  "client_ip": "45.190.211.250",
+  "client_name": null,
+  "domain": "www.gstatic.com",
+  "query_type": null,
+  "status": "default",
+  "resolver": null,
+  "protocol": "UDP",
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
+}
