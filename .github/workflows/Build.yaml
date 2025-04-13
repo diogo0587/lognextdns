@@ -48,10 +48,10 @@ jobs:
           fi
           # Gerar (ou sobrescrever) o arquivo de configuração padrão do Hugo
           cat <<EOT > config.toml
-theme = "ananke"
-baseURL = "https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY##*/}/"
-paginate = 10
-EOT
+          theme = "ananke"
+          baseURL = "https://${GITHUB_REPOSITORY_OWNER}.github.io"
+          paginate = 10
+          EOT
 
       - name: Criar templates Hugo
         run: |
