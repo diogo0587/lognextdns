@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-04-16T00:41:00.638Z",
+  "source": "NextDNS",
+  "client_ip": "45.190.211.245",
+  "client_name": null,
+  "domain": "media.fcgh52-1.fna.whatsapp.net",
+  "query_type": null,
+  "status": "default",
+  "resolver": null,
+  "protocol": "UDP",
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
+}
