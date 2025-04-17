@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-04-17T00:41:44.130Z",
+  "source": "NextDNS",
+  "client_ip": "45.190.211.245",
+  "client_name": null,
+  "domain": "encrypted-tbn0.gstatic.com",
+  "query_type": null,
+  "status": "default",
+  "resolver": null,
+  "protocol": "UDP",
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
+}
