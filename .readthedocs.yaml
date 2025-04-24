@@ -10,3 +10,4 @@ build:
 python:
   install:
     - requirements: requirements.txt
+    run /scripts
