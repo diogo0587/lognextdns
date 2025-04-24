@@ -10,4 +10,4 @@ build:
 python:
   install:
     - requirements: requirements.txt
-    run /scripts
+    run /scripts/colect_logs.py
