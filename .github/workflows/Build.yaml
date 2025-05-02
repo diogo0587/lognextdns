@@ -273,7 +273,7 @@ EOF
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
 
       - name: Display GitHub Pages URL
         run: echo "O dashboard foi publicado em: ${{ steps.deployment.outputs.page_url }}"
