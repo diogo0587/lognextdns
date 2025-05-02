@@ -19,7 +19,7 @@ jobs:
       status: ${{ steps.set-status.outputs.workflow_status }}
     steps:
     - name: Check out the repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Perform action
       id: perform-action
