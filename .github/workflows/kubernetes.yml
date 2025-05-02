@@ -43,7 +43,7 @@ jobs:
 
       # Passo 6: Configurar Hugo
       - name: Set up Hugo
-        uses: peaceiris/actions-hugo@v2
+        uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: 'latest'
           extended: true
