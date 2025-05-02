@@ -26,7 +26,7 @@ jobs:
 
   fetch_nextdns_logs:
     docker:
-      - image: cimg/python:3.9
+      - image: cimg/python:3.13
     steps:
       - checkout
       - run:
