@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-05-05T00:42:33.230Z",
+  "source": "NextDNS",
+  "client_ip": "45.190.211.200",
+  "client_name": null,
+  "domain": "sf16-static.i18n-pglstatp.com",
+  "query_type": null,
+  "status": "blocked",
+  "resolver": null,
+  "protocol": "UDP",
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
+}
