@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-05-07T00:41:04.716Z",
+  "source": "NextDNS",
+  "client_ip": "45.190.211.139",
+  "client_name": null,
+  "domain": "us.home.mi.com",
+  "query_type": null,
+  "status": "default",
+  "resolver": null,
+  "protocol": "UDP",
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
+}
