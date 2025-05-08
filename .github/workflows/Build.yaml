@@ -112,5 +112,5 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v2
 
-      - name: Display GitHub Pages URL
-        run: echo "O dashboard foi publicado em: ${{ steps.deployment.outputs.page_url }}"
+     # - name: Display GitHub Pages URL
+     #   run: echo "O dashboard foi publicado em: ${{ steps.deployment.outputs.page_url }}"
