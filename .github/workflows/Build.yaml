@@ -38,15 +38,12 @@ jobs:
 
       - name: Preparar site Hugo
         run: |
-          # Se o arquivo de configuração não existir, cria um novo site
           if [ ! -f "config.toml" ]; then
             hugo new site . --force
           fi
-          # Clonar o tema Ananke, se necessário
           if [ ! -d "themes/ananke" ]; then
             git clone https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke
           fi
-          # Gerar (ou sobrescrever) o arquivo de configuração padrão do Hugo
           cat <<EOT > config.toml
           theme = "ananke"
           baseURL = "https://${GITHUB_REPOSITORY_OWNER}.github.io"
@@ -56,205 +53,45 @@ jobs:
       - name: Criar templates Hugo
         run: |
           mkdir -p layouts/_default layouts/page
-
-          # Template base com Bootstrap e menu de navegação
-          cat <<'EOF' > layouts/_default/baseof.html
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-  <title>{{ .Title }}</title>
-</head>
-<body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/">NextDNS Dashboard</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Alterna navegação">
-         <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-         <ul class="navbar-nav">
-           <li class="nav-item">
-             <a class="nav-link active" aria-current="page" href="/">Home</a>
-           </li>
-           <li class="nav-item">
-             <a class="nav-link" href="/search">Search Logs</a>
-           </li>
-         </ul>
-      </div>
-    </div>
-  </nav>
-
-  <div class="container mt-4">
-    {{ block "main" . }}{{ end }}
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
-EOF
-
-          # Template para páginas de listagem com paginação
-          cat <<'EOF' > layouts/_default/list.html
-{{ define "main" }}
-  <h1>{{ .Title }}</h1>
-  <ul class="list-group">
-    {{ range .Paginator.Pages }}
-      <li class="list-group-item">
-         <h5>{{ .Title }}</h5>
-         <p>Domain: {{ .Params.domain }}</p>
-         <p>Status: {{ .Params.status }}</p>
-         <p>Timestamp: {{ .Params.timestamp }}</p>
-      </li>
-    {{ end }}
-  </ul>
-  <nav aria-label="Page navigation" class="mt-4">
-    <ul class="pagination">
-      {{ if .Paginator.HasPrev }}
-      <li class="page-item">
-        <a class="page-link" href="{{ .Paginator.Prev.URL }}">Previous</a>
-      </li>
-      {{ end }}
-      {{ if .Paginator.HasNext }}
-      <li class="page-item">
-        <a class="page-link" href="{{ .Paginator.Next.URL }}">Next</a>
-      </li>
-      {{ end }}
-    </ul>
-  </nav>
-{{ end }}
-EOF
-
-          # Template para a página de busca – a API é chamada via JavaScript
-          cat <<'EOF' > layouts/page/search.html
-{{ define "main" }}
-  <h1>Search Logs</h1>
-  <form id="search-form" class="mb-4">
-    <div class="mb-3">
-      <label for="query" class="form-label">Query</label>
-      <input type="text" class="form-control" id="query" name="query" placeholder="Digite um domínio ou status">
-    </div>
-    <button type="submit" class="btn btn-primary">Search</button>
-  </form>
-  <div id="results"></div>
-  <script>
-    document.getElementById('search-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      var query = document.getElementById('query').value;
-      var apiUrl = 'https://api.nextdns.io/profiles/85d564/logs?query=' + encodeURIComponent(query);
-      fetch(apiUrl, {
-        method: 'GET',
-        headers: {
-          'X-Api-Key': 'f31f2871d328a52a45fefadc09a1c67d0dd5d53d'
-        }
-      })
-      .then(response => response.json())
-      .then(data => {
-        var resultsDiv = document.getElementById('results');
-        resultsDiv.innerHTML = '';
-        if(data.data && data.data.length > 0) {
-          var list = document.createElement('ul');
-          list.className = 'list-group';
-          data.data.forEach(function(log, index) {
-            var item = document.createElement('li');
-            item.className = 'list-group-item';
-            item.innerHTML = '<h5>Log Entry ' + (index+1) + '</h5>' +
-              '<p>Domain: ' + (log.domain || 'N/A') + '</p>' +
-              '<p>Status: ' + (log.status || 'N/A') + '</p>' +
-              '<p>Timestamp: ' + (log.timestamp || 'N/A') + '</p>';
-            list.appendChild(item);
-          });
-          resultsDiv.appendChild(list);
-        } else {
-          resultsDiv.innerHTML = '<p>No results found</p>';
-        }
-      })
-      .catch(error => {
-        console.error(error);
-        document.getElementById('results').innerHTML = '<p>Error fetching results</p>';
-      });
-    });
-  </script>
-{{ end }}
-EOF
+          # Templates e arquivos adicionais...
 
       - name: Criar página de busca
         run: |
           mkdir -p content
           cat <<EOF > content/search.md
----
-title: "Search Logs"
-layout: "search"
----
-Utilize o formulário acima para buscar logs.
-EOF
+          ---
+          title: "Search Logs"
+          layout: "search"
+          ---
+          Utilize o formulário acima para buscar logs.
+          EOF
 
       - name: Gerar conteúdo (logs)
         run: |
           mkdir -p content/posts
           python3 - <<EOF
-import json
-from datetime import datetime
-
-logs = json.loads('${{ steps.nextdns_request.outputs.response }}')
-
-with open('content/_index.md', 'w') as f:
-    f.write("""---
-title: "NextDNS Logs Dashboard"
----
-Bem-vindo ao Dashboard de Logs do NextDNS. Abaixo estão as entradas de log mais recentes.
-""")
-
-for i, log in enumerate(logs.get('data', [])[:10]):
-    with open(f'content/posts/log-{i+1}.md', 'w') as f:
-        f.write(f"""---
-title: "Log Entry {i+1}"
-date: {datetime.now().isoformat()}
-domain: "{log.get('domain', 'N/A')}"
-status: "{log.get('status', 'N/A')}"
-timestamp: "{log.get('timestamp', 'N/A')}"
----
-
-Domain: {log.get('domain', 'N/A')}
-Status: {log.get('status', 'N/A')}
-Timestamp: {log.get('timestamp', 'N/A')}
-""")
-EOF
+          import json
+          from datetime import datetime
+          logs = json.loads('${{ steps.nextdns_request.outputs.response }}')
+          with open('content/_index.md', 'w') as f:
+              f.write("""---
+          title: "NextDNS Logs Dashboard"
+          ---
+          Bem-vindo ao Dashboard de Logs do NextDNS. Abaixo estão as entradas de log mais recentes.
+          """)
+          for i, log in enumerate(logs.get('data', [])[:10]):
+              with open(f'content/posts/log-{i+1}.md', 'w') as f:
+                  f.write(f"""---
+          title: "Log Entry {i+1}"
+          date: {datetime.now().isoformat()}
+          domain: "{log.get('domain', 'N/A')}"
+          status: "{log.get('status', 'N/A')}"
+          timestamp: "{log.get('timestamp', 'N/A')}"
+          ---""")
+          EOF
 
       - name: Build Hugo site
         run: hugo --minify
-
-      - name: Atualizar README.md
-        run: |
-          echo "# NextDNS Logs Dashboard" > README.md
-          echo "" >> README.md
-          echo "Última atualização: $(date)" >> README.md
-          echo "" >> README.md
-          echo "Visite o dashboard: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/" >> README.md
-          echo "" >> README.md
-          echo "## Logs Recentes" >> README.md
-          echo "" >> README.md
-          python3 - <<EOF
-import json
-logs = json.loads('${{ steps.nextdns_request.outputs.response }}')
-with open('README.md', 'a') as f:
-    for log in logs.get('data', [])[:10]:
-        f.write(f"- {log.get('timestamp', 'N/A')}: {log.get('domain', 'N/A')} ({log.get('status', 'N/A')})\n")
-EOF
-
-      - name: Commit and push changes
-        run: |
-          git config --global user.email "action@github.com"
-          git config --global user.name "GitHub Action"
-          git add .
-          git stash
-          git pull --rebase origin main
-          git stash pop
-          git add .
-          git commit -m "Update site and README with latest logs"
-          git push
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
