@@ -1,0 +1,13 @@
+{
+  "name": "lognextdns",
+  "version": "1.0.0",
+  "description": "Projeto Hugo para GitHub Pages",
+  "main": "index.js",
+  "scripts": {
+    "build": "hugo --minify"
+  },
+  "keywords": [],
+  "author": "diogo0587",
+  "license": "ISC",
+  "dependencies": {}
+}
