@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-05-09T08:34:04.964Z",
+  "source": "NextDNS",
+  "client_ip": "2a09:bac5:ed5:3cd::61:2cc",
+  "client_name": null,
+  "domain": "dl.google.com",
+  "query_type": null,
+  "status": "default",
+  "resolver": null,
+  "protocol": "DNS-over-TLS",
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
+}
