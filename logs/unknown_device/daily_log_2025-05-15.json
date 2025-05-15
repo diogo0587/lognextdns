@@ -1,7 +1,7 @@
 {
-  "timestamp": "2025-05-11T18:30:15.064Z",
+  "timestamp": "2025-05-11T23:00:16.859Z",
   "source": "NextDNS",
-  "client_ip": "2001:19f0:4400:47de:5400:ff:fe5c:9b8f",
+  "client_ip": "2a03:90c0:2c6::8a",
   "client_name": null,
   "domain": "diogo0587.ip-ddns.com",
   "query_type": null,
