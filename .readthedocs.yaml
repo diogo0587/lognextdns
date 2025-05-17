@@ -11,4 +11,4 @@ python:
   install:
     - requirements: requirements.txt
     post_install:
-      - python /scripts/collect_logs.py
+      - python /app/main.py
