@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-05-16T15:30:13.673Z",
+  "source": "NextDNS",
+  "client_ip": "2a01:4f8:1c17:6262::1",
+  "client_name": null,
+  "domain": "diogo0587.ip-ddns.com",
+  "query_type": null,
+  "status": "default",
+  "resolver": null,
+  "protocol": "UDP",
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
+}
