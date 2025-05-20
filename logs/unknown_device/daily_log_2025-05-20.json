@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-05-16T23:13:13.750Z",
+  "source": "NextDNS",
+  "client_ip": "45.190.211.162",
+  "client_name": null,
+  "domain": "nimbus.bitdefender.net",
+  "query_type": null,
+  "status": "default",
+  "resolver": null,
+  "protocol": "DNS-over-TLS",
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
+}
