@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-06-13T00:35:04.330Z",
+  "source": "NextDNS",
+  "client_ip": "45.190.211.152",
+  "client_name": null,
+  "domain": "akv2-br-cdn.kwai.net",
+  "query_type": null,
+  "status": "default",
+  "resolver": null,
+  "protocol": "UDP",
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
+}
