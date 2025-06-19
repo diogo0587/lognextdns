@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-06-18T02:22:28.443Z",
+  "source": "NextDNS",
+  "client_ip": "45.190.211.152",
+  "client_name": null,
+  "domain": "cdn.taboola.com",
+  "query_type": null,
+  "status": "blocked",
+  "resolver": null,
+  "protocol": "UDP",
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
+}
