@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-06-18T02:22:28.598Z",
+  "source": "NextDNS",
+  "client_ip": "45.190.211.152",
+  "client_name": null,
+  "domain": "mc8cvc23x50xzdlxb51914qyg1b4.device.marketingcloudapis.com",
+  "query_type": null,
+  "status": "blocked",
+  "resolver": null,
+  "protocol": "UDP",
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
+}
