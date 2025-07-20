@@ -1,4 +1,4 @@
-name: NextDNS Logs Dashboard
+name: NextDNS Logs Dashboard kube
 
 on:
   schedule:
