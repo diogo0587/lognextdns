@@ -117,10 +117,6 @@ jobs:
           from datetime import datetime, timedelta
           from collections import Counter, defaultdict
           
-          # Load the raw logs
-          timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-          raw_file = f"data/logs/raw_{timestamp}.json"
-          
           # Find the most recent raw log file
           import glob
           raw_files = glob.glob("data/logs/raw_*.json")
@@ -341,12 +337,16 @@ jobs:
       - name: Send to Datadog (Optional)
         if: |
           steps.fetch-logs.outputs.success == 'true' && 
-          github.event.inputs.skip_integrations != 'true' &&
-          secrets.DATADOG_API_KEY != ''
-        continue-on-error: true
+          github.event.inputs.skip_integrations != 'true'
         env:
           DATADOG_API_KEY: ${{ secrets.DATADOG_API_KEY }}
+        continue-on-error: true
         run: |
+          if [ -z "${DATADOG_API_KEY}" ]; then
+            echo "Datadog API key not set, skipping..."
+            exit 0
+          fi
+
           if [ -f "content/data/summary.json" ]; then
             python3 << 'EOF'
           import json
@@ -360,33 +360,33 @@ jobs:
           
           # Send metrics to Datadog
           datadog_api_key = os.environ.get('DATADOG_API_KEY')
-          if datadog_api_key:
-              payload = {
-                  "series": [
-                      {
-                          "metric": "nextdns.total_queries",
-                          "points": [[int(datetime.now().timestamp()), data['total_queries']]],
-                          "tags": ["source:nextdns", "profile:85d564"]
-                      },
-                      {
-                          "metric": "nextdns.blocked_queries", 
-                          "points": [[int(datetime.now().timestamp()), data['blocked_queries']]],
-                          "tags": ["source:nextdns", "profile:85d564"]
-                      }
-                  ]
-              }
-              
-              try:
-                  response = requests.post(
-                      "https://api.datadoghq.com/api/v1/series",
-                      headers={"DD-API-KEY": datadog_api_key, "Content-Type": "application/json"},
-                      json=payload,
-                      timeout=30
-                  )
-                  response.raise_for_status()
-                  print("✅ Metrics sent to Datadog")
-              except Exception as e:
-                  print(f"❌ Failed to send to Datadog: {e}")
+          
+          payload = {
+              "series": [
+                  {
+                      "metric": "nextdns.total_queries",
+                      "points": [[int(datetime.now().timestamp()), data['total_queries']]],
+                      "tags": ["source:nextdns", "profile:85d564"]
+                  },
+                  {
+                      "metric": "nextdns.blocked_queries", 
+                      "points": [[int(datetime.now().timestamp()), data['blocked_queries']]],
+                      "tags": ["source:nextdns", "profile:85d564"]
+                  }
+              ]
+          }
+          
+          try:
+              response = requests.post(
+                  "https://api.datadoghq.com/api/v1/series",
+                  headers={"DD-API-KEY": datadog_api_key, "Content-Type": "application/json"},
+                  json=payload,
+                  timeout=30
+              )
+              response.raise_for_status()
+              print("✅ Metrics sent to Datadog")
+          except Exception as e:
+              print(f"❌ Failed to send to Datadog: {e}")
           EOF
           fi
 
