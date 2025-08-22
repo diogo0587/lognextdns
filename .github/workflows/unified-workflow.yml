@@ -23,7 +23,7 @@ permissions:
 
 env:
   NEXTDNS_PROFILE_ID: '85d564'
-  HUGO_VERSION: '0.121.0'
+  HUGO_VERSION: '0.124.1'
 
 jobs:
   nextdns-pipeline:
