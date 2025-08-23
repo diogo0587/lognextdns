@@ -161,7 +161,7 @@ jobs:
           echo "🏗️ Preparing Hugo site structure..."
           if [ ! -f "config.toml" ]; then
             cat << 'EOF' > config.toml
-          baseURL = "https://diogo0587.github.io/lognextdns"
+          baseURL = "https://diogo0587.github.io/lognextdns/painel"
           languageCode = "pt-br"
           title = "NextDNS Logs Dashboard"
           theme = "beautifulhugo"
@@ -312,7 +312,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          publish_dir: ./public/painel
           force_orphan: true
           commit_message: "🚀 Deploy NextDNS dashboard - $(date +'%Y-%m-%d %H:%M')"
 
