@@ -333,9 +333,7 @@ jobs:
           if [ "${{ steps.fetch-logs.outputs.success }}" == "true" ]; then
             if [ -f "content/data/summary.json" ]; then
               echo "### 📈 Statistics" >> $GITHUB_STEP_SUMMARY
-              python3 -c "
-          import json
-          with open('content/data/summary.json', 'r') as f:
+              python3 -c "import json with open('content/data/summary.json', 'r') as f:
               data = json.load(f)
           print(f'- Total Queries: {data[\"total_queries\"]:,}')
           print(f'- Blocked: {data[\"blocked_queries\"]:,}')  
