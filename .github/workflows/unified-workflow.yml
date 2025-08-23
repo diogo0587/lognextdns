@@ -344,3 +344,4 @@ print(f'- Block Rate: {data[\"blocked_percentage\"]}%')
           else
             echo "❌ Log fetching failed - check NextDNS API key and connectivity" >> $GITHUB_STEP_SUMMARY
           fi
+          
