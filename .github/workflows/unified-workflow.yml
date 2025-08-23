@@ -12,7 +12,7 @@ on:
         type: boolean
       force_rebuild:
         description: 'Force rebuild of Hugo site'
-        required: false
+        required: false  
         default: false
         type: boolean
 
@@ -94,19 +94,25 @@ jobs:
           from datetime import datetime
           from collections import Counter
           import glob
+
           raw_files = glob.glob("data/logs/raw_*.json")
           if not raw_files:
               print("❌ No raw log files found")
               exit(1)
+
           latest_raw = max(raw_files)
           print(f"📖 Processing {latest_raw}")
+
           with open(latest_raw, 'r') as f:
               logs_data = json.load(f)
+
           if 'data' not in logs_data:
               print("❌ Invalid log structure")
               exit(1)
+
           logs = logs_data['data']
           print(f"📊 Processing {len(logs)} log entries")
+
           processed_data = {
               'metadata': {
                   'timestamp': datetime.now().isoformat(),
@@ -121,16 +127,19 @@ jobs:
               'top_domains': {},
               'recent_logs': logs[:50]
           }
+
           status_count = Counter(log.get('status', 'unknown') for log in logs)
           type_count = Counter(log.get('type', 'unknown') for log in logs)
           domain_count = Counter(log.get('name', 'unknown') for log in logs)
           client_count = Counter(log.get('clientIp', 'unknown') for log in logs)
+
           processed_data['statistics'] = {
               'by_status': dict(status_count),
               'by_type': dict(type_count),
               'by_client': dict(client_count.most_common(10)),
               'blocked_percentage': round((status_count.get('blocked', 0) / len(logs)) * 100, 2) if logs else 0
           }
+
           processed_data['top_domains'] = {
               'all': dict(domain_count.most_common(20)),
               'blocked': dict(Counter(
@@ -138,9 +147,11 @@ jobs:
                   if log.get('status') == 'blocked'
               ).most_common(10))
           }
+
           os.makedirs('content/data', exist_ok=True)
           with open('content/data/processed_logs.json', 'w') as f:
               json.dump(processed_data, f, indent=2)
+
           with open('content/data/summary.json', 'w') as f:
               json.dump({
                   'last_update': datetime.now().isoformat(),
@@ -149,6 +160,7 @@ jobs:
                   'allowed_queries': status_count.get('allowed', 0),
                   'blocked_percentage': processed_data['statistics']['blocked_percentage']
               }, f, indent=2)
+
           print("✅ Log processing completed")
           EOF
 
@@ -162,9 +174,11 @@ baseURL = "https://diogo0587.github.io/lognextdns/painel/"
 languageCode = "pt-br"
 title = "NextDNS Logs Dashboard"
 theme = "beautifulhugo"
+
 [params]
   description = "Dashboard de logs do NextDNS"
   github_url = "https://github.com/diogo0587/lognextdns"
+
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
@@ -200,19 +214,19 @@ EOF
           stats = data['statistics']
           domains = data['top_domains']
           stats_content = f"""---
-          title: "Estatísticas de Logs"
-          date: {datetime.now().isoformat()}
-          draft: false
-          ---
-          # Estatísticas NextDNS
-          **Última atualização:** {data['metadata']['timestamp']}
-          ## Resumo Geral
-          - **Total de consultas:** {data['metadata']['total_entries']:,}
-          - **Consultas bloqueadas:** {stats['by_status'].get('blocked', 0):,}
-          - **Consultas permitidas:** {stats['by_status'].get('allowed', 0):,}
-          - **Taxa de bloqueio:** {stats['blocked_percentage']}%
-          ## Top 10 Domínios Mais Acessados
-          """
+title: "Estatísticas de Logs"
+date: {datetime.now().isoformat()}
+draft: false
+---
+# Estatísticas NextDNS
+**Última atualização:** {data['metadata']['timestamp']}
+## Resumo Geral
+- **Total de consultas:** {data['metadata']['total_entries']:,}
+- **Consultas bloqueadas:** {stats['by_status'].get('blocked', 0):,}
+- **Consultas permitidas:** {stats['by_status'].get('allowed', 0):,}
+- **Taxa de bloqueio:** {stats['blocked_percentage']}%
+## Top 10 Domínios Mais Acessados
+"""
           for i, (domain, count) in enumerate(domains['all'].items(), 1):
               if i <= 10:
                   stats_content += f"{i}. **{domain}** - {count:,} consultas\n"
@@ -339,3 +353,4 @@ EOF
           else
             echo "❌ Log fetching failed - check NextDNS API key and connectivity" >> $GITHUB_STEP_SUMMARY
           fi
+          
