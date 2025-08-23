@@ -12,7 +12,7 @@ on:
         type: boolean
       force_rebuild:
         description: 'Force rebuild of Hugo site'
-        required: false  
+        required: false
         default: false
         type: boolean
 
@@ -29,7 +29,7 @@ jobs:
   nextdns-pipeline:
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -161,7 +161,7 @@ jobs:
           echo "🏗️ Preparing Hugo site structure..."
           if [ ! -f "config.toml" ]; then
             cat << 'EOF' > config.toml
-          baseURL = "https://diogo0587.github.io/lognextdns/painel"
+          baseURL = "https://diogo0587.github.io/lognextdns/painel/"
           languageCode = "pt-br"
           title = "NextDNS Logs Dashboard"
           theme = "beautifulhugo"
@@ -233,12 +233,12 @@ jobs:
         if: steps.fetch-logs.outputs.success == 'true' || github.event.inputs.force_rebuild == 'true'
         run: |
           echo "🔨 Building Hugo site..."
-          hugo --minify --cleanDestinationDir
-          if [ -d "public" ] && [ "$(ls -A public)" ]; then
-            echo "✅ Public directory contains files"
-            ls -la public/
+          hugo --minify --cleanDestinationDir --destination public/painel
+          if [ -d "public/painel" ] && [ "$(ls -A public/painel)" ]; then
+            echo "✅ Public/painel directory contains files"
+            ls -la public/painel/
           else
-            echo "❌ Public directory is empty or missing"
+            echo "❌ Public/painel directory is empty or missing"
             exit 1
           fi
 
@@ -312,7 +312,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public/painel
+          publish_dir: ./public
           force_orphan: true
           commit_message: "🚀 Deploy NextDNS dashboard - $(date +'%Y-%m-%d %H:%M')"
 
@@ -340,7 +340,6 @@ print(f'- Total Queries: {data[\"total_queries\"]:,}')
 print(f'- Blocked: {data[\"blocked_queries\"]:,}')
 print(f'- Block Rate: {data[\"blocked_percentage\"]}%')
 " >> $GITHUB_STEP_SUMMARY
-
             fi
           else
             echo "❌ Log fetching failed - check NextDNS API key and connectivity" >> $GITHUB_STEP_SUMMARY
