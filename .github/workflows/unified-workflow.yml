@@ -161,32 +161,34 @@ jobs:
           echo "🏗️ Preparing Hugo site structure..."
           if [ ! -f "config.toml" ]; then
             cat << 'EOF' > config.toml
-          baseURL = "https://diogo0587.github.io/lognextdns/painel/"
-          languageCode = "pt-br"
-          title = "NextDNS Logs Dashboard"
-          theme = "beautifulhugo"
-          [params]
-            description = "Dashboard de logs do NextDNS"
-            github_url = "https://github.com/diogo0587/lognextdns"
-          [markup]
-            [markup.goldmark]
-              [markup.goldmark.renderer]
-                unsafe = true
-          EOF
+baseURL = "https://diogo0587.github.io/lognextdns/painel/"
+languageCode = "pt-br"
+title = "NextDNS Logs Dashboard"
+theme = "beautifulhugo"
+
+[params]
+  description = "Dashboard de logs do NextDNS"
+  github_url = "https://github.com/diogo0587/lognextdns"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+EOF
           fi
           rm -rf themes/beautifulhugo
           git clone https://github.com/halogenica/beautifulhugo.git themes/beautifulhugo
           mkdir -p content/{posts,pages} layouts/{_default,partials} static/{css,js}
           cat << 'EOF' > content/_index.md
-          ---
-          title: "NextDNS Logs Dashboard"
-          description: "Dashboard de monitoramento dos logs do NextDNS"
-          ---
-          # Dashboard NextDNS
-          Este dashboard apresenta informações em tempo real dos logs do NextDNS.
-          ## Estatísticas Recentes
-          Os dados são atualizados automaticamente via GitHub Actions.
-          EOF
+---
+title: "NextDNS Logs Dashboard"
+description: "Dashboard de monitoramento dos logs do NextDNS"
+---
+# Dashboard NextDNS
+Este dashboard apresenta informações em tempo real dos logs do NextDNS.
+## Estatísticas Recentes
+Os dados são atualizados automaticamente via GitHub Actions.
+EOF
 
       - name: Generate Hugo Content from Logs
         if: steps.fetch-logs.outputs.success == 'true'
@@ -203,19 +205,19 @@ jobs:
           stats = data['statistics']
           domains = data['top_domains']
           stats_content = f"""---
-          title: "Estatísticas de Logs"
-          date: {datetime.now().isoformat()}
-          draft: false
-          ---
-          # Estatísticas NextDNS
-          **Última atualização:** {data['metadata']['timestamp']}
-          ## Resumo Geral
-          - **Total de consultas:** {data['metadata']['total_entries']:,}
-          - **Consultas bloqueadas:** {stats['by_status'].get('blocked', 0):,}
-          - **Consultas permitidas:** {stats['by_status'].get('allowed', 0):,}
-          - **Taxa de bloqueio:** {stats['blocked_percentage']}%
-          ## Top 10 Domínios Mais Acessados
-          """
+title: "Estatísticas de Logs"
+date: {datetime.now().isoformat()}
+draft: false
+---
+# Estatísticas NextDNS
+**Última atualização:** {data['metadata']['timestamp']}
+## Resumo Geral
+- **Total de consultas:** {data['metadata']['total_entries']:,}
+- **Consultas bloqueadas:** {stats['by_status'].get('blocked', 0):,}
+- **Consultas permitidas:** {stats['by_status'].get('allowed', 0):,}
+- **Taxa de bloqueio:** {stats['blocked_percentage']}%
+## Top 10 Domínios Mais Acessados
+"""
           for i, (domain, count) in enumerate(domains['all'].items(), 1):
               if i <= 10:
                   stats_content += f"{i}. **{domain}** - {count:,} consultas\n"
