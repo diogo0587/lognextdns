@@ -29,7 +29,6 @@ jobs:
   nextdns-pipeline:
     runs-on: ubuntu-latest
     timeout-minutes: 20
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -86,7 +85,7 @@ jobs:
           done
           echo "success=true" >> $GITHUB_OUTPUT
 
-      - name: Process and Analyze Logs  
+      - name: Process and Analyze Logs
         if: steps.fetch-logs.outputs.success == 'true'
         run: |
           python3 << 'EOF'
@@ -128,14 +127,14 @@ jobs:
           client_count = Counter(log.get('clientIp', 'unknown') for log in logs)
           processed_data['statistics'] = {
               'by_status': dict(status_count),
-              'by_type': dict(type_count), 
+              'by_type': dict(type_count),
               'by_client': dict(client_count.most_common(10)),
               'blocked_percentage': round((status_count.get('blocked', 0) / len(logs)) * 100, 2) if logs else 0
           }
           processed_data['top_domains'] = {
               'all': dict(domain_count.most_common(20)),
               'blocked': dict(Counter(
-                  log.get('name') for log in logs 
+                  log.get('name') for log in logs
                   if log.get('status') == 'blocked'
               ).most_common(10))
           }
@@ -163,11 +162,9 @@ baseURL = "https://diogo0587.github.io/lognextdns/painel/"
 languageCode = "pt-br"
 title = "NextDNS Logs Dashboard"
 theme = "beautifulhugo"
-
 [params]
   description = "Dashboard de logs do NextDNS"
   github_url = "https://github.com/diogo0587/lognextdns"
-
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
@@ -203,19 +200,19 @@ EOF
           stats = data['statistics']
           domains = data['top_domains']
           stats_content = f"""---
-title: "Estatísticas de Logs"
-date: {datetime.now().isoformat()}
-draft: false
----
-# Estatísticas NextDNS
-**Última atualização:** {data['metadata']['timestamp']}
-## Resumo Geral
-- **Total de consultas:** {data['metadata']['total_entries']:,}
-- **Consultas bloqueadas:** {stats['by_status'].get('blocked', 0):,}
-- **Consultas permitidas:** {stats['by_status'].get('allowed', 0):,}
-- **Taxa de bloqueio:** {stats['blocked_percentage']}%
-## Top 10 Domínios Mais Acessados
-"""
+          title: "Estatísticas de Logs"
+          date: {datetime.now().isoformat()}
+          draft: false
+          ---
+          # Estatísticas NextDNS
+          **Última atualização:** {data['metadata']['timestamp']}
+          ## Resumo Geral
+          - **Total de consultas:** {data['metadata']['total_entries']:,}
+          - **Consultas bloqueadas:** {stats['by_status'].get('blocked', 0):,}
+          - **Consultas permitidas:** {stats['by_status'].get('allowed', 0):,}
+          - **Taxa de bloqueio:** {stats['blocked_percentage']}%
+          ## Top 10 Domínios Mais Acessados
+          """
           for i, (domain, count) in enumerate(domains['all'].items(), 1):
               if i <= 10:
                   stats_content += f"{i}. **{domain}** - {count:,} consultas\n"
@@ -327,21 +324,18 @@ draft: false
           echo "## 📊 NextDNS Unified Workflow Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Date:** $(date)" >> $GITHUB_STEP_SUMMARY
-          echo "**Logs Fetched:** ${{ steps.fetch-logs.outputs.success }}" >> $GITHUB_STEP_SUMMARY  
+          echo "**Logs Fetched:** ${{ steps.fetch-logs.outputs.success }}" >> $GITHUB_STEP_SUMMARY
           echo "**Hugo Built:** ${{ steps.build-hugo.outputs.success }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           if [ "${{ steps.fetch-logs.outputs.success }}" == "true" ]; then
             if [ -f "content/data/summary.json" ]; then
               echo "### 📈 Statistics" >> $GITHUB_STEP_SUMMARY
-              python3 -c "import json
-with open('content/data/summary.json', 'r') as f:
-    data = json.load(f)
-print(f'- Total Queries: {data[\"total_queries\"]:,}')
-print(f'- Blocked: {data[\"blocked_queries\"]:,}')
-print(f'- Block Rate: {data[\"blocked_percentage\"]}%')
-" >> $GITHUB_STEP_SUMMARY
+              python3 -c "import json; \
+              with open('content/data/summary.json', 'r') as f: data = json.load(f); \
+              print(f'- Total Queries: {data[\"total_queries\"]:,}'); \
+              print(f'- Blocked: {data[\"blocked_queries\"]:,}'); \
+              print(f'- Block Rate: {data[\"blocked_percentage\"]}%')" >> $GITHUB_STEP_SUMMARY
             fi
           else
             echo "❌ Log fetching failed - check NextDNS API key and connectivity" >> $GITHUB_STEP_SUMMARY
           fi
-          
