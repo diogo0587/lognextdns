@@ -10,6 +10,6 @@
   "author": "diogo0587",
   "license": "ISC",
   "devDependencies": {
-    "hugo-cli": "^0.102.0"
+    "hugo-cli": "^0.89.0"
   }
 }
