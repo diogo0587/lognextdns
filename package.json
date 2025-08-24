@@ -9,5 +9,7 @@
   "keywords": [],
   "author": "diogo0587",
   "license": "ISC",
-  "dependencies": {}
+  "devDependencies": {
+    "hugo-cli": "^0.102.0"
+  }
 }
