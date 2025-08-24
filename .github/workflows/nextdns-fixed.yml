@@ -9,7 +9,7 @@ permissions:
   contents: write
   
 env:
-  NEXTDNS_PROFILE_ID: '85d564'
+  NEXTDNS_PROFILE_ID: 'ae4ceb'
 
 jobs:
   sync-logs:
