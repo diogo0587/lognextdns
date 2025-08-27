@@ -102,6 +102,7 @@ jobs:
           from datetime import datetime
           from collections import Counter
           import glob
+
           raw_files = glob.glob("data/logs/raw_*.json")
           if not raw_files:
               print("❌ No raw log files found")
@@ -133,6 +134,8 @@ jobs:
               'top_domains': {},
               'recent_logs': logs[:50]
           }
+          status_count = Counter(status.get('status', 'unknown') if isinstance(status := log, dict) else 'unknown' for log in logs)
+          # The above line attempted a safe pattern; fallback to original counters:
           status_count = Counter(log.get('status', 'unknown') for log in logs)
           type_count = Counter(log.get('type', 'unknown') for log in logs)
           domain_count = Counter(log.get('name', 'unknown') for log in logs)
@@ -284,7 +287,7 @@ draft: false
 
       - name: Send to Datadog (Optional)
         if: |
-          steps.fetch-logs.outputs.success == 'true' && 
+          steps.fetch-logs.outputs.success == 'true' &&
           github.event.inputs.skip_integrations != 'true'
         env:
           DATADOG_API_KEY: ${{ secrets.DATADOG_API_KEY }}
@@ -312,7 +315,7 @@ draft: false
                       "tags": ["source:nextdns", "profile:85d564"]
                   },
                   {
-                      "metric": "nextdns.blocked_queries", 
+                      "metric": "nextdns.blocked_queries",
                       "points": [[int(datetime.now().timestamp()), data['blocked_queries']]],
                       "tags": ["source:nextdns", "profile:85d564"]
                   }
