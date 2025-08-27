@@ -22,13 +22,16 @@ permissions:
   id-token: write
 
 env:
-  NEXTDNS_PROFILE_ID: '85d564'
+  NEXTDNS_PROFILE_ID: ${{ secrets.NEXTDNS_PROFILE_ID }}
   HUGO_VERSION: '0.124.1'
 
 jobs:
   nextdns-pipeline:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    outputs:
+      fetch_logs_success: ${{ steps.fetch-logs.outputs.success }}
+      build_hugo_success: ${{ steps.build-hugo.outputs.success }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -72,20 +75,25 @@ jobs:
               "https://api.nextdns.io/profiles/${NEXTDNS_PROFILE_ID}/logs" \
               -o "data/logs/raw_${TIMESTAMP}.json"; then
               echo "✅ Logs fetched successfully"
+              echo "success=true" >> $GITHUB_OUTPUT
               break
             else
               echo "❌ Attempt $attempt failed"
               if [ $attempt -eq 3 ]; then
                 echo "❌ Failed to fetch logs after 3 attempts"
                 echo "success=false" >> $GITHUB_OUTPUT
-                exit 0
+                exit 1
               fi
               sleep 10
             fi
           done
-          echo "success=true" >> $GITHUB_OUTPUT
+          if [ ! -v GITHUB_OUTPUT ]; then
+            echo "success=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
 
       - name: Process and Analyze Logs
+        id: process-logs
         if: steps.fetch-logs.outputs.success == 'true'
         run: |
           python3 << 'EOF'
@@ -101,7 +109,11 @@ jobs:
           latest_raw = max(raw_files)
           print(f"📖 Processing {latest_raw}")
           with open(latest_raw, 'r') as f:
-              logs_data = json.load(f)
+              try:
+                  logs_data = json.load(f)
+              except json.JSONDecodeError as e:
+                  print(f"❌ Invalid JSON in log file: {e}")
+                  exit(1)
           if 'data' not in logs_data:
               print("❌ Invalid log structure")
               exit(1)
@@ -141,15 +153,23 @@ jobs:
           os.makedirs('content/data', exist_ok=True)
           with open('content/data/processed_logs.json', 'w') as f:
               json.dump(processed_data, f, indent=2)
+          summary_data = {
+              'last_update': datetime.now().isoformat(),
+              'total_queries': len(logs),
+              'blocked_queries': status_count.get('blocked', 0),
+              'allowed_queries': status_count.get('allowed', 0),
+              'blocked_percentage': processed_data['statistics']['blocked_percentage']
+          }
           with open('content/data/summary.json', 'w') as f:
-              json.dump({
-                  'last_update': datetime.now().isoformat(),
-                  'total_queries': len(logs),
-                  'blocked_queries': status_count.get('blocked', 0),
-                  'allowed_queries': status_count.get('allowed', 0),
-                  'blocked_percentage': processed_data['statistics']['blocked_percentage']
-              }, f, indent=2)
+              json.dump(summary_data, f, indent=2)
           print("✅ Log processing completed")
+          print(f"total_queries={len(logs)}")
+          print(f"blocked_queries={status_count.get('blocked', 0)}")
+          print(f"blocked_percentage={processed_data['statistics']['blocked_percentage']}")
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
+            print(f"total_queries={len(logs)}", file=fh)
+            print(f"blocked_queries={status_count.get('blocked', 0)}", file=fh)
+            print(f"blocked_percentage={processed_data['statistics']['blocked_percentage']}", file=fh)
           EOF
 
       - name: Prepare Hugo Site and Update Theme
@@ -168,11 +188,16 @@ theme = "beautifulhugo"
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
-      unsafe = true
+      unsafe = false
 EOF
           fi
-          rm -rf themes/beautifulhugo
-          git clone https://github.com/halogenica/beautifulhugo.git themes/beautifulhugo
+          if [ ! -d "themes/beautifulhugo/.git" ]; then
+            echo "Updating theme"
+            rm -rf themes/beautifulhugo
+            git clone https://github.com/halogenica/beautifulhugo.git themes/beautifulhugo
+          else
+            echo "Theme already up to date"
+          fi
           mkdir -p content/{posts,pages} layouts/{_default,partials} static/{css,js}
           cat << 'EOF' > content/_index.md
 ---
@@ -191,6 +216,7 @@ EOF
           python3 << 'EOF'
           import json
           from datetime import datetime
+          import os
           try:
               with open('content/data/processed_logs.json', 'r') as f:
                   data = json.load(f)
@@ -241,6 +267,21 @@ draft: false
             exit 1
           fi
 
+      - name: Test Hugo Site
+        if: steps.build-hugo.outputs.success == 'true'
+        run: |
+          echo "🧪 Testing Hugo site..."
+          # Add your tests here. For example:
+          # - Check if the statistics page exists
+          # - Check if the summary.json file exists
+          # - Check if the index page exists
+          if [ -f "public/painel/index.html" ] && [ -f "public/painel/statistics/index.html" ]; then
+            echo "✅ Basic tests passed"
+          else
+            echo "❌ Basic tests failed"
+            exit 1
+          fi
+
       - name: Send to Datadog (Optional)
         if: |
           steps.fetch-logs.outputs.success == 'true' && 
@@ -248,6 +289,7 @@ draft: false
         env:
           DATADOG_API_KEY: ${{ secrets.DATADOG_API_KEY }}
         continue-on-error: true
+        id: datadog
         run: |
           if [ -z "${DATADOG_API_KEY}" ]; then
             echo "Datadog API key not set, skipping..."
@@ -285,9 +327,16 @@ draft: false
               )
               response.raise_for_status()
               print("✅ Metrics sent to Datadog")
+              print("datadog_success=true")
           except Exception as e:
               print(f"❌ Failed to send to Datadog: {e}")
+              print("datadog_success=false")
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
+            print("datadog_success=true", file=fh)
           EOF
+          fi
+          if [ -z "${{ steps.datadog.outputs.datadog_success }}" ]; then
+            echo "datadog_success=false" >> $GITHUB_OUTPUT
           fi
 
       - name: Commit Changes
@@ -299,9 +348,13 @@ draft: false
           if git diff --staged --quiet; then
             echo "ℹ️  No changes to commit"
           else
+            TOTAL_QUERIES=$(jq .total_queries content/data/summary.json)
+            BLOCKED_PERCENTAGE=$(jq .blocked_percentage content/data/summary.json)
             git commit -m "📊 Update NextDNS logs and dashboard - $(date +'%Y-%m-%d %H:%M')" \
                        -m "- Fetched and processed latest NextDNS logs" \
-                       -m "- Updated Hugo dashboard"
+                       -m "- Updated Hugo dashboard" \
+                       -m "- Total queries: ${TOTAL_QUERIES}" \
+                       -m "- Blocked percentage: ${BLOCKED_PERCENTAGE}%"
             git push
             echo "✅ Changes committed and pushed"
           fi
@@ -311,7 +364,7 @@ draft: false
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          publish_dir: ./public/painel
           force_orphan: true
           commit_message: "🚀 Deploy NextDNS dashboard - $(date +'%Y-%m-%d %H:%M')"
 
@@ -328,15 +381,17 @@ draft: false
           echo "**Date:** $(date)" >> $GITHUB_STEP_SUMMARY
           echo "**Logs Fetched:** ${{ steps.fetch-logs.outputs.success }}" >> $GITHUB_STEP_SUMMARY
           echo "**Hugo Built:** ${{ steps.build-hugo.outputs.success }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Datadog Success:** ${{ steps.datadog.outputs.datadog_success }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           if [ "${{ steps.fetch-logs.outputs.success }}" == "true" ]; then
             if [ -f "content/data/summary.json" ]; then
               echo "### 📈 Statistics" >> $GITHUB_STEP_SUMMARY
-              python3 -c "import json; \
-              with open('content/data/summary.json', 'r') as f: data = json.load(f); \
-              print(f'- Total Queries: {data[\"total_queries\"]:,}'); \
-              print(f'- Blocked: {data[\"blocked_queries\"]:,}'); \
-              print(f'- Block Rate: {data[\"blocked_percentage\"]}%')" >> $GITHUB_STEP_SUMMARY
+              TOTAL_QUERIES=$(jq .total_queries content/data/summary.json)
+              BLOCKED_QUERIES=$(jq .blocked_queries content/data/summary.json)
+              BLOCKED_PERCENTAGE=$(jq .blocked_percentage content/data/summary.json)
+              echo "- Total Queries: ${TOTAL_QUERIES}" >> $GITHUB_STEP_SUMMARY
+              echo "- Blocked: ${BLOCKED_QUERIES}" >> $GITHUB_STEP_SUMMARY
+              echo "- Block Rate: ${BLOCKED_PERCENTAGE}%" >> $GITHUB_STEP_SUMMARY
             fi
           else
             echo "❌ Log fetching failed - check NextDNS API key and connectivity" >> $GITHUB_STEP_SUMMARY
