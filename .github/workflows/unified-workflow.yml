@@ -234,8 +234,10 @@ draft: false
           if [ -d "public/painel" ] && [ "$(ls -A public/painel)" ]; then
             echo "✅ Public/painel directory contains files"
             ls -la public/painel/
+            echo "success=true" >> $GITHUB_OUTPUT
           else
             echo "❌ Public/painel directory is empty or missing"
+            echo "success=false" >> $GITHUB_OUTPUT
             exit 1
           fi
 
