@@ -44,7 +44,50 @@ jobs:
           NEXTDNS_PROFILE_ID: ${{ secrets.NEXTDNS_PROFILE_ID }}
         run: |
           mkdir -p content/posts
-          python3 scripts/generate_logs.py
+          python3 - <<EOF
+          import os
+          import requests
+          from datetime import datetime
+
+          api_key = os.environ['NEXTDNS_API_KEY']
+          profile_id = os.environ['NEXTDNS_PROFILE_ID']
+
+          if not api_key or not profile_id:
+              raise Exception("NEXTDNS_API_KEY e/ou NEXTDNS_PROFILE_ID não definidos.")
+
+          url = f'https://api.nextdns.io/profiles/{profile_id}/logs'
+          headers = {'X-Api-Key': api_key}
+          response = requests.get(url, headers=headers)
+
+          if response.status_code != 200:
+              raise Exception(f"Erro ao buscar logs NextDNS: {response.status_code} {response.text}")
+
+          logs = response.json().get('data', [])
+          if not logs:
+              print("Nenhum log encontrado.")
+              exit(0)
+
+          # Index file
+          with open('content/_index.md', 'w') as f:
+              f.write("""---
+          title: "NextDNS Logs Dashboard"
+          ---
+          Bem-vindo ao Dashboard de Logs do NextDNS. Abaixo estão as entradas de log mais recentes.
+          """)
+
+          # Create latest log posts (30 or as many as available)
+          for i, log in enumerate(logs[:30]):
+              post_content = f'''---
+          title: "Log Entry {i+1}"
+          date: {datetime.now().isoformat()}
+          domain: "{log.get('domain', 'N/A')}"
+          status: "{log.get('status', 'N/A')}"
+          timestamp: "{log.get('timestamp', 'N/A')}"
+          ---
+          '''
+              with open(f'content/posts/log-{i+1}.md', 'w') as post_file:
+                  post_file.write(post_content)
+          EOF
 
       - name: Setup Hugo site config and theme
         run: |
@@ -57,7 +100,8 @@ jobs:
           cat <<EOT > config.toml
           theme = "ananke"
           baseURL = "https://${GITHUB_REPOSITORY_OWNER}.github.io"
-          paginate = 10
+          [pagination]
+            pagerSize = 10
           EOT
 
       - name: Build Hugo site
@@ -81,3 +125,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
+        
