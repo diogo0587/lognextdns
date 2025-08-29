@@ -1,26 +1,25 @@
 {
   "metadata": {
-    "timestamp": "2025-08-28T02:45:48.348539",
+    "timestamp": "2025-08-29T02:45:54.034796",
     "total_entries": 100,
     "profile_id": "85d564",
     "date_range": {
-      "start": "2025-08-28T02:39:12.558Z",
-      "end": "2025-08-28T02:44:20.617Z"
+      "start": "2025-08-29T02:42:22.768Z",
+      "end": "2025-08-29T02:45:47.058Z"
     }
   },
   "statistics": {
     "by_status": {
-      "default": 91,
-      "blocked": 6,
-      "allowed": 3
+      "default": 94,
+      "blocked": 6
     },
     "by_type": {
       "unknown": 100
     },
     "by_client": {
-      "45.190.211.222": 55,
-      "2804:678c:c147:3300:e5f6:3b26:a9b0:ed35": 27,
-      "2804:678c:c147:3300:a43b:5580:5eea:3dce": 18
+      "2804:678c:c147:3300:ad06:6581:912e:6940": 71,
+      "45.190.211.222": 22,
+      "2804:678c:c147:3300:deb4:65b6:967f:e3ef": 7
     },
     "blocked_percentage": 6.0
   },
@@ -34,139 +33,7 @@
   },
   "recent_logs": [
     {
-      "timestamp": "2025-08-28T02:44:20.617Z",
-      "domain": "graph.whatsapp.net",
-      "root": "whatsapp.net",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
-      "device": {
-        "id": "EVCV1",
-        "name": "diogo"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-08-28T02:44:09.285Z",
-      "domain": "adguardteam.github.io",
-      "root": "adguardteam.github.io",
-      "tracker": "github_pages",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
-      "device": {
-        "id": "EVCV1",
-        "name": "diogo"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-08-28T02:44:09.121Z",
-      "domain": "storage.googleapis.com",
-      "root": "storage.googleapis.com",
-      "tracker": "googleapis.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
-      "device": {
-        "id": "EVCV1",
-        "name": "diogo"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-08-28T02:44:09.056Z",
-      "domain": "s3.eu-west-1.amazonaws.com",
-      "root": "s3.eu-west-1.amazonaws.com",
-      "tracker": "amazon_web_services",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
-      "device": {
-        "id": "EVCV1",
-        "name": "diogo"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-08-28T02:44:07.763Z",
-      "domain": "filters.adtidy.org",
-      "root": "adtidy.org",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
-      "device": {
-        "id": "EVCV1",
-        "name": "diogo"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-08-28T02:44:07.755Z",
-      "domain": "sb.adtidy.org",
-      "root": "adtidy.org",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
-      "device": {
-        "id": "EVCV1",
-        "name": "diogo"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-08-28T02:44:02.384Z",
-      "domain": "federatedcompute-pa.googleapis.com",
-      "root": "federatedcompute-pa.googleapis.com",
-      "tracker": "googleapis.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
-      "device": {
-        "id": "EVCV1",
-        "name": "diogo"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-08-28T02:44:01.259Z",
-      "domain": "androidattestationvalidation-pa.googleapis.com",
-      "root": "androidattestationvalidation-pa.googleapis.com",
-      "tracker": "googleapis.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
-      "device": {
-        "id": "EVCV1",
-        "name": "diogo"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-08-28T02:44:00.942Z",
-      "domain": "s.youtube.com",
-      "root": "youtube.com",
-      "tracker": "youtube",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
-      "device": {
-        "id": "EVCV1",
-        "name": "diogo"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-08-28T02:43:58.850Z",
+      "timestamp": "2025-08-29T02:45:47.058Z",
       "domain": "graph.instagram.com",
       "root": "instagram.com",
       "tracker": "instagram_com",
@@ -174,166 +41,89 @@
       "protocol": "DNS-over-TLS",
       "clientIp": "45.190.211.222",
       "device": {
-        "id": "EVCV1",
-        "name": "diogo"
+        "id": "7DHI2",
+        "name": "tablet"
       },
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-08-28T02:43:36.002Z",
-      "domain": "assets.adobedtm.com",
-      "root": "adobedtm.com",
-      "tracker": "adobe_dynamic_tag_management",
+      "timestamp": "2025-08-29T02:45:30.980Z",
+      "domain": "connectivitycheck.gstatic.com",
+      "root": "gstatic.com",
+      "tracker": "gstatic",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
       "clientIp": "45.190.211.222",
       "device": {
-        "id": "EVCV1",
-        "name": "diogo"
+        "id": "7DHI2",
+        "name": "tablet"
       },
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-08-28T02:43:20.302Z",
-      "domain": "dpm.demdex.net",
-      "root": "demdex.net",
-      "tracker": "adobe_audience_manager",
+      "timestamp": "2025-08-29T02:45:30.211Z",
+      "domain": "i.ytimg.com",
+      "root": "ytimg.com",
+      "tracker": "youtube",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
       "clientIp": "45.190.211.222",
       "device": {
-        "id": "EVCV1",
-        "name": "diogo"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "blocklist:adaway",
-          "name": "AdAway"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-08-28T02:43:19.728Z",
-      "domain": "my.microsoftpersonalcontent.com",
-      "root": "microsoftpersonalcontent.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
-      "device": {
-        "id": "EVCV1",
-        "name": "diogo"
+        "id": "7DHI2",
+        "name": "tablet"
       },
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-08-28T02:43:19.659Z",
-      "domain": "meuvi.gastecnologia.com.br",
-      "root": "gastecnologia.com.br",
+      "timestamp": "2025-08-29T02:45:30.200Z",
+      "domain": "play-lh.googleusercontent.com",
+      "root": "googleusercontent.com",
+      "tracker": "google_users",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
       "clientIp": "45.190.211.222",
       "device": {
-        "id": "EVCV1",
-        "name": "diogo"
+        "id": "7DHI2",
+        "name": "tablet"
       },
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-08-28T02:42:51.924Z",
-      "domain": "cc-api-data.adobe.io",
-      "root": "adobe.io",
+      "timestamp": "2025-08-29T02:45:30.181Z",
+      "domain": "prod-lt-playstoregatewayadapter-pa.googleapis.com",
+      "root": "prod-lt-playstoregatewayadapter-pa.googleapis.com",
+      "tracker": "googleapis.com",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
       "clientIp": "45.190.211.222",
       "device": {
-        "id": "EVCV1",
-        "name": "diogo"
+        "id": "7DHI2",
+        "name": "tablet"
       },
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-08-28T02:42:44.543Z",
-      "domain": "scontent.cdninstagram.com",
-      "root": "cdninstagram.com",
-      "tracker": "instagram_com",
+      "timestamp": "2025-08-29T02:45:30.167Z",
+      "domain": "playstoregatewayadapter-pa.googleapis.com",
+      "root": "playstoregatewayadapter-pa.googleapis.com",
+      "tracker": "googleapis.com",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
       "clientIp": "45.190.211.222",
       "device": {
-        "id": "EVCV1",
-        "name": "diogo"
+        "id": "7DHI2",
+        "name": "tablet"
       },
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-08-28T02:42:43.927Z",
-      "domain": "gateway.instagram.com",
-      "root": "instagram.com",
-      "tracker": "instagram_com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
-      "device": {
-        "id": "EVCV1",
-        "name": "diogo"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-08-28T02:42:42.675Z",
-      "domain": "instagram.fcgh52-1.fna.fbcdn.net",
-      "root": "fbcdn.net",
-      "tracker": "facebook_cdn",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
-      "device": {
-        "id": "EVCV1",
-        "name": "diogo"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-08-28T02:42:42.196Z",
-      "domain": "scontent-atl3-3.cdninstagram.com",
-      "root": "cdninstagram.com",
-      "tracker": "instagram_com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
-      "device": {
-        "id": "EVCV1",
-        "name": "diogo"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-08-28T02:42:41.234Z",
-      "domain": "i.instagram.com",
-      "root": "instagram.com",
-      "tracker": "instagram_com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
-      "device": {
-        "id": "EVCV1",
-        "name": "diogo"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-08-28T02:42:39.540Z",
+      "timestamp": "2025-08-29T02:45:30.137Z",
       "domain": "play.googleapis.com",
       "root": "play.googleapis.com",
       "tracker": "googleapis.com",
@@ -341,152 +131,65 @@
       "protocol": "DNS-over-TLS",
       "clientIp": "45.190.211.222",
       "device": {
-        "id": "EVCV1",
-        "name": "diogo"
+        "id": "7DHI2",
+        "name": "tablet"
       },
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-08-28T02:42:27.884Z",
-      "domain": "inbox.google.com",
+      "timestamp": "2025-08-29T02:45:30.119Z",
+      "domain": "play-fe.googleapis.com",
+      "root": "play-fe.googleapis.com",
+      "tracker": "googleapis.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.222",
+      "device": {
+        "id": "7DHI2",
+        "name": "tablet"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-08-29T02:45:30.101Z",
+      "domain": "android.clients.google.com",
       "root": "google.com",
       "tracker": "google",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
       "clientIp": "45.190.211.222",
       "device": {
-        "id": "EVCV1",
-        "name": "diogo"
+        "id": "7DHI2",
+        "name": "tablet"
       },
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-08-28T02:42:27.504Z",
-      "domain": "android.googleapis.com",
-      "root": "android.googleapis.com",
-      "tracker": "googleapis.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
-      "device": {
-        "id": "EVCV1",
-        "name": "diogo"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-08-28T02:42:13.397Z",
-      "domain": "login.live.com",
-      "root": "live.com",
-      "tracker": "microsoft",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
-      "device": {
-        "id": "EVCV1",
-        "name": "diogo"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-08-28T02:42:13.358Z",
-      "domain": "api.twitter.com",
-      "root": "twitter.com",
-      "tracker": "twitter",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
-      "device": {
-        "id": "EVCV1",
-        "name": "diogo"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-08-28T02:42:13.075Z",
-      "domain": "imap-mail.outlook.com",
-      "root": "outlook.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
-      "device": {
-        "id": "EVCV1",
-        "name": "diogo"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-08-28T02:42:13.006Z",
+      "timestamp": "2025-08-29T02:45:07.898Z",
       "domain": "firebaselogging.googleapis.com",
       "root": "firebaselogging.googleapis.com",
       "tracker": "googleapis.com",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
+      "clientIp": "2804:678c:c147:3300:ad06:6581:912e:6940",
       "device": {
-        "id": "EVCV1",
-        "name": "diogo"
+        "id": "1SAQF",
+        "name": "a"
       },
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-08-28T02:42:12.200Z",
-      "domain": "vanheim-service.ff.avast.com",
-      "root": "avast.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
-      "device": {
-        "id": "EVCV1",
-        "name": "diogo"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-08-28T02:42:11.548Z",
-      "domain": "alpha-lqs-service.ff.avast.com",
-      "root": "avast.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
-      "device": {
-        "id": "EVCV1",
-        "name": "diogo"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-08-28T02:41:54.643Z",
-      "domain": "pbs.twimg.com",
-      "root": "twimg.com",
-      "tracker": "twitter",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
-      "device": {
-        "id": "EVCV1",
-        "name": "diogo"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-08-28T02:41:24.460Z",
-      "domain": "semanticlocation-pa.googleapis.com",
-      "root": "semanticlocation-pa.googleapis.com",
+      "timestamp": "2025-08-29T02:45:05.012Z",
+      "domain": "people-pa.googleapis.com",
+      "root": "people-pa.googleapis.com",
       "tracker": "googleapis.com",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
+      "clientIp": "2804:678c:c147:3300:deb4:65b6:967f:e3ef",
       "device": {
         "id": "EVCV1",
         "name": "diogo"
@@ -495,12 +198,12 @@
       "reasons": []
     },
     {
-      "timestamp": "2025-08-28T02:41:19.386Z",
-      "domain": "beacons.gcp.gvt2.com",
-      "root": "gvt2.com",
+      "timestamp": "2025-08-29T02:45:00.279Z",
+      "domain": "v3.at-and.av2-14-0-45.cname.anon.bkp-auth.adguard-vpn.online",
+      "root": "adguard-vpn.online",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
+      "clientIp": "2804:678c:c147:3300:deb4:65b6:967f:e3ef",
       "device": {
         "id": "EVCV1",
         "name": "diogo"
@@ -509,13 +212,12 @@
       "reasons": []
     },
     {
-      "timestamp": "2025-08-28T02:41:13.443Z",
-      "domain": "global.dev.cftls.t.co",
-      "root": "t.co",
-      "tracker": "twitter",
+      "timestamp": "2025-08-29T02:45:00.045Z",
+      "domain": "v3.at-and.av2-14-0-45.cname.anon.bkp-api.adguard-vpn.online",
+      "root": "adguard-vpn.online",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
+      "clientIp": "2804:678c:c147:3300:deb4:65b6:967f:e3ef",
       "device": {
         "id": "EVCV1",
         "name": "diogo"
@@ -524,12 +226,13 @@
       "reasons": []
     },
     {
-      "timestamp": "2025-08-28T02:41:13.424Z",
-      "domain": "api.x.com",
-      "root": "x.com",
+      "timestamp": "2025-08-29T02:44:59.293Z",
+      "domain": "adguardteam.github.io",
+      "root": "adguardteam.github.io",
+      "tracker": "github_pages",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
+      "clientIp": "2804:678c:c147:3300:deb4:65b6:967f:e3ef",
       "device": {
         "id": "EVCV1",
         "name": "diogo"
@@ -538,89 +241,59 @@
       "reasons": []
     },
     {
-      "timestamp": "2025-08-28T02:41:12.390Z",
-      "domain": "z-m-gateway.facebook.com",
+      "timestamp": "2025-08-29T02:44:58.090Z",
+      "domain": "sb.adtidy.org",
+      "root": "adtidy.org",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "2804:678c:c147:3300:deb4:65b6:967f:e3ef",
+      "device": {
+        "id": "EVCV1",
+        "name": "diogo"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-08-29T02:44:58.043Z",
+      "domain": "filters.adtidy.org",
+      "root": "adtidy.org",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "2804:678c:c147:3300:deb4:65b6:967f:e3ef",
+      "device": {
+        "id": "EVCV1",
+        "name": "diogo"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-08-29T02:44:56.274Z",
+      "domain": "graph.facebook.com",
       "root": "facebook.com",
-      "tracker": "facebook",
+      "tracker": "facebook_graph",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
       "clientIp": "45.190.211.222",
       "device": {
-        "id": "EVCV1",
-        "name": "diogo"
+        "id": "7DHI2",
+        "name": "tablet"
       },
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-08-28T02:41:11.958Z",
-      "domain": "firebaseremoteconfig.googleapis.com",
-      "root": "firebaseremoteconfig.googleapis.com",
-      "tracker": "googleapis.com",
+      "timestamp": "2025-08-29T02:44:54.306Z",
+      "domain": "googleads.g.doubleclick.net",
+      "root": "doubleclick.net",
+      "tracker": "doubleclick",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
+      "clientIp": "2804:678c:c147:3300:ad06:6581:912e:6940",
       "device": {
-        "id": "EVCV1",
-        "name": "diogo"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-08-28T02:41:11.871Z",
-      "domain": "cc-api-data.adobe.io",
-      "root": "adobe.io",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
-      "device": {
-        "id": "EVCV1",
-        "name": "diogo"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-08-28T02:41:11.817Z",
-      "domain": "android.apis.google.com",
-      "root": "google.com",
-      "tracker": "google",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
-      "device": {
-        "id": "EVCV1",
-        "name": "diogo"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-08-28T02:41:11.643Z",
-      "domain": "crashlyticsreports-pa.googleapis.com",
-      "root": "crashlyticsreports-pa.googleapis.com",
-      "tracker": "googleapis.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
-      "device": {
-        "id": "EVCV1",
-        "name": "diogo"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-08-28T02:41:11.609Z",
-      "domain": "sdk-api-v1.singular.net",
-      "root": "singular.net",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
-      "device": {
-        "id": "EVCV1",
-        "name": "diogo"
+        "id": "1SAQF",
+        "name": "a"
       },
       "status": "blocked",
       "reasons": [
@@ -631,15 +304,151 @@
       ]
     },
     {
-      "timestamp": "2025-08-28T02:41:11.582Z",
-      "domain": "analytics.avcdn.net",
-      "root": "avcdn.net",
+      "timestamp": "2025-08-29T02:44:48.641Z",
+      "domain": "ton.twitter.com",
+      "root": "twitter.com",
+      "tracker": "twitter",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "2804:678c:c147:3300:ad06:6581:912e:6940",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-08-29T02:44:45.400Z",
+      "domain": "scontent.cdninstagram.com",
+      "root": "cdninstagram.com",
+      "tracker": "instagram_com",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
       "clientIp": "45.190.211.222",
       "device": {
+        "id": "7DHI2",
+        "name": "tablet"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-08-29T02:44:44.942Z",
+      "domain": "gateway.instagram.com",
+      "root": "instagram.com",
+      "tracker": "instagram_com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.222",
+      "device": {
+        "id": "7DHI2",
+        "name": "tablet"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-08-29T02:44:44.853Z",
+      "domain": "instagram.fcgh52-1.fna.fbcdn.net",
+      "root": "fbcdn.net",
+      "tracker": "facebook_cdn",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.222",
+      "device": {
+        "id": "7DHI2",
+        "name": "tablet"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-08-29T02:44:43.388Z",
+      "domain": "nearbysharing-pa.googleapis.com",
+      "root": "nearbysharing-pa.googleapis.com",
+      "tracker": "googleapis.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "2804:678c:c147:3300:deb4:65b6:967f:e3ef",
+      "device": {
         "id": "EVCV1",
         "name": "diogo"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-08-29T02:44:42.506Z",
+      "domain": "notifications-pa.googleapis.com",
+      "root": "notifications-pa.googleapis.com",
+      "tracker": "googleapis.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.222",
+      "device": {
+        "id": "7DHI2",
+        "name": "tablet"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-08-29T02:44:41.111Z",
+      "domain": "i.instagram.com",
+      "root": "instagram.com",
+      "tracker": "instagram_com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.222",
+      "device": {
+        "id": "7DHI2",
+        "name": "tablet"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-08-29T02:44:40.621Z",
+      "domain": "graph.facebook.com",
+      "root": "facebook.com",
+      "tracker": "facebook_graph",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "2804:678c:c147:3300:ad06:6581:912e:6940",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-08-29T02:44:39.702Z",
+      "domain": "probe.twitter.com",
+      "root": "twitter.com",
+      "tracker": "twitter",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "2804:678c:c147:3300:ad06:6581:912e:6940",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-08-29T02:44:39.643Z",
+      "domain": "ads-api.twitter.com",
+      "root": "twitter.com",
+      "tracker": "twitter",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "2804:678c:c147:3300:ad06:6581:912e:6940",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
       },
       "status": "blocked",
       "reasons": [
@@ -647,136 +456,341 @@
           "id": "blocklist:adaway",
           "name": "AdAway"
         }
-      ],
-      "matched": "analytics.ff.avast.com"
+      ]
     },
     {
-      "timestamp": "2025-08-28T02:41:11.529Z",
-      "domain": "shepherd.avcdn.net",
-      "root": "avcdn.net",
+      "timestamp": "2025-08-29T02:44:38.663Z",
+      "domain": "api.twitter.com",
+      "root": "twitter.com",
+      "tracker": "twitter",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
+      "clientIp": "2804:678c:c147:3300:ad06:6581:912e:6940",
       "device": {
-        "id": "EVCV1",
-        "name": "diogo"
+        "id": "1SAQF",
+        "name": "a"
       },
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-08-28T02:41:11.502Z",
-      "domain": "graph.facebook.com",
-      "root": "facebook.com",
-      "tracker": "facebook_graph",
+      "timestamp": "2025-08-29T02:44:38.663Z",
+      "domain": "t.co",
+      "root": "t.co",
+      "tracker": "twitter",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
+      "clientIp": "2804:678c:c147:3300:ad06:6581:912e:6940",
       "device": {
-        "id": "EVCV1",
-        "name": "diogo"
+        "id": "1SAQF",
+        "name": "a"
       },
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-08-28T02:41:11.373Z",
-      "domain": "my.microsoftpersonalcontent.com",
-      "root": "microsoftpersonalcontent.com",
+      "timestamp": "2025-08-29T02:44:38.603Z",
+      "domain": "api.x.com",
+      "root": "x.com",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
+      "clientIp": "2804:678c:c147:3300:ad06:6581:912e:6940",
       "device": {
-        "id": "EVCV1",
-        "name": "diogo"
+        "id": "1SAQF",
+        "name": "a"
       },
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-08-28T02:41:11.126Z",
-      "domain": "api.instabug.com",
-      "root": "instabug.com",
+      "timestamp": "2025-08-29T02:44:38.567Z",
+      "domain": "abs.twimg.com",
+      "root": "twimg.com",
+      "tracker": "twitter",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
+      "clientIp": "2804:678c:c147:3300:ad06:6581:912e:6940",
       "device": {
-        "id": "EVCV1",
-        "name": "diogo"
+        "id": "1SAQF",
+        "name": "a"
       },
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-08-28T02:41:11.005Z",
-      "domain": "adobecorp.data.adobedc.net",
-      "root": "adobedc.net",
+      "timestamp": "2025-08-29T02:44:38.377Z",
+      "domain": "play-fe.googleapis.com",
+      "root": "play-fe.googleapis.com",
+      "tracker": "googleapis.com",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
+      "clientIp": "2804:678c:c147:3300:ad06:6581:912e:6940",
       "device": {
-        "id": "EVCV1",
-        "name": "diogo"
+        "id": "1SAQF",
+        "name": "a"
       },
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-08-28T02:41:10.906Z",
-      "domain": "alt4-mtalk.google.com",
-      "root": "google.com",
-      "tracker": "google",
+      "timestamp": "2025-08-29T02:44:37.671Z",
+      "domain": "twitter.com",
+      "root": "twitter.com",
+      "tracker": "twitter",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
+      "clientIp": "2804:678c:c147:3300:ad06:6581:912e:6940",
       "device": {
-        "id": "EVCV1",
-        "name": "diogo"
+        "id": "1SAQF",
+        "name": "a"
       },
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-08-28T02:41:10.879Z",
-      "domain": "mobile.events.data.microsoft.com",
-      "root": "microsoft.com",
-      "tracker": "microsoft",
+      "timestamp": "2025-08-29T02:44:34.329Z",
+      "domain": "yildun.iad-03.braze.com",
+      "root": "braze.com",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
+      "clientIp": "2804:678c:c147:3300:ad06:6581:912e:6940",
       "device": {
-        "id": "EVCV1",
-        "name": "diogo"
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "blocked",
+      "reasons": [
+        {
+          "id": "blocklist:adaway",
+          "name": "AdAway"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-08-29T02:44:26.572Z",
+      "domain": "pbs.twimg.com",
+      "root": "twimg.com",
+      "tracker": "twitter",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "2804:678c:c147:3300:ad06:6581:912e:6940",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
       },
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-08-28T02:41:10.879Z",
-      "domain": "rr3---sn-ov8xaauxaxjvhcg-jbil.googlevideo.com",
+      "timestamp": "2025-08-29T02:44:26.572Z",
+      "domain": "video.twimg.com",
+      "root": "twimg.com",
+      "tracker": "twitter",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "2804:678c:c147:3300:ad06:6581:912e:6940",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-08-29T02:44:26.374Z",
+      "domain": "api-stream.twitter.com",
+      "root": "twitter.com",
+      "tracker": "twitter",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "2804:678c:c147:3300:ad06:6581:912e:6940",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-08-29T02:44:14.185Z",
+      "domain": "pubsub.googleapis.com",
+      "root": "pubsub.googleapis.com",
+      "tracker": "googleapis.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "2804:678c:c147:3300:ad06:6581:912e:6940",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-08-29T02:44:12.387Z",
+      "domain": "redirector.googlevideo.com",
       "root": "googlevideo.com",
       "tracker": "youtube",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.222",
+      "clientIp": "2804:678c:c147:3300:ad06:6581:912e:6940",
       "device": {
-        "id": "EVCV1",
-        "name": "diogo"
+        "id": "1SAQF",
+        "name": "a"
       },
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-08-28T02:41:10.878Z",
-      "domain": "nearbysharing-pa.googleapis.com",
-      "root": "nearbysharing-pa.googleapis.com",
+      "timestamp": "2025-08-29T02:44:11.927Z",
+      "domain": "notifications-pa.googleapis.com",
+      "root": "notifications-pa.googleapis.com",
+      "tracker": "googleapis.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "2804:678c:c147:3300:ad06:6581:912e:6940",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-08-29T02:44:11.340Z",
+      "domain": "suggestqueries.google.com",
+      "root": "google.com",
+      "tracker": "google",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "2804:678c:c147:3300:ad06:6581:912e:6940",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-08-29T02:43:28.924Z",
+      "domain": "edge-mqtt.facebook.com",
+      "root": "facebook.com",
+      "tracker": "facebook",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.222",
+      "device": {
+        "id": "7DHI2",
+        "name": "tablet"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-08-29T02:43:28.562Z",
+      "domain": "z-m-gateway.facebook.com",
+      "root": "facebook.com",
+      "tracker": "facebook",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.222",
+      "device": {
+        "id": "7DHI2",
+        "name": "tablet"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-08-29T02:43:27.486Z",
+      "domain": "firebaseremoteconfig.googleapis.com",
+      "root": "firebaseremoteconfig.googleapis.com",
+      "tracker": "googleapis.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "2804:678c:c147:3300:ad06:6581:912e:6940",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-08-29T02:43:09.053Z",
+      "domain": "mobilemaps-pa-gz.googleapis.com",
+      "root": "mobilemaps-pa-gz.googleapis.com",
+      "tracker": "googleapis.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "2804:678c:c147:3300:ad06:6581:912e:6940",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-08-29T02:42:59.248Z",
+      "domain": "x.com",
+      "root": "x.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.222",
+      "device": {
+        "id": "7DHI2",
+        "name": "tablet"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-08-29T02:42:55.257Z",
+      "domain": "s.youtube.com",
+      "root": "youtube.com",
+      "tracker": "youtube",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "2804:678c:c147:3300:ad06:6581:912e:6940",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-08-29T02:42:46.560Z",
+      "domain": "googleads.g.doubleclick.net",
+      "root": "doubleclick.net",
+      "tracker": "doubleclick",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.222",
+      "device": {
+        "id": "7DHI2",
+        "name": "tablet"
+      },
+      "status": "blocked",
+      "reasons": [
+        {
+          "id": "blocklist:adaway",
+          "name": "AdAway"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-08-29T02:42:35.944Z",
+      "domain": "geller-pa.googleapis.com",
+      "root": "geller-pa.googleapis.com",
       "tracker": "googleapis.com",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
       "clientIp": "45.190.211.222",
       "device": {
-        "id": "EVCV1",
-        "name": "diogo"
+        "id": "7DHI2",
+        "name": "tablet"
       },
       "status": "default",
       "reasons": []
