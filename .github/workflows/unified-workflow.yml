@@ -27,12 +27,16 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Clean orphaned Hugo submodules and references
+      # Limpeza TOTAL de submódulos/vestígios e do tema para garantir build limpo
+      - name: Remove orphaned themes, submodules and .gitmodules
         run: |
           rm -rf painel/themes/beautifulhugo themes/beautifulhugo themes/ananke painel/themes/ananke || true
           rm -f .gitmodules
           git config -f .git/config --remove-section submodule.painel/themes/beautifulhugo || true
+          git config -f .git/config --remove-section submodule.themes/beautifulhugo || true
           git config -f .git/config --remove-section submodule.themes/ananke || true
+          git rm --cached themes/beautifulhugo || true
+          git rm --cached painel/themes/beautifulhugo || true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -215,7 +219,6 @@ jobs:
           hugo -s painel --minify --cleanDestinationDir
           if [ -d "painel/public" ] && [ "$(ls -A painel/public)" ]; then
             echo "✅ painel/public directory contains files"
-            ls -la painel/public/
           else
             echo "❌ painel/public directory is empty or missing"
             exit 1
@@ -251,3 +254,4 @@ jobs:
           echo "**Date:** $(date)" >> $GITHUB_STEP_SUMMARY
           echo "**Logs Fetched:** ${{ steps.fetch-logs.outputs.success }}" >> $GITHUB_STEP_SUMMARY  
           echo "**Hugo Built:** ${{ steps.build-hugo.outcome == 'success' }}" >> $GITHUB_STEP_SUMMARY
+          
