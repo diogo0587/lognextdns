@@ -1,0 +1,11 @@
+baseURL = "https://diogo0587.github.io/lognextdns/painel/"
+languageCode = "pt-br"
+title = "NextDNS Logs Dashboard"
+theme = "beautifulhugo"
+[params]
+  description = "Dashboard de logs do NextDNS"
+  github_url = "https://github.com/diogo0587/lognextdns"
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
