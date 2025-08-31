@@ -1,57 +1,228 @@
 stages:
-  - capture
-  - enrich
-  - analyze
+  - fetch
+  - process
+  - prepare
+  - build
   - deploy
+  - cleanup
 
 variables:
-  NEXTDNS_API_KEY: "f31f2871d328a52a45fefadc09a1c67d0dd5d53d"
   NEXTDNS_PROFILE_ID: "85d564"
+  HUGO_VERSION: "0.124.1"
+  GIT_STRATEGY: fetch
+  HUGO_BASEURL: "https://<username>.gitlab.io/<repository>/painel/"
 
-capture_logs:
-  stage: capture
-  image: python:3.9
-  script:
-    - apt-get update && apt-get install -y curl jq
-    - curl -s -X GET "https://api.nextdns.io/profiles/${NEXTDNS_PROFILE_ID}/logs?raw=1" -H "X-Api-Key: ${NEXTDNS_API_KEY}" -o logs/daily_log_$(date +'%Y-%m-%d').json
-  artifacts:
-    paths:
-      - logs/
+cache:
+  paths:
+    - .cache/pip
 
-enrich_logs:
-  stage: enrich
-  image: python:3.9
-  script:
-    - pip install jq
-    - jq '.data | map(. + {"timestamp": now | todate})' logs/daily_log_$(date +'%Y-%m-%d').json > logs/enriched_daily_log_$(date +'%Y-%m-%d').json
-  needs:
-    - capture_logs
-  artifacts:
-    paths:
-      - logs/
+before_script:
+  - apk add --no-cache git curl bash python3 py3-pip
+  - pip3 install --upgrade pip requests jinja2 python-dateutil
 
-analyze_urls:
-  stage: analyze
-  image: python:3.9
+fetch_logs:
+  stage: fetch
   script:
-    - pip install jq
-    - jq -r '.[].url' logs/enriched_daily_log_$(date +'%Y-%m-%d').json > logs/urls_$(date +'%Y-%m-%d').txt
-    - cat logs/urls_$(date +'%Y-%m-%d').txt | while read url; do
-        echo "Analyzing $url";
-        # Exemplo de verificação de segurança
-        safety_response=$(curl -s --request GET --url "https://www.virustotal.com/api/v3/urls/$(echo -n $url | base64)" --header "x-apikey: YOUR_VIRUSTOTAL_API_KEY");
-        echo "Safety check: $safety_response";
-        # Adicione outras análises aqui
+    - mkdir -p data/logs
+    - |
+      TIMESTAMP=$(date +'%Y-%m-%d_%H-%M-%S')
+      SUCCESS=false
+      for attempt in 1 2 3; do
+        curl -s -f -H "X-Api-Key: $NEXTDNS_API_KEY" -H "Accept: application/json" "https://api.nextdns.io/profiles/$NEXTDNS_PROFILE_ID/logs" -o "data/logs/raw_${TIMESTAMP}.json" && SUCCESS=true && break || echo "Attempt $attempt failed"
+        sleep 10
       done
-  needs:
-    - enrich_logs
+      if [ "$SUCCESS" != "true" ]; then
+        echo "Failed to fetch NextDNS logs"
+        exit 1
+      fi
   artifacts:
     paths:
-      - logs/
+      - data/logs/
 
-deploy:
-  stage: deploy
+process_logs:
+  stage: process
+  dependencies:
+    - fetch_logs
   script:
-    - echo "Deploy step - Add your deployment scripts here"
-  needs:
-    - analyze_urls
+    - python3 <<'EOF'
+      import json
+      import os
+      from datetime import datetime
+      from collections import Counter
+      import glob
+      raw_files = glob.glob("data/logs/raw_*.json")
+      if not raw_files:
+          raise SystemExit("No raw log files found")
+      latest_raw = max(raw_files)
+      with open(latest_raw, 'r') as f:
+          logs_data = json.load(f)
+      logs = logs_data.get('data', [])
+      processed_data = {
+          'metadata': {
+              'timestamp': datetime.now().isoformat(),
+              'total_entries': len(logs),
+              'profile_id': os.getenv('NEXTDNS_PROFILE_ID'),
+              'date_range': {
+                  'start': logs[-1]['timestamp'] if logs else None,
+                  'end': logs[0]['timestamp'] if logs else None
+              }
+          },
+          'statistics': {},
+          'top_domains': {},
+          'recent_logs': logs[:50]
+      }
+      status_count = Counter(log.get('status', 'unknown') for log in logs)
+      type_count = Counter(log.get('type', 'unknown') for log in logs)
+      domain_count = Counter(log.get('name', 'unknown') for log in logs)
+      client_count = Counter(log.get('clientIp', 'unknown') for log in logs)
+      processed_data['statistics'] = {
+          'by_status': dict(status_count),
+          'by_type': dict(type_count), 
+          'by_client': dict(client_count.most_common(10)),
+          'blocked_percentage': round((status_count.get('blocked', 0) / len(logs)) * 100, 2) if logs else 0
+      }
+      processed_data['top_domains'] = {
+          'all': dict(domain_count.most_common(20)),
+          'blocked': dict(Counter(
+              log.get('name') for log in logs if log.get('status') == 'blocked'
+          ).most_common(10))
+      }
+      os.makedirs('painel/content/data', exist_ok=True)
+      with open('painel/content/data/processed_logs.json', 'w') as f:
+          json.dump(processed_data, f, indent=2)
+      with open('painel/content/data/summary.json', 'w') as f:
+          json.dump({
+              'last_update': datetime.now().isoformat(),
+              'total_queries': len(logs),
+              'blocked_queries': status_count.get('blocked', 0),
+              'allowed_queries': status_count.get('allowed', 0),
+              'blocked_percentage': processed_data['statistics']['blocked_percentage']
+          }, f, indent=2)
+      EOF
+  artifacts:
+    paths:
+      - painel/content/data/
+
+prepare_hugo:
+  stage: prepare
+  script:
+    - |
+      echo "🔧 Forçando estrutura Hugo em painel/"
+      rm -rf painel
+      mkdir -p painel/themes painel/content/{posts,pages,data} painel/layouts/{_default,partials} painel/static/{css,js}
+      cat > painel/config.toml <<EOF
+      baseURL = "$HUGO_BASEURL"
+      languageCode = "pt-br"
+      title = "NextDNS Logs Dashboard"
+      theme = "beautifulhugo"
+      [params]
+        description = "Dashboard de logs do NextDNS"
+        github_url = "https://gitlab.com/<username>/<repository>"
+      [markup]
+        [markup.goldmark]
+          [markup.goldmark.renderer]
+            unsafe = true
+      EOF
+      git clone --depth=1 https://github.com/halogenica/beautifulhugo.git painel/themes/beautifulhugo
+      cat > painel/content/_index.md <<EOF
+      ---
+      title: "NextDNS Logs Dashboard"
+      description: "Dashboard de monitoramento dos logs do NextDNS"
+      ---
+      # Dashboard NextDNS
+      Este dashboard apresenta informações em tempo real dos logs do NextDNS.
+      ## Estatísticas Recentes
+      Os dados são atualizados automaticamente via GitLab CI/CD.
+      EOF
+  artifacts:
+    paths:
+      - painel/
+
+generate_content:
+  stage: build
+  dependencies:
+    - process_logs
+    - prepare_hugo
+  script:
+    - python3 <<EOF
+      import json
+      from datetime import datetime
+      try:
+          with open('painel/content/data/processed_logs.json', 'r') as f:
+              data = json.load(f)
+      except FileNotFoundError:
+          print("❌ No processed data found")
+          exit(1)
+      stats = data['statistics']
+      domains = data['top_domains']
+      stats_content = f"""---
+      title: "Estatísticas de Logs"
+      date: {datetime.now().isoformat()}
+      draft: false
+      ---
+      # Estatísticas NextDNS
+      **Última atualização:** {data['metadata']['timestamp']}
+      ## Resumo Geral
+      - **Total de consultas:** {data['metadata']['total_entries']:,}
+      - **Consultas bloqueadas:** {stats['by_status'].get('blocked', 0):,}
+      - **Consultas permitidas:** {stats['by_status'].get('allowed', 0):,}
+      - **Taxa de bloqueio:** {stats['blocked_percentage']}%
+      ## Top 10 Domínios Mais Acessados
+      """
+      for i, (domain, count) in enumerate(domains['all'].items(), 1):
+          if i <= 10:
+              stats_content += f"{i}. **{domain}** - {count:,} consultas\n"
+      stats_content += "\n## Top 10 Domínios Bloqueados\n\n"
+      for i, (domain, count) in enumerate(domains['blocked'].items(), 1):
+          if i <= 10:
+              stats_content += f"{i}. **{domain}** - {count:,} bloqueios\n"
+      with open('painel/content/statistics.md', 'w') as f:
+          f.write(stats_content)
+      print("✅ Hugo content generated")
+      EOF
+  artifacts:
+    paths:
+      - painel/content/statistics.md
+
+build_site:
+  stage: build
+  dependencies:
+    - prepare_hugo
+    - generate_content
+  script:
+    - apk add --no-cache hugo
+    - hugo version
+    - hugo -s painel --minify --cleanDestinationDir
+    - ls -la painel/public
+  artifacts:
+    paths:
+      - painel/public
+
+commit_changes:
+  stage: deploy
+  dependencies:
+    - build_site
+  script:
+    - git config user.email "gitlab-ci@example.com"
+    - git config user.name "GitLab CI"
+    - git add painel/
+    - |
+      if git diff --staged --quiet; then
+        echo "ℹ️ No changes to commit"
+        exit 0
+      fi
+    - git commit -m "📊 Update NextDNS painel dashboard - $(date +"%Y-%m-%d %H:%M")"
+    - git push
+
+pages:
+  stage: deploy
+  dependencies:
+    - build_site
+  script:
+    - mv painel/public public
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
+    
