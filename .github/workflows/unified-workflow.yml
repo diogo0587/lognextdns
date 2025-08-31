@@ -1,42 +1,303 @@
-name: Unified Workflow
+name: NextDNS Unified Workflow
 
 on:
-  push:
-    branches:
-      - main
+  schedule:
+    - cron: '30 1 * * *'
+  workflow_dispatch:
+    inputs:
+      skip_integrations:
+        description: 'Skip external integrations (Datadog, Axiom)'
+        required: false
+        default: false
+        type: boolean
+      force_rebuild:
+        description: 'Force rebuild of Hugo site'
+        required: false  
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+env:
+  NEXTDNS_PROFILE_ID: '85d564'
+  HUGO_VERSION: '0.124.1'
 
 jobs:
-  build:
+  nextdns-pipeline:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Prepare Hugo Site and Update Theme
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: ${{ env.HUGO_VERSION }}
+          extended: true
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Python dependencies
         run: |
-          echo "Preparing Hugo Site..."
-          # Other commands here
-          cat <<EOF
-          Your content here
-          EOF
+          pip install --upgrade pip
+          pip install requests jinja2 python-dateutil
 
       - name: Fetch NextDNS Logs
+        id: fetch-logs
+        env:
+          NEXTDNS_API_KEY: ${{ secrets.NEXTDNS_API_KEY }}
         run: |
-          echo "Fetching logs..."
-          if [ ! -f "$GITHUB_OUTPUT" ]; then
-            echo 'GITHUB_OUTPUT not found.'
+          mkdir -p data/logs
+          DATE=$(date +'%Y-%m-%d')
+          TIMESTAMP=$(date +'%Y-%m-%d_%H-%M-%S')
+          echo "🔄 Fetching NextDNS logs..."
+          for attempt in 1 2 3; do
+            if curl -s -f \
+              -H "X-Api-Key: ${NEXTDNS_API_KEY}" \
+              -H "Accept: application/json" \
+              "https://api.nextdns.io/profiles/${NEXTDNS_PROFILE_ID}/logs" \
+              -o "data/logs/raw_${TIMESTAMP}.json"; then
+              echo "✅ Logs fetched successfully"
+              echo "success=true" >> $GITHUB_OUTPUT
+              exit 0
+            else
+              echo "❌ Attempt $attempt failed"
+              if [ $attempt -eq 3 ]; then
+                echo "❌ Failed to fetch logs after 3 attempts"
+                echo "success=false" >> $GITHUB_OUTPUT
+                exit 0
+              fi
+              sleep 10
+            fi
+          done
+
+      - name: Process and Analyze Logs  
+        if: steps.fetch-logs.outputs.success == 'true'
+        run: |
+          python3 << 'EOF'
+          import json
+          import os
+          from datetime import datetime
+          from collections import Counter
+          import glob
+          raw_files = glob.glob("data/logs/raw_*.json")
+          if not raw_files:
+              print("❌ No raw log files found")
+              exit(1)
+          latest_raw = max(raw_files)
+          print(f"📖 Processing {latest_raw}")
+          with open(latest_raw, 'r') as f:
+              logs_data = json.load(f)
+          if 'data' not in logs_data:
+              print("❌ Invalid log structure")
+              exit(1)
+          logs = logs_data['data']
+          print(f"📊 Processing {len(logs)} log entries")
+          processed_data = {
+              'metadata': {
+                  'timestamp': datetime.now().isoformat(),
+                  'total_entries': len(logs),
+                  'profile_id': os.environ.get('NEXTDNS_PROFILE_ID'),
+                  'date_range': {
+                      'start': logs[-1]['timestamp'] if logs else None,
+                      'end': logs[0]['timestamp'] if logs else None
+                  }
+              },
+              'statistics': {},
+              'top_domains': {},
+              'recent_logs': logs[:50]
+          }
+          status_count = Counter(log.get('status', 'unknown') for log in logs)
+          type_count = Counter(log.get('type', 'unknown') for log in logs)
+          domain_count = Counter(log.get('name', 'unknown') for log in logs)
+          client_count = Counter(log.get('clientIp', 'unknown') for log in logs)
+          processed_data['statistics'] = {
+              'by_status': dict(status_count),
+              'by_type': dict(type_count), 
+              'by_client': dict(client_count.most_common(10)),
+              'blocked_percentage': round((status_count.get('blocked', 0) / len(logs)) * 100, 2) if logs else 0
+          }
+          processed_data['top_domains'] = {
+              'all': dict(domain_count.most_common(20)),
+              'blocked': dict(Counter(
+                  log.get('name') for log in logs 
+                  if log.get('status') == 'blocked'
+              ).most_common(10))
+          }
+          os.makedirs('painel/content/data', exist_ok=True)
+          with open('painel/content/data/processed_logs.json', 'w') as f:
+              json.dump(processed_data, f, indent=2)
+          with open('painel/content/data/summary.json', 'w') as f:
+              json.dump({
+                  'last_update': datetime.now().isoformat(),
+                  'total_queries': len(logs),
+                  'blocked_queries': status_count.get('blocked', 0),
+                  'allowed_queries': status_count.get('allowed', 0),
+                  'blocked_percentage': processed_data['statistics']['blocked_percentage']
+              }, f, indent=2)
+          print("✅ Log processing completed")
+          EOF
+
+      - name: Check and Bootstrap Hugo Structure (painel/)
+        run: |
+          set -e
+          echo "🔧 Forçando estrutura do Hugo em painel/..."
+          # Remove tudo se algo está errado/não existe (garante limpeza)
+          [ -f painel/config.toml ] || rm -rf painel
+          mkdir -p painel/themes painel/content/{posts,pages} painel/layouts/{_default,partials} painel/static/{css,js} painel/content/data
+          # Cria config.toml novo sempre (garante que nunca falta nem está corrompido)
+          cat > painel/config.toml <<'ENDCONF'
+          baseURL = "https://diogo0587.github.io/lognextdns/painel/"
+          languageCode = "pt-br"
+          title = "NextDNS Logs Dashboard"
+          theme = "beautifulhugo"
+          [params]
+            description = "Dashboard de logs do NextDNS"
+            github_url = "https://github.com/diogo0587/lognextdns"
+          [markup]
+            [markup.goldmark]
+              [markup.goldmark.renderer]
+                unsafe = true
+          ENDCONF
+          # Baixa sempre o tema correto (garante atualização e ausência de corrupção)
+          rm -rf painel/themes/beautifulhugo
+          git clone https://github.com/halogenica/beautifulhugo.git painel/themes/beautifulhugo
+          # Página principal
+          cat > painel/content/_index.md <<'ENDINDEX'
+          ---
+          title: "NextDNS Logs Dashboard"
+          description: "Dashboard de monitoramento dos logs do NextDNS"
+          ---
+          # Dashboard NextDNS
+          Este dashboard apresenta informações em tempo real dos logs do NextDNS.
+          ## Estatísticas Recentes
+          Os dados são atualizados automaticamente via GitHub Actions.
+          ENDINDEX
+          echo "✅ Estrutura Hugo em painel/ corrigida e pronta!"
+
+      - name: Generate Hugo Content from Logs (painel/)
+        if: steps.fetch-logs.outputs.success == 'true'
+        run: |
+          python3 << 'EOF'
+          import json
+          from datetime import datetime
+          try:
+              with open('painel/content/data/processed_logs.json', 'r') as f:
+                  data = json.load(f)
+          except FileNotFoundError:
+              print("❌ No processed data found")
+              exit(1)
+          stats = data['statistics']
+          domains = data['top_domains']
+          stats_content = f"""---
+          title: "Estatísticas de Logs"
+          date: {datetime.now().isoformat()}
+          draft: false
+          ---
+          # Estatísticas NextDNS
+          **Última atualização:** {data['metadata']['timestamp']}
+          ## Resumo Geral
+          - **Total de consultas:** {data['metadata']['total_entries']:,}
+          - **Consultas bloqueadas:** {stats['by_status'].get('blocked', 0):,}
+          - **Consultas permitidas:** {stats['by_status'].get('allowed', 0):,}
+          - **Taxa de bloqueio:** {stats['blocked_percentage']}%
+          ## Top 10 Domínios Mais Acessados
+          """
+          for i, (domain, count) in enumerate(domains['all'].items(), 1):
+              if i <= 10:
+                  stats_content += f"{i}. **{domain}** - {count:,} consultas\n"
+          stats_content += "\n## Top 10 Domínios Bloqueados\n\n"
+          for i, (domain, count) in enumerate(domains['blocked'].items(), 1):
+              if i <= 10:
+                  stats_content += f"{i}. **{domain}** - {count:,} bloqueios\n"
+          with open('painel/content/statistics.md', 'w') as f:
+              f.write(stats_content)
+          print("✅ Hugo content generated")
+          EOF
+
+      - name: Build Hugo Site (painel/)
+        id: build-hugo
+        if: steps.fetch-logs.outputs.success == 'true' || github.event.inputs.force_rebuild == 'true'
+        run: |
+          echo "🔨 Building Hugo site in painel/"
+          hugo -s painel --minify --cleanDestinationDir
+          if [ -d "painel/public" ] && [ "$(ls -A painel/public)" ]; then
+            echo "✅ painel/public directory contains files"
+            ls -la painel/public/
+          else
+            echo "❌ painel/public directory is empty or missing"
             exit 1
           fi
 
       - name: Commit Changes
+        if: steps.fetch-logs.outputs.success == 'true'
         run: |
-          git config --local user.email "you@example.com"
-          git config --local user.name "Your Name"
-          git add content/ data/ public/ config.toml
-          git commit -m "Your commit message"
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add painel/
+          if git diff --staged --quiet; then
+            echo "ℹ️  No changes to commit"
+          else
+            git commit -m "📊 Update NextDNS logs and painel dashboard - $(date +'%Y-%m-%d %H:%M')" \
+                         -m "- Fetched and processed latest NextDNS logs" \
+                         -m "- Updated Hugo painel dashboard"
+            git push
+            echo "✅ Changes committed and pushed"
+          fi
 
-      - name: Check Datadog Output
+      - name: Deploy to GitHub Pages (painel/public)
+        if: steps.build-hugo.outcome == 'success'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./painel/public
+          force_orphan: true
+          commit_message: "🚀 Deploy NextDNS painel dashboard - $(date +'%Y-%m-%d %H:%M')"
+
+      - name: Cleanup Old Files
         run: |
-          echo "Checking Datadog output..."
-          # Robust check here
+          find data/logs -name "raw_*.json" -type f | sort -r | tail -n +6 | xargs rm -f || true
+          echo "🧹 Cleanup completed"
+
+      - name: Workflow Summary
+        if: always()
+        run: |
+          echo "## 📊 NextDNS Unified Workflow Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Date:** $(date)" >> $GITHUB_STEP_SUMMARY
+          echo "**Logs Fetched:** ${{ steps.fetch-logs.outputs.success }}" >> $GITHUB_STEP_SUMMARY  
+          echo "**Hugo Built:** ${{ steps.build-hugo.outcome == 'success' }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.fetch-logs.outputs.success }}" == "true" ]; then
+            if [ -f "painel/content/data/summary.json" ]; then
+              echo "### 📈 Statistics" >> $GITHUB_STEP_SUMMARY
+              python3 -c "
+          import json
+          with open('painel/content/data/summary.json', 'r') as f:
+              data = json.load(f)
+          print(f'- Total Queries: {data[\"total_queries\"]:,}')
+          print(f'- Blocked: {data[\"blocked_queries\"]:,}')  
+          print(f'- Block Rate: {data[\"blocked_percentage\"]}%')
+          " >> $GITHUB_STEP_SUMMARY
+            fi
+          else
+            echo "❌ Log fetching failed - check NextDNS API key and connectivity" >> $GITHUB_STEP_SUMMARY
+          fi
+
