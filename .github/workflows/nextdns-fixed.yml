@@ -1,4 +1,4 @@
-name: NextDNS Log Sync
+'ae4ceb': NextDNS Log Sync
 
 on:
   schedule:
@@ -9,7 +9,7 @@ permissions:
   contents: write
   
 env:
-  NEXTDNS_PROFILE_ID: 'ae4ceb'
+  NEXTDNS_PROFILE_ID: '85d564'
 
 jobs:
   sync-logs:
