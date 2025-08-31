@@ -145,24 +145,24 @@ jobs:
                   "Full JSON Raw": json.dumps(log, ensure_ascii=False)
               })
 
-          # Gera a página Hugo em Markdown
+          # Gera o header para o Hugo sem aspas triplas (evita erro de YAML)
           post_date = datetime.now().strftime('%Y-%m-%dT%H-%M-%S')
           hugo_dir = 'content/posts'
           os.makedirs(hugo_dir, exist_ok=True)
           md_path = f"{hugo_dir}/nextdns-logs-{post_date}.md"
-
-          header = f"""+++
-title = "NextDNS Logs {post_date}"
-date = "{post_date}"
-draft = false
-tags = ["nextdns", "logs", "dns"]
-categories = ["dns"]
-+++\n
-"""
+          header = (
+              "+++\n"
+              f'title = "NextDNS Logs {post_date}"\n'
+              f'date = "{post_date}"\n'
+              "draft = false\n"
+              'tags = ["nextdns", "logs", "dns"]\n'
+              'categories = ["dns"]\n'
+              "+++\n\n"
+          )
 
           with open(md_path, "w", encoding="utf-8") as mdfile:
               mdfile.write(header)
-              mdfile.write("\n# NextDNS Logs Detalhados\n\n")
+              mdfile.write("# NextDNS Logs Detalhados\n\n")
               for log in processed_logs:
                   mdfile.write(f"## {log['Domain']}\n")
                   for k, v in log.items():
@@ -188,3 +188,4 @@ categories = ["dns"]
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
+          
