@@ -1,4 +1,4 @@
-name: NextDNS Unified Workflow
+name: NextDNS Painel - Build & Deploy
 
 on:
   schedule:
@@ -16,26 +16,16 @@ env:
   BASEURL: "https://diogo0587.github.io/lognextdns/painel/"
 
 jobs:
-  nextdns-pipeline:
+  nextdns-painel:
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Remove orphaned themes and submodules
-        run: |
-          rm -rf painel/themes/beautifulhugo themes/beautifulhugo themes/ananke painel/themes/ananke || true
-          rm -f .gitmodules
-          git config -f .git/config --remove-section submodule.painel/themes/beautifulhugo || true
-          git config -f .git/config --remove-section submodule.themes/beautifulhugo || true
-          git config -f .git/config --remove-section submodule.themes/ananke || true
-          git rm --cached themes/beautifulhugo || true
-          git rm --cached painel/themes/beautifulhugo || true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -144,10 +134,11 @@ jobs:
               }, f, indent=2)
           EOF
 
-      - name: Check and Bootstrap Hugo Structure (painel/)
+      - name: Bootstrap Hugo Structure and Download Theme
         run: |
           rm -rf painel/themes
           mkdir -p painel/themes painel/content/{posts,pages,data} painel/layouts/{_default,partials} painel/static/{css,js}
+          git clone --depth=1 https://github.com/halogenica/beautifulhugo.git painel/themes/beautifulhugo
           cat > painel/config.toml <<EOF
           baseURL = "${BASEURL}"
           languageCode = "pt-br"
@@ -161,7 +152,6 @@ jobs:
               [markup.goldmark.renderer]
                 unsafe = true
           EOF
-          git clone --depth=1 https://github.com/halogenica/beautifulhugo.git painel/themes/beautifulhugo
           cat > painel/content/_index.md <<EOF
           ---
           title: "NextDNS Logs Dashboard"
