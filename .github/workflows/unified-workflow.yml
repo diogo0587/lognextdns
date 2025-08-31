@@ -27,8 +27,7 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      # Limpeza TOTAL de submódulos/vestígios e do tema para garantir build limpo
-      - name: Remove orphaned themes, submodules and .gitmodules
+      - name: Remove orphaned themes and submodules
         run: |
           rm -rf painel/themes/beautifulhugo themes/beautifulhugo themes/ananke painel/themes/ananke || true
           rm -f .gitmodules
@@ -85,7 +84,7 @@ jobs:
             fi
           done
 
-      - name: Process and Analyze Logs  
+      - name: Process and Analyze Logs
         if: steps.fetch-logs.outputs.success == 'true'
         run: |
           python3 <<'EOF'
@@ -252,6 +251,6 @@ jobs:
         run: |
           echo "## 📊 NextDNS Unified Workflow Summary" >> $GITHUB_STEP_SUMMARY
           echo "**Date:** $(date)" >> $GITHUB_STEP_SUMMARY
-          echo "**Logs Fetched:** ${{ steps.fetch-logs.outputs.success }}" >> $GITHUB_STEP_SUMMARY  
+          echo "**Logs Fetched:** ${{ steps.fetch-logs.outputs.success }}" >> $GITHUB_STEP_SUMMARY
           echo "**Hugo Built:** ${{ steps.build-hugo.outcome == 'success' }}" >> $GITHUB_STEP_SUMMARY
           
