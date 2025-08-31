@@ -27,12 +27,12 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      # Limpa resíduos e temas órfãos (incl. ananke)
-      - name: Remove orphaned themes/submodules
+      - name: Clean orphaned Hugo submodules and references
         run: |
-          rm -rf painel/themes/ananke themes/ananke themes/*ananke* || true
-          rm -rf painel
-          mkdir -p painel
+          rm -rf painel/themes/beautifulhugo themes/beautifulhugo themes/ananke painel/themes/ananke || true
+          rm -f .gitmodules
+          git config -f .git/config --remove-section submodule.painel/themes/beautifulhugo || true
+          git config -f .git/config --remove-section submodule.themes/ananke || true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -251,4 +251,3 @@ jobs:
           echo "**Date:** $(date)" >> $GITHUB_STEP_SUMMARY
           echo "**Logs Fetched:** ${{ steps.fetch-logs.outputs.success }}" >> $GITHUB_STEP_SUMMARY  
           echo "**Hugo Built:** ${{ steps.build-hugo.outcome == 'success' }}" >> $GITHUB_STEP_SUMMARY
-          
