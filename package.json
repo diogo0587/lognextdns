@@ -8,8 +8,5 @@
   },
   "keywords": [],
   "author": "diogo0587",
-  "license": "ISC",
-  "devDependencies": {
-    "hugo-cli": "^0.89.0"
-  }
+  "license": "ISC"
 }
