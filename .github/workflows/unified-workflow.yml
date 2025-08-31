@@ -159,10 +159,8 @@ jobs:
         run: |
           set -e
           echo "🔧 Forçando estrutura do Hugo em painel/..."
-          # Remove tudo se algo está errado/não existe (garante limpeza)
-          [ -f painel/config.toml ] || rm -rf painel
-          mkdir -p painel/themes painel/content/{posts,pages} painel/layouts/{_default,partials} painel/static/{css,js} painel/content/data
-          # Cria config.toml novo sempre (garante que nunca falta nem está corrompido)
+          rm -rf painel
+          mkdir -p painel/themes painel/content/{posts,pages,data} painel/layouts/{_default,partials} painel/static/{css,js}
           cat > painel/config.toml <<'ENDCONF'
           baseURL = "https://diogo0587.github.io/lognextdns/painel/"
           languageCode = "pt-br"
@@ -176,10 +174,7 @@ jobs:
               [markup.goldmark.renderer]
                 unsafe = true
           ENDCONF
-          # Baixa sempre o tema correto (garante atualização e ausência de corrupção)
-          rm -rf painel/themes/beautifulhugo
-          git clone https://github.com/halogenica/beautifulhugo.git painel/themes/beautifulhugo
-          # Página principal
+          git clone --depth=1 https://github.com/halogenica/beautifulhugo.git painel/themes/beautifulhugo
           cat > painel/content/_index.md <<'ENDINDEX'
           ---
           title: "NextDNS Logs Dashboard"
@@ -254,13 +249,11 @@ jobs:
           git add painel/
           if git diff --staged --quiet; then
             echo "ℹ️  No changes to commit"
-          else
-            git commit -m "📊 Update NextDNS logs and painel dashboard - $(date +'%Y-%m-%d %H:%M')" \
-                         -m "- Fetched and processed latest NextDNS logs" \
-                         -m "- Updated Hugo painel dashboard"
-            git push
-            echo "✅ Changes committed and pushed"
+            exit 0
           fi
+          git commit -m "📊 Update NextDNS painel dashboard - $(date +'%Y-%m-%d %H:%M')"
+          git push
+          echo "✅ Changes committed and pushed"
 
       - name: Deploy to GitHub Pages (painel/public)
         if: steps.build-hugo.outcome == 'success'
@@ -300,4 +293,4 @@ jobs:
           else
             echo "❌ Log fetching failed - check NextDNS API key and connectivity" >> $GITHUB_STEP_SUMMARY
           fi
-
+          
