@@ -1,0 +1,190 @@
+name: Check Notion Database and Process Logs
+
+on:
+  push:
+    branches:
+      - main
+      - release/*
+
+jobs:
+  process_logs:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Process logs, sync Notion, and generate Hugo markdown
+        run: |
+          python - <<EOF
+          import requests
+          import os
+          import json
+          from datetime import datetime
+
+          # VARIÁVEIS ORIGINAIS DO USUÁRIO
+          NOTION_API_KEY = 'ntn_G89151370362xFd0vbIxGyRniZndeBtI9z3HgYgt7Z6fvY'
+          NEXTDNS_API_KEY = 'f31f2871d328a52a45fefadc09a1c67d0dd5d53d'
+          NEXTDNS_PROFILE_ID = '85d564'
+          NOTION_DATABASE_ID = '15921362320c806b8a99d04cf87147c2'
+
+          NOTION_HEADERS = {
+              'Authorization': f'Bearer {NOTION_API_KEY}',
+              'Content-Type': 'application/json',
+              'Notion-Version': '2022-06-28'
+          }
+
+          def check_database_exists(db_id):
+              url = f'https://api.notion.com/v1/databases/{db_id}'
+              response = requests.get(url, headers=NOTION_HEADERS)
+              if response.status_code == 200:
+                  print("Banco de dados já existe.")
+                  return True
+              else:
+                  print(f"Banco de dados não encontrado ou erro na verificação: {response.text}")
+                  return False
+
+          def create_database():
+              url = 'https://api.notion.com/v1/databases'
+              data = {
+                  "parent": {"type": "page_id", "page_id": "16421362320c80acaf6a000c4fd3f582"},
+                  "title": [{"type": "text", "text": {"content": "Logs NextDNS"}}],
+                  "properties": {
+                      "Domain": {"url": {}},
+                      "Timestamp": {"date": {}},
+                      "Status": {"select": {
+                          "options": [
+                              {"name": "Blocked", "color": "red"},
+                              {"name": "Allowed", "color": "green"}
+                          ]
+                      }},
+                      "Protocol": {"select": {}}
+                  }
+              }
+              response = requests.post(url, headers=NOTION_HEADERS, json=data)
+              if response.status_code == 200:
+                  print("Banco de dados criado com sucesso.")
+                  return response.json()['id']
+              elif response.status_code == 401:
+                  raise Exception("Unauthorized: Please check your NOTION_API_KEY.")
+              else:
+                  raise Exception(f"Falha ao criar o banco de dados: {response.text}")
+
+          def add_entry(domain, timestamp, status, protocol):
+              data = {
+                  "parent": {"database_id": NOTION_DATABASE_ID},
+                  "properties": {
+                      "Domain": {"url": domain},
+                      "Timestamp": {"date": {"start": timestamp}},
+                      "Status": {"select": {"name": status}},
+                      "Protocol": {"select": {"name": protocol}}
+                  }
+              }
+              response = requests.post('https://api.notion.com/v1/pages', headers=NOTION_HEADERS, json=data)
+              if response.status_code == 200:
+                  print(f"Entrada adicionada com sucesso para o domínio {domain}.")
+                  return True
+              else:
+                  print(f"Falha ao adicionar entrada: {response.text}")
+                  return False
+
+          def fetch_nextdns_logs():
+              url = f'https://api.nextdns.io/profiles/{NEXTDNS_PROFILE_ID}/logs'
+              headers = {'X-Api-Key': NEXTDNS_API_KEY}
+              response = requests.get(url, headers=headers)
+              if response.status_code == 200:
+                  print("Logs do NextDNS obtidos com sucesso.")
+                  return response.json().get('data', [])
+              else:
+                  raise Exception(f"Falha ao obter logs do NextDNS: {response.text}")
+
+          # Lógica principal
+          if not check_database_exists(NOTION_DATABASE_ID):
+              print("Banco de dados não encontrado. Criando um novo...")
+              NOTION_DATABASE_ID = create_database()
+              print(f"Novo banco de dados criado com ID: {NOTION_DATABASE_ID}")
+
+          logs = fetch_nextdns_logs()
+          processed_logs = []
+          for log in logs:
+              domain = log.get('domain', 'N/A')
+              timestamp = log.get('timestamp', '')
+              status = log.get('status', 'Allowed' if log.get('allowed') else 'Blocked')
+              protocol = log.get('protocol', 'N/A')
+
+              add_entry(domain, timestamp, status, protocol)
+
+              # Junta todos os campos extras, se existirem
+              processed_logs.append({
+                  "Domain": domain,
+                  "Timestamp": timestamp,
+                  "Status": status,
+                  "Protocol": protocol,
+                  "Client IP": log.get('client_ip', ''),
+                  "Device Name": log.get('device_name', ''),
+                  "Device Model": log.get('device_model', ''),
+                  "Device ID": log.get('device_id', ''),
+                  "Root Domain": log.get('root_domain', ''),
+                  "Query Type": log.get('query_type', ''),
+                  "Category": ', '.join(log.get('categories', [])),
+                  "Location": log.get('location', ''),
+                  "Action Reason": log.get('reason', ''),
+                  "Destination Country": log.get('destination_country', ''),
+                  "Blocked List": log.get('blocked_list', ''),
+                  "Allowed Reason": log.get('allowed_reason', ''),
+                  "Device Tags": ', '.join(log.get('device_tags', [])),
+                  "Full JSON Raw": json.dumps(log, ensure_ascii=False)
+              })
+
+          # Gera a página Hugo em Markdown
+          post_date = datetime.now().strftime('%Y-%m-%dT%H-%M-%S')
+          hugo_dir = 'content/posts'
+          os.makedirs(hugo_dir, exist_ok=True)
+          md_path = f"{hugo_dir}/nextdns-logs-{post_date}.md"
+
+          header = f"""+++
+title = "NextDNS Logs {post_date}"
+date = "{post_date}"
+draft = false
+tags = ["nextdns", "logs", "dns"]
+categories = ["dns"]
++++\n
+"""
+
+          with open(md_path, "w", encoding="utf-8") as mdfile:
+              mdfile.write(header)
+              mdfile.write("\n# NextDNS Logs Detalhados\n\n")
+              for log in processed_logs:
+                  mdfile.write(f"## {log['Domain']}\n")
+                  for k, v in log.items():
+                      if k != "Full JSON Raw" and v:
+                          mdfile.write(f"- **{k}:** {v}\n")
+                  mdfile.write("```
+                  mdfile.write(f"{log['Full JSON Raw']}\n")
+                  mdfile.write("```\n\n")
+          print(f"Página Hugo gerada: {md_path}")
+          EOF
+
+      - name: Build Hugo site
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: Build site
+        run: hugo
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
