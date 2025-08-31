@@ -1,4 +1,4 @@
-'ae4ceb': NextDNS Log Sync
+# NextDNS Log Sync
 
 on:
   schedule:
