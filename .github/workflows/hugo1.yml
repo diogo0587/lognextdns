@@ -34,8 +34,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-build-
 
-      - name: Install dependencies
-        run: npm install
 
       - name: Build Hugo site
         run: hugo --minify
