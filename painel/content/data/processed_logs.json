@@ -1,235 +1,446 @@
 {
   "metadata": {
-    "timestamp": "2025-09-04T02:40:38.553261",
+    "timestamp": "2025-09-05T02:43:31.171354",
     "total_entries": 100,
     "profile_id": "85d564",
     "date_range": {
-      "start": "2025-09-04T02:37:05.927Z",
-      "end": "2025-09-04T02:40:26.088Z"
+      "start": "2025-09-05T02:38:55.231Z",
+      "end": "2025-09-05T02:43:25.287Z"
     }
   },
   "statistics": {
     "by_status": {
-      "default": 79,
-      "blocked": 21
+      "default": 92,
+      "blocked": 8
     },
     "by_type": {
       "unknown": 100
     },
     "by_client": {
-      "45.190.211.186": 74,
-      "2804:678c:c150:ea00:64:9a5f:b475:3496": 26
+      "45.190.211.186": 100
     },
-    "blocked_percentage": 21.0
+    "blocked_percentage": 8.0
   },
   "top_domains": {
     "all": {
       "unknown": 100
     },
     "blocked": {
-      "null": 21
+      "null": 8
     }
   },
   "recent_logs": [
     {
-      "timestamp": "2025-09-04T02:40:26.088Z",
-      "domain": "youtubei.googleapis.com",
-      "root": "youtubei.googleapis.com",
-      "tracker": "googleapis.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c150:ea00:64:9a5f:b475:3496",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-09-04T02:39:47.322Z",
-      "domain": "lookaside.facebook.com",
-      "root": "facebook.com",
-      "tracker": "facebook",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.186",
-      "device": {
-        "id": "7DHI2",
-        "name": "tablet"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-09-04T02:39:47.321Z",
-      "domain": "cdn.fbsbx.com",
-      "root": "fbsbx.com",
-      "tracker": "facebook_cdn",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.186",
-      "device": {
-        "id": "7DHI2",
-        "name": "tablet"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-09-04T02:39:36.730Z",
-      "domain": "s.youtube.com",
-      "root": "youtube.com",
-      "tracker": "youtube",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c150:ea00:64:9a5f:b475:3496",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-09-04T02:39:20.483Z",
-      "domain": "g.whatsapp.net",
-      "root": "whatsapp.net",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c150:ea00:64:9a5f:b475:3496",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-09-04T02:39:19.413Z",
-      "domain": "2.android.pool.ntp.org",
-      "root": "ntp.org",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c150:ea00:64:9a5f:b475:3496",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-09-04T02:39:16.895Z",
-      "domain": "ws-pro-pull.kwai.net",
-      "root": "kwai.net",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.186",
-      "device": {
-        "id": "7DHI2",
-        "name": "tablet"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "denylist",
-          "name": "Denylist"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-09-04T02:39:15.918Z",
-      "domain": "www.googleapis.com",
-      "root": "www.googleapis.com",
-      "tracker": "googleapis.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.186",
-      "device": {
-        "id": "7DHI2",
-        "name": "tablet"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-09-04T02:39:14.902Z",
-      "domain": "ulog.kwai-pro.com",
-      "root": "kwai-pro.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.186",
-      "device": {
-        "id": "7DHI2",
-        "name": "tablet"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-09-04T02:39:14.902Z",
-      "domain": "zt-live.kwai-pro.com",
-      "root": "kwai-pro.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.186",
-      "device": {
-        "id": "7DHI2",
-        "name": "tablet"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-09-04T02:39:14.902Z",
-      "domain": "tx-pro-pull.kwai.net",
-      "root": "kwai.net",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.186",
-      "device": {
-        "id": "7DHI2",
-        "name": "tablet"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "denylist",
-          "name": "Denylist"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-09-04T02:39:14.902Z",
+      "timestamp": "2025-09-05T02:43:25.287Z",
       "domain": "zt-live.kwaipros.com",
       "root": "kwaipros.com",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
       "clientIp": "45.190.211.186",
       "device": {
-        "id": "7DHI2",
-        "name": "tablet"
+        "id": "1SAQF",
+        "name": "a"
       },
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-09-04T02:39:14.691Z",
+      "timestamp": "2025-09-05T02:43:25.269Z",
+      "domain": "t-ulog-pro.kwaipros.com",
+      "root": "kwaipros.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:43:25.269Z",
       "domain": "t-ulogl2.kwaipros.com",
       "root": "kwaipros.com",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
       "clientIp": "45.190.211.186",
       "device": {
-        "id": "7DHI2",
-        "name": "tablet"
+        "id": "1SAQF",
+        "name": "a"
       },
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-09-04T02:39:12.737Z",
+      "timestamp": "2025-09-05T02:43:25.269Z",
+      "domain": "t-ulog-pro.kwai-pro.com",
+      "root": "kwai-pro.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:43:25.269Z",
+      "domain": "t-ulogl2.kwai-pro.com",
+      "root": "kwai-pro.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:43:25.263Z",
+      "domain": "t-apil2.kwai-pro.com",
+      "root": "kwai-pro.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:43:25.263Z",
+      "domain": "t-api-pro.kwai-pro.com",
+      "root": "kwai-pro.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:43:25.248Z",
+      "domain": "t-api-pro.adaether.com",
+      "root": "adaether.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:43:25.239Z",
+      "domain": "kix-ulogl2.kwaipros.com",
+      "root": "kwaipros.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:43:25.231Z",
+      "domain": "kix-apil2.kwai-pro.com",
+      "root": "kwai-pro.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:43:25.209Z",
+      "domain": "az3-apil2-kixpro.kwai-pro.com",
+      "root": "kwai-pro.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:43:25.209Z",
+      "domain": "az3-apil2-txpro.kwai-pro.com",
+      "root": "kwai-pro.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:43:25.204Z",
+      "domain": "az3-api-akpro.kwai-pro.com",
+      "root": "kwai-pro.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:43:25.203Z",
+      "domain": "az3-apil2-akpro.kwaipros.com",
+      "root": "kwaipros.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:43:25.203Z",
+      "domain": "az3-api-txpro.kwai-pro.com",
+      "root": "kwai-pro.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:43:25.184Z",
+      "domain": "az2-apil2-kixpro.kwai-pro.com",
+      "root": "kwai-pro.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:43:25.184Z",
+      "domain": "az2-apil2-txpro.kwai-pro.com",
+      "root": "kwai-pro.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:43:25.179Z",
+      "domain": "az2-apil2-akpro.kwaipros.com",
+      "root": "kwaipros.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:43:25.158Z",
+      "domain": "az1-apil2-txpro.kwai-pro.com",
+      "root": "kwai-pro.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:43:25.158Z",
+      "domain": "az1-apil2-kixpro.kwai-pro.com",
+      "root": "kwai-pro.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:43:25.158Z",
+      "domain": "az1-api-txpro.kwai-pro.com",
+      "root": "kwai-pro.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:43:25.158Z",
+      "domain": "az1-apil2-akpro.kwaipros.com",
+      "root": "kwaipros.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:43:25.153Z",
+      "domain": "az1-api-akpro.kwai-pro.com",
+      "root": "kwai-pro.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:43:25.009Z",
+      "domain": "az2-api-txpro.kwai-pro.com",
+      "root": "kwai-pro.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:43:12.688Z",
+      "domain": "ta-amp-news.de",
+      "root": "ta-amp-news.de",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:43:01.378Z",
+      "domain": "graph.instagram.com",
+      "root": "instagram.com",
+      "tracker": "instagram_com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:42:38.816Z",
+      "domain": "mobile.events.data.microsoft.com",
+      "root": "microsoft.com",
+      "tracker": "microsoft",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:42:37.565Z",
+      "domain": "config.edge.skype.com",
+      "root": "skype.com",
+      "tracker": "skype",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:42:19.945Z",
+      "domain": "filters.adtidy.org",
+      "root": "adtidy.org",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:42:18.634Z",
       "domain": "t-ulogl2.kwai-pro.com",
       "root": "kwai-pro.com",
       "encrypted": true,
@@ -243,35 +454,7 @@
       "reasons": []
     },
     {
-      "timestamp": "2025-09-04T02:39:12.736Z",
-      "domain": "t-ulog-pro.kwaipros.com",
-      "root": "kwaipros.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.186",
-      "device": {
-        "id": "7DHI2",
-        "name": "tablet"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-09-04T02:39:12.736Z",
-      "domain": "t-ulog-pro.kwai-pro.com",
-      "root": "kwai-pro.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.186",
-      "device": {
-        "id": "7DHI2",
-        "name": "tablet"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-09-04T02:39:12.566Z",
+      "timestamp": "2025-09-05T02:42:18.627Z",
       "domain": "t-apil2.kwai-pro.com",
       "root": "kwai-pro.com",
       "encrypted": true,
@@ -285,7 +468,7 @@
       "reasons": []
     },
     {
-      "timestamp": "2025-09-04T02:39:12.566Z",
+      "timestamp": "2025-09-05T02:42:18.627Z",
       "domain": "t-api-pro.kwai-pro.com",
       "root": "kwai-pro.com",
       "encrypted": true,
@@ -299,7 +482,7 @@
       "reasons": []
     },
     {
-      "timestamp": "2025-09-04T02:39:12.487Z",
+      "timestamp": "2025-09-05T02:42:18.621Z",
       "domain": "t-api-pro.adaether.com",
       "root": "adaether.com",
       "encrypted": true,
@@ -313,54 +496,7 @@
       "reasons": []
     },
     {
-      "timestamp": "2025-09-04T02:39:12.487Z",
-      "domain": "kix-ulogl2.kwaipros.com",
-      "root": "kwaipros.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.186",
-      "device": {
-        "id": "7DHI2",
-        "name": "tablet"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-09-04T02:39:12.471Z",
-      "domain": "auto-api.yelp.com",
-      "root": "yelp.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c150:ea00:64:9a5f:b475:3496",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "denylist",
-          "name": "Denylist"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-09-04T02:39:12.223Z",
-      "domain": "k-ulog.kwaipros.com",
-      "root": "kwaipros.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.186",
-      "device": {
-        "id": "7DHI2",
-        "name": "tablet"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-09-04T02:39:12.223Z",
+      "timestamp": "2025-09-05T02:42:18.604Z",
       "domain": "kix-apil2.kwai-pro.com",
       "root": "kwai-pro.com",
       "encrypted": true,
@@ -374,203 +510,7 @@
       "reasons": []
     },
     {
-      "timestamp": "2025-09-04T02:39:12.223Z",
-      "domain": "k-ulogl2.kwai-pro.com",
-      "root": "kwai-pro.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.186",
-      "device": {
-        "id": "7DHI2",
-        "name": "tablet"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-09-04T02:39:12.006Z",
-      "domain": "k-apil2.kwaipros.com",
-      "root": "kwaipros.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.186",
-      "device": {
-        "id": "7DHI2",
-        "name": "tablet"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-09-04T02:39:12.005Z",
-      "domain": "k-ulog.kwai-pro.com",
-      "root": "kwai-pro.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.186",
-      "device": {
-        "id": "7DHI2",
-        "name": "tablet"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-09-04T02:39:12.005Z",
-      "domain": "web.facebook.com",
-      "root": "facebook.com",
-      "tracker": "facebook",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.186",
-      "device": {
-        "id": "7DHI2",
-        "name": "tablet"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-09-04T02:39:11.861Z",
-      "domain": "k-api.kwai-pro.com",
-      "root": "kwai-pro.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.186",
-      "device": {
-        "id": "7DHI2",
-        "name": "tablet"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-09-04T02:39:11.861Z",
-      "domain": "g-zt.kwai-pro.com",
-      "root": "kwai-pro.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.186",
-      "device": {
-        "id": "7DHI2",
-        "name": "tablet"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-09-04T02:39:11.861Z",
-      "domain": "k-api.mythad.com",
-      "root": "mythad.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.186",
-      "device": {
-        "id": "7DHI2",
-        "name": "tablet"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-09-04T02:39:11.292Z",
-      "domain": "z-p42-chat-e2ee-ig.facebook.com",
-      "root": "facebook.com",
-      "tracker": "facebook",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.186",
-      "device": {
-        "id": "7DHI2",
-        "name": "tablet"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-09-04T02:39:11.291Z",
-      "domain": "cdn-static.kwai.net",
-      "root": "kwai.net",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.186",
-      "device": {
-        "id": "7DHI2",
-        "name": "tablet"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "denylist",
-          "name": "Denylist"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-09-04T02:39:11.291Z",
-      "domain": "calendarpushsubscription-pa.googleapis.com",
-      "root": "calendarpushsubscription-pa.googleapis.com",
-      "tracker": "googleapis.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.186",
-      "device": {
-        "id": "7DHI2",
-        "name": "tablet"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-09-04T02:39:11.291Z",
-      "domain": "api-stream.twitter.com",
-      "root": "twitter.com",
-      "tracker": "twitter",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.186",
-      "device": {
-        "id": "7DHI2",
-        "name": "tablet"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-09-04T02:39:11.291Z",
-      "domain": "bs-pro-origin-pull.kwai.net",
-      "root": "kwai.net",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.186",
-      "device": {
-        "id": "7DHI2",
-        "name": "tablet"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "denylist",
-          "name": "Denylist"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-09-04T02:39:11.291Z",
-      "domain": "cdn-static.ap4r.com",
-      "root": "ap4r.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.186",
-      "device": {
-        "id": "7DHI2",
-        "name": "tablet"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-09-04T02:39:11.291Z",
+      "timestamp": "2025-09-05T02:42:18.573Z",
       "domain": "az3-apil2-txpro.kwai-pro.com",
       "root": "kwai-pro.com",
       "encrypted": true,
@@ -584,93 +524,7 @@
       "reasons": []
     },
     {
-      "timestamp": "2025-09-04T02:39:09.764Z",
-      "domain": "yildun.iad-03.braze.com",
-      "root": "braze.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c150:ea00:64:9a5f:b475:3496",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "blocklist:adaway",
-          "name": "AdAway"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-09-04T02:39:09.763Z",
-      "domain": "bunsen.yelp.com",
-      "root": "yelp.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c150:ea00:64:9a5f:b475:3496",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "denylist",
-          "name": "Denylist"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-09-04T02:39:09.763Z",
-      "domain": "www.linkedin.com",
-      "root": "linkedin.com",
-      "tracker": "linkedin",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c150:ea00:64:9a5f:b475:3496",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-09-04T02:39:09.762Z",
-      "domain": "experiment-allocation.yelp.com",
-      "root": "yelp.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c150:ea00:64:9a5f:b475:3496",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "denylist",
-          "name": "Denylist"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-09-04T02:39:09.428Z",
-      "domain": "az3-apil2-akpro.kwaipros.com",
-      "root": "kwaipros.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.186",
-      "device": {
-        "id": "7DHI2",
-        "name": "tablet"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-09-04T02:39:09.428Z",
+      "timestamp": "2025-09-05T02:42:18.569Z",
       "domain": "az3-apil2-kixpro.kwai-pro.com",
       "root": "kwai-pro.com",
       "encrypted": true,
@@ -684,49 +538,7 @@
       "reasons": []
     },
     {
-      "timestamp": "2025-09-04T02:39:06.274Z",
-      "domain": "az3-api-txpro.kwai-pro.com",
-      "root": "kwai-pro.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.186",
-      "device": {
-        "id": "7DHI2",
-        "name": "tablet"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-09-04T02:39:05.862Z",
-      "domain": "az2-apil2-akpro.kwaipros.com",
-      "root": "kwaipros.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.186",
-      "device": {
-        "id": "7DHI2",
-        "name": "tablet"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-09-04T02:39:05.862Z",
-      "domain": "az2-apil2-txpro.kwai-pro.com",
-      "root": "kwai-pro.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.186",
-      "device": {
-        "id": "7DHI2",
-        "name": "tablet"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-09-04T02:39:05.862Z",
+      "timestamp": "2025-09-05T02:42:18.561Z",
       "domain": "az3-api-akpro.kwai-pro.com",
       "root": "kwai-pro.com",
       "encrypted": true,
@@ -740,7 +552,35 @@
       "reasons": []
     },
     {
-      "timestamp": "2025-09-04T02:39:05.862Z",
+      "timestamp": "2025-09-05T02:42:18.561Z",
+      "domain": "az3-api-txpro.kwai-pro.com",
+      "root": "kwai-pro.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "7DHI2",
+        "name": "tablet"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:42:18.555Z",
+      "domain": "az2-apil2-txpro.kwai-pro.com",
+      "root": "kwai-pro.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "7DHI2",
+        "name": "tablet"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:42:18.551Z",
       "domain": "az2-apil2-kixpro.kwai-pro.com",
       "root": "kwai-pro.com",
       "encrypted": true,
@@ -754,7 +594,21 @@
       "reasons": []
     },
     {
-      "timestamp": "2025-09-04T02:39:05.322Z",
+      "timestamp": "2025-09-05T02:42:18.546Z",
+      "domain": "az1-apil2-txpro.kwai-pro.com",
+      "root": "kwai-pro.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "7DHI2",
+        "name": "tablet"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:42:18.545Z",
       "domain": "az2-api-txpro.kwai-pro.com",
       "root": "kwai-pro.com",
       "encrypted": true,
@@ -768,8 +622,8 @@
       "reasons": []
     },
     {
-      "timestamp": "2025-09-04T02:39:05.322Z",
-      "domain": "az2-api-akpro.kwai-pro.com",
+      "timestamp": "2025-09-05T02:42:18.536Z",
+      "domain": "az1-apil2-kixpro.kwai-pro.com",
       "root": "kwai-pro.com",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
@@ -778,13 +632,108 @@
         "id": "7DHI2",
         "name": "tablet"
       },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "denylist",
-          "name": "Denylist"
-        }
-      ]
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:42:18.523Z",
+      "domain": "az1-api-akpro.kwai-pro.com",
+      "root": "kwai-pro.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "7DHI2",
+        "name": "tablet"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:42:18.020Z",
+      "domain": "beacons.gcp.gvt2.com",
+      "root": "gvt2.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:42:15.809Z",
+      "domain": "api.twitter.com",
+      "root": "twitter.com",
+      "tracker": "twitter",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "7DHI2",
+        "name": "tablet"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:42:14.991Z",
+      "domain": "sb.adtidy.org",
+      "root": "adtidy.org",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:42:14.133Z",
+      "domain": "az1-api-txpro.kwai-pro.com",
+      "root": "kwai-pro.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "7DHI2",
+        "name": "tablet"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:42:13.527Z",
+      "domain": "probe.twitter.com",
+      "root": "twitter.com",
+      "tracker": "twitter",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-09-05T02:42:01.191Z",
+      "domain": "mapi.speedtest.net",
+      "root": "speedtest.net",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.186",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
     }
   ]
 }
