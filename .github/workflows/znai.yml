@@ -16,21 +16,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Baixa a versão desejada do Znai diretamente do release oficial do GitHub
-      - name: Download Znai release
-        run: |
-          curl -L -o znai.zip https://github.com/znaidev/znai/releases/download/v1.45/znai-1.45.zip
-          unzip znai.zip -d znai
+      # Baixa Znai JAR oficial da release (substitua a versão se necessário)
+      - name: Download Znai JAR
+        run: curl -L -o znai.jar https://github.com/znaidev/znai/releases/download/v1.45/znai-1.45.jar
 
-      # Gera a documentação no diretório correto
+      # Gera a documentação usando Java (não necessita unzip)
       - name: Build Znai Documentation
-        run: ./znai/bin/znai --output-dir znai-docs/target/znai
+        run: java -jar znai.jar --output-dir znai-docs/target/znai
 
-      # Passo opcional para debug (remove depois que estiver tudo funcionando)
+      # Opcional para debug: lista o conteúdo gerado no diretório de saída
       - name: List build output (debug)
         run: ls -lh znai-docs/target/znai
 
-      # Faz o deploy automatizado para o GitHub Pages (branch gh-pages)
+      # Publica a documentação no branch gh-pages usando a action recomendada
       - name: Deploy documentation
         uses: peaceiris/actions-gh-pages@v3
         with:
