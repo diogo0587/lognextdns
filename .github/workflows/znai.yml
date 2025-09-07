@@ -16,6 +16,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Znai CLI
+        run: npm install -g znai
+
       - name: Build Znai Documentation
         run: znai --output-dir znai-docs/target/znai
 
