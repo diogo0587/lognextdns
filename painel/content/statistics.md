@@ -1,18 +1,18 @@
 ---
 title: "Estatísticas de Logs"
-date: 2025-09-12T02:39:34.248579
+date: 2025-09-13T02:32:26.546938
 draft: false
 ---
 # Estatísticas NextDNS
-**Última atualização:** 2025-09-12T02:39:33.820730
+**Última atualização:** 2025-09-13T02:32:26.119201
 ## Resumo Geral
 - **Total de consultas:** 100
-- **Consultas bloqueadas:** 21
+- **Consultas bloqueadas:** 33
 - **Consultas permitidas:** 0
-- **Taxa de bloqueio:** 21.0%
+- **Taxa de bloqueio:** 33.0%
 ## Top 10 Domínios Mais Acessados
 1. **unknown** - 100 consultas
 
 ## Top 10 Domínios Bloqueados
 
-1. **null** - 21 bloqueios
+1. **null** - 33 bloqueios
