@@ -1,4 +1,4 @@
-name: 1 Build Hugo Site with NextDNS Logs and Deploy to Pages
+run: 1 Build Hugo Site with NextDNS Logs and Deploy to Pages
 
 on:
   schedule:
@@ -13,7 +13,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-22.04
-     defaults:
+    defaults:
       run:
         working-directory: ./painel
     steps:
