@@ -1,11 +1,12 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "hugo --gc --minify --destination public",
+  "framework": "hugo",
+  "installCommand": "",
+  "buildCommand": "cd painel && hugo --gc --minify --destination public",
   "outputDirectory": "painel/public",
   "build": {
     "env": {
-      "HUGO_VERSION": "0.124.1",
-      "GO_VERSION": "1.22"
+      "HUGO_VERSION": "0.124.1"
     }
   }
 }
