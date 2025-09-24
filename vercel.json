@@ -1,0 +1,17 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+
+  // 1) Comandos de build
+  "buildCommand": "git submodule update --init --recursive && hugo --gc --minify --destination public",
+
+  // 2) Diretório que será servido
+  "outputDirectory": "painel/public",
+
+  // 3) Variáveis de ambiente para o build
+  "build": {
+    "env": {
+      "HUGO_VERSION": "0.124.1",   // escolha a release desejada
+      "GO_VERSION":   "1.22"       // requerido p/ baixar módulos/submódulos
+    }
+  }
+}
