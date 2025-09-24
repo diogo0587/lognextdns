@@ -30,7 +30,8 @@ jobs:
           ref: gh-pages          # garante branch correta
           fetch-depth: 1
           submodules: false
-
+      - name: Create painel directory
+        run: mkdir -p painel
       # 2. Instala Hugo extended
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
