@@ -1,40 +1,44 @@
-name: 1 Build Hugo Site with NextDNS Logs and Deploy to Pages
+# .github/workflows/site-painel.yml
+name: Build & Deploy Hugo site (subpasta painel)
 
+# Gatilhos
 on:
-  schedule:
-    - cron: '0 0 * * *'             # executa diariamente à 00:00 UTC
-  workflow_dispatch:
+  push:
+    branches: [gh-pages]        # só roda em commits nessa branch
+  workflow_dispatch:            # permite disparar manualmente
 
+# Permissões mínimas p/ publicar no Pages
 permissions:
-  contents: read                    # mínimo necessário
+  contents: read
   pages: write
   id-token: write
 
+# --------------------------------------
 jobs:
   build:
     runs-on: ubuntu-22.04
+    # Todas as etapas executam dentro de painel/
     defaults:
       run:
         working-directory: ./painel
+
     steps:
-      # 1 Checkout sem submódulos
+      # 1. Checkout do próprio commit em gh-pages
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
+          ref: gh-pages          # garante branch correta
           fetch-depth: 1
           submodules: false
 
-      # 2 Hugo extended
+      # 2. Instala Hugo extended
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
           hugo-version: latest
           extended: true
 
-      - name: Verify Hugo version
-        run: hugo version
-
-      # 3 Python — obter logs
+      # 3. Instala Python (para coletar logs)
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
@@ -45,7 +49,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Fetch NextDNS logs and generate Hugo content
+      # 4. Baixa logs NextDNS e cria posts
+      - name: Fetch NextDNS logs & generate content
         env:
           NEXTDNS_API_KEY: ${{ secrets.NEXTDNS_API_KEY }}
           NEXTDNS_PROFILE_ID: ${{ secrets.NEXTDNS_PROFILE_ID }}
@@ -87,19 +92,19 @@ jobs:
                   fp.write(front)
           PY
 
-      # 4 Instala tema BeautifulHugo
+      # 5. Instala tema BeautifulHugo (clone simples)
       - name: Install BeautifulHugo theme
         run: |
           mkdir -p themes
           [ -d themes/beautifulhugo ] || \
           git clone --depth 1 https://github.com/halogenica/beautifulhugo.git themes/beautifulhugo
 
-      # 5 Configuração do site
+      # 6. Escreve config.toml
       - name: Write config.toml
         run: |
           cat > config.toml <<'CFG'
           baseURL = "https://diogo0587.github.io/lognextdns/"
-          canonifyURLs = true            # garante links corretos em project pages
+          canonifyURLs = true
           languageCode = "pt-br"
           title = "NextDNS Logs"
           theme = "beautifulhugo"
@@ -107,11 +112,11 @@ jobs:
             pagerSize = 10
           CFG
 
-      # 6 Build estático
+      # 7. Build estático na pasta painel/public
       - name: Build Hugo site
-        run: hugo --minify
+        run: hugo --minify --destination public
 
-      # 7 Publica para GitHub Pages
+      # 8. Configura Pages e faz upload do artefato
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v3
 
@@ -120,6 +125,7 @@ jobs:
         with:
           path: ./painel/public
 
+  # ------------------------------------
   deploy:
     needs: build
     runs-on: ubuntu-latest
