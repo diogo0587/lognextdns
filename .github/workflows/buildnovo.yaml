@@ -1,4 +1,4 @@
-run: 1 Build Hugo Site with NextDNS Logs and Deploy to Pages
+name: 1 Build Hugo Site with NextDNS Logs and Deploy to Pages
 
 on:
   schedule:
