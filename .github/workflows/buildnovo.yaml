@@ -13,7 +13,9 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-22.04
-
+     defaults:
+      run:
+        working-directory: ./painel
     steps:
       # 1 Checkout sem submódulos
       - name: Checkout repository
