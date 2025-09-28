@@ -1,0 +1,150 @@
+name: NextDNS to Datadog Integration
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Executa a cada 6 horas
+  workflow_dispatch:  # Execução manual
+
+jobs:
+  sync-nextdns-to-datadog:
+    runs-on: ubuntu-latest
+
+    env:
+      # Valores fornecidos
+      NEXTDNS_API_KEY: "f31f2871d328a52a45fefadc09a1c67d0dd5d53d"
+      NEXTDNS_PROFILE_ID: "85d564"
+      DATADOG_API_KEY: "7921ec74ac4d0ee673e6ea9ca90b2aee"
+
+      # Ajuste de região do Datadog (pelo seu exemplo anterior é us5)
+      DD_SITE: "us5.datadoghq.com"
+
+      # Metadados para busca no Log Explorer
+      DD_SOURCE: "nextdns"
+      DD_SERVICE: "nextdns"
+      DD_HOSTNAME: "github-actions"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4  # [attached_file:1]
+
+      - name: Set up Python
+        uses: actions/setup-python@v4  # [attached_file:1]
+        with:
+          python-version: '3.x'  # [attached_file:1]
+
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip  # [attached_file:1]
+          pip3 install requests  # [attached_file:1]
+
+      - name: Fetch and send NextDNS logs to Datadog
+        run: |
+          set -euo pipefail
+
+          python3 - << 'PY'
+          import os, sys, json, datetime, requests
+
+          NEXTDNS_API_KEY = os.getenv("NEXTDNS_API_KEY")
+          NEXTDNS_PROFILE_ID = os.getenv("NEXTDNS_PROFILE_ID")
+          DATADOG_API_KEY = os.getenv("DATADOG_API_KEY")
+          DD_SITE = os.getenv("DD_SITE") or "datadoghq.com"
+          DD_SOURCE = os.getenv("DD_SOURCE") or "nextdns"
+          DD_SERVICE = os.getenv("DD_SERVICE") or "nextdns"
+          DD_HOSTNAME = os.getenv("DD_HOSTNAME") or "github-actions"
+
+          if not NEXTDNS_API_KEY or not NEXTDNS_PROFILE_ID or not DATADOG_API_KEY:
+            print("Variáveis ausentes: NEXTDNS_API_KEY, NEXTDNS_PROFILE_ID, DATADOG_API_KEY", file=sys.stderr)
+            sys.exit(1)
+
+          # Janela de coleta: últimas 6h (alinhado ao cron)
+          now = datetime.datetime.utcnow()
+          since = now - datetime.timedelta(hours=6)
+          def to_iso(dt): return dt.replace(microsecond=0).isoformat() + "Z"
+
+          # NextDNS API: usar Authorization: Bearer
+          NEXTDNS_BASE = "https://api.nextdns.io"
+          LOGS_URL = f"{NEXTDNS_BASE}/profiles/{NEXTDNS_PROFILE_ID}/logs"
+          headers_nextdns = {
+            "Authorization": f"Bearer {NEXTDNS_API_KEY}",
+            "Accept": "application/json",
+          }
+          params = {
+            "from": to_iso(since),
+            "to": to_iso(now),
+            "limit": 1000,
+          }
+
+          # Datadog Logs Intake (v1/input, site us5)
+          DD_LOGS_URL = f"https://http-intake.logs.{DD_SITE}/v1/input"
+          headers_dd = {
+            "Content-Type": "application/json",
+            "DD-API-KEY": DATADOG_API_KEY,
+          }
+
+          sess = requests.Session()
+          total_fetched = 0
+          total_sent = 0
+
+          def to_dd_event(ev):
+            # Armazena o evento original em message e adiciona metadados para busca
+            return {
+              "message": json.dumps(ev, ensure_ascii=False),
+              "ddsource": DD_SOURCE,
+              "service": DD_SERVICE,
+              "hostname": DD_HOSTNAME,
+              "ddtags": f"source:nextdns,profile:{NEXTDNS_PROFILE_ID}",
+            }
+
+          def send_batch(batch):
+            nonlocal total_sent
+            if not batch: return
+            r = sess.post(DD_LOGS_URL, headers=headers_dd, data=json.dumps(batch), timeout=30)
+            if r.status_code >= 300:
+              print(f"Datadog intake falhou: {r.status_code} {r.text}", file=sys.stderr)
+              r.raise_for_status()
+            total_sent += len(batch)
+
+          next_token = None
+          try:
+            while True:
+              q = params.copy()
+              if next_token:
+                q["next"] = next_token
+              r = sess.get(LOGS_URL, headers=headers_nextdns, params=q, timeout=30)
+              if r.status_code == 404:
+                print("Endpoint de logs do NextDNS não disponível (plano/permissões?).", file=sys.stderr)
+                sys.exit(2)
+              if r.status_code >= 300:
+                print(f"Falha ao obter logs NextDNS: {r.status_code} {r.text}", file=sys.stderr)
+                r.raise_for_status()
+              data = r.json()
+              events = data.get("data") or data.get("logs") or []
+              total_fetched += len(events)
+
+              # Envia em lotes para eficiência
+              BATCH = 200
+              buf = []
+              for ev in events:
+                buf.append(to_dd_event(ev))
+                if len(buf) >= BATCH:
+                  send_batch(buf)
+                  buf = []
+              if buf:
+                send_batch(buf)
+
+              next_token = data.get("next")
+              if not next_token or not events:
+                break
+
+            print(json.dumps({
+              "status": "ok",
+              "fetched": total_fetched,
+              "sent": total_sent,
+              "window_from": params["from"],
+              "window_to": params["to"],
+              "dd_site": DD_SITE
+            }))
+          except Exception as e:
+            print(f"Pipeline failed: {e}", file=sys.stderr)
+            sys.exit(3)
+          PY
