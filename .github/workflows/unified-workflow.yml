@@ -13,7 +13,7 @@ permissions:
 env:
   NEXTDNS_PROFILE_ID: '85d564'
   HUGO_VERSION: '0.124.1'
-  BASEURL: "https://diogo0587.github.io/lognextdns/painel/"
+  BASEURL: "https://diogo0587.github.io/lognextdns/"
 
 jobs:
   nextdns-painel:
@@ -233,6 +233,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./painel/public
+          branch: gh-pages
           force_orphan: true
           commit_message: "🚀 Deploy NextDNS painel dashboard - $(date +'%Y-%m-%d %H:%M')"
 
@@ -243,4 +244,3 @@ jobs:
           echo "**Date:** $(date)" >> $GITHUB_STEP_SUMMARY
           echo "**Logs Fetched:** ${{ steps.fetch-logs.outputs.success }}" >> $GITHUB_STEP_SUMMARY
           echo "**Hugo Built:** ${{ steps.build-hugo.outcome == 'success' }}" >> $GITHUB_STEP_SUMMARY
-          
