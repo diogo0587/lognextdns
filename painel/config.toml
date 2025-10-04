@@ -1,4 +1,4 @@
-baseURL = "https://diogo0587.github.io/lognextdns/painel/"
+baseURL = "https://diogo0587.github.io/lognextdns/"
 languageCode = "pt-br"
 title = "NextDNS Logs Dashboard"
 theme = "beautifulhugo"
