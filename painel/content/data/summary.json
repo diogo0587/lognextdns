@@ -1,7 +1,7 @@
 {
-  "last_update": "2025-10-14T02:44:49.560900",
+  "last_update": "2025-10-15T02:49:12.712255",
   "total_queries": 100,
-  "blocked_queries": 35,
-  "allowed_queries": 1,
-  "blocked_percentage": 35.0
+  "blocked_queries": 29,
+  "allowed_queries": 0,
+  "blocked_percentage": 29.0
 }
