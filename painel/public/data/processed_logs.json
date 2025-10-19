@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "timestamp": "2025-10-18T02:38:57.662885",
+    "timestamp": "2025-10-19T02:59:01.664368",
     "total_entries": 100,
     "profile_id": "85d564",
     "date_range": {
@@ -244,7 +244,7 @@
     },
     {
       "timestamp": "2025-10-15T14:49:34.988Z",
-      "domain": "az1-apil2-txpro.kwai-pro.com",
+      "domain": "az1-apil2-kixpro.kwai-pro.com",
       "root": "kwai-pro.com",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
@@ -258,7 +258,7 @@
     },
     {
       "timestamp": "2025-10-15T14:49:34.988Z",
-      "domain": "az1-apil2-kixpro.kwai-pro.com",
+      "domain": "az1-apil2-txpro.kwai-pro.com",
       "root": "kwai-pro.com",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
