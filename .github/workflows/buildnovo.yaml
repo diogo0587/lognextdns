@@ -2,39 +2,38 @@ name: Build & Deploy Hugo site (painel)
 
 on:
   push:
-    branches: [gh-pages]          # só dispara na branch gh-pages
-  workflow_dispatch:              # permite execução manual
+    branches: [gh-pages]        # dispara apenas na branch gh-pages
+  workflow_dispatch:            # permite execução manual
 
 permissions:
   contents: read
   pages: write
   id-token: write
 
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
-      # 1 Checkout
+      # 1. Checkout código
       - uses: actions/checkout@v4
         with:
           ref: gh-pages
-          fetch-depth: 1
-          submodules: false
+          fetch-depth: 0
 
-      # 2 Cria pasta painel/
-      - name: Ensure painel directory
-        run: mkdir -p painel
-
-      # 3 Instala Hugo (não precisa working-directory num step uses)
+      # 2. Configuração padrão
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
           hugo-version: latest
           extended: true
 
-      # 4 Instala Python
-      - uses: actions/setup-python@v5
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.10"
 
@@ -43,31 +42,30 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      # 5 Obtem logs NextDNS e gera conteúdo
-      - name: Fetch NextDNS logs & generate content
+      # 3. Criar painel e gerar conteúdo dos logs
+      - name: Generate NextDNS dashboard content
         env:
           NEXTDNS_API_KEY: ${{ secrets.NEXTDNS_API_KEY }}
           NEXTDNS_PROFILE_ID: ${{ secrets.NEXTDNS_PROFILE_ID }}
         run: |
+          mkdir -p painel/content/posts
           cd painel
-          mkdir -p content/posts
+          cat > content/_index.md <<'EOF'
+          ---
+          title: "NextDNS Logs Dashboard"
+          ---
+          Bem-vindo ao Dashboard de Logs do NextDNS.
+          EOF
+
           python <<'PY'
-          import os, requests, pathlib, textwrap
+          import os, requests, textwrap, pathlib
           from datetime import datetime
           url = f"https://api.nextdns.io/profiles/{os.getenv('NEXTDNS_PROFILE_ID')}/logs"
-          r   = requests.get(url,
-                             headers={"X-Api-Key": os.getenv("NEXTDNS_API_KEY")},
-                             params={"limit":250,"from":"-1h","raw":"1"})
+          r = requests.get(url,
+                           headers={"X-Api-Key": os.getenv("NEXTDNS_API_KEY")},
+                           params={"limit":250,"from":"-1h","raw":"1"})
           r.raise_for_status()
           logs = r.json().get("data", [])
-          pathlib.Path("content").mkdir(exist_ok=True)
-          with open("content/_index.md","w") as f:
-              f.write(textwrap.dedent('''\
-              ---
-              title: "NextDNS Logs Dashboard"
-              ---
-              Bem-vindo ao Dashboard de Logs do NextDNS.
-              '''))
           for i, log in enumerate(logs[:30], 1):
               front = textwrap.dedent(f'''\
               ---
@@ -78,19 +76,17 @@ jobs:
               timestamp: "{log.get('timestamp','N/A')}"
               ---
               ''')
-              with open(f"content/posts/log-{i}.md","w") as fp:
-                  fp.write(front)
+              pathlib.Path(f"content/posts/log-{i}.md").write_text(front)
           PY
 
-      # 6 Clona o tema BeautifulHugo
+      # 4. Clonar tema Hugo
       - name: Install BeautifulHugo theme
         run: |
           cd painel
           mkdir -p themes
-          [ -d themes/beautifulhugo ] || \
           git clone --depth 1 https://github.com/halogenica/beautifulhugo.git themes/beautifulhugo
 
-      # 7 Configura o site
+      # 5. Criar config.toml
       - name: Write config.toml
         run: |
           cd painel
@@ -104,27 +100,29 @@ jobs:
             pagerSize = 10
           CFG
 
-      # 8 Build estático
-      - name: Build Hugo site
+      # 6. Compilar site
+      - name: Build site with Hugo
         run: |
           cd painel
           hugo --minify --destination public
 
-      # 9 Publica via GitHub Pages
-      - uses: actions/configure-pages@v3
+      # 7. Configura e envia para Pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
 
-      - name: Upload artifact for GitHub Pages
+      - name: Upload artifact for deployment
         uses: actions/upload-pages-artifact@v4
         with:
           path: painel/public
 
   deploy:
-    needs: build
     runs-on: ubuntu-latest
+    needs: build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - id: deployment
+      - name: Deploy GitHub Pages site
+        id: deployment
         uses: actions/deploy-pages@v4
