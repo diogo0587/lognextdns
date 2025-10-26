@@ -113,7 +113,7 @@ jobs:
       - name: Upload artifact for deployment
         uses: actions/upload-pages-artifact@v4
         with:
-          path: painel/public
+          path: painel/
 
   deploy:
     runs-on: ubuntu-latest
