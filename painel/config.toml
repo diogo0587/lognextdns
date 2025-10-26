@@ -4,7 +4,7 @@ title = "NextDNS Logs Dashboard"
 theme = "beautifulhugo"
 [params]
   description = "Dashboard de logs do NextDNS"
-  github_url = "https://github.com/diogo0587/lognextdns"
+  github_url = "https://github.com/diogo0587/lognextdns/painel"
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
