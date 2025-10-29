@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "timestamp": "2025-10-28T02:51:20.022255",
+    "timestamp": "2025-10-29T02:58:51.220266",
     "total_entries": 100,
     "profile_id": "85d564",
     "date_range": {
@@ -76,7 +76,7 @@
     },
     {
       "timestamp": "2025-10-15T14:49:35.114Z",
-      "domain": "t-api-pro.kwai-pro.com",
+      "domain": "t-apil2.kwai-pro.com",
       "root": "kwai-pro.com",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
@@ -104,7 +104,7 @@
     },
     {
       "timestamp": "2025-10-15T14:49:35.114Z",
-      "domain": "t-apil2.kwai-pro.com",
+      "domain": "t-api-pro.kwai-pro.com",
       "root": "kwai-pro.com",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
@@ -202,7 +202,7 @@
     },
     {
       "timestamp": "2025-10-15T14:49:35.015Z",
-      "domain": "az2-apil2-kixpro.kwai-pro.com",
+      "domain": "az2-apil2-txpro.kwai-pro.com",
       "root": "kwai-pro.com",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
@@ -216,7 +216,7 @@
     },
     {
       "timestamp": "2025-10-15T14:49:35.015Z",
-      "domain": "az2-apil2-txpro.kwai-pro.com",
+      "domain": "az2-apil2-kixpro.kwai-pro.com",
       "root": "kwai-pro.com",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
@@ -244,7 +244,7 @@
     },
     {
       "timestamp": "2025-10-15T14:49:34.988Z",
-      "domain": "az1-apil2-kixpro.kwai-pro.com",
+      "domain": "az1-apil2-txpro.kwai-pro.com",
       "root": "kwai-pro.com",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
@@ -258,7 +258,7 @@
     },
     {
       "timestamp": "2025-10-15T14:49:34.988Z",
-      "domain": "az1-apil2-txpro.kwai-pro.com",
+      "domain": "az1-apil2-kixpro.kwai-pro.com",
       "root": "kwai-pro.com",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
