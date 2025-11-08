@@ -1,371 +1,43 @@
 {
   "metadata": {
-    "timestamp": "2025-11-07T02:54:40.850492",
+    "timestamp": "2025-11-08T02:45:50.226427",
     "total_entries": 100,
     "profile_id": "85d564",
     "date_range": {
-      "start": "2025-11-07T02:50:21.322Z",
-      "end": "2025-11-07T02:54:38.686Z"
+      "start": "2025-11-08T02:42:45.218Z",
+      "end": "2025-11-08T02:45:47.032Z"
     }
   },
   "statistics": {
     "by_status": {
-      "default": 78,
-      "blocked": 22
+      "blocked": 26,
+      "default": 74
     },
     "by_type": {
       "unknown": 100
     },
     "by_client": {
-      "2804:678c:c15e:5000:28ed:4e21:4b85:436e": 100
+      "45.190.211.239": 100
     },
-    "blocked_percentage": 22.0
+    "blocked_percentage": 26.0
   },
   "top_domains": {
     "all": {
       "unknown": 100
     },
     "blocked": {
-      "null": 22
+      "null": 26
     }
   },
   "recent_logs": [
     {
-      "timestamp": "2025-11-07T02:54:38.686Z",
-      "domain": "device-messaging-na.amazon.com",
-      "root": "amazon.com",
-      "tracker": "amazon",
+      "timestamp": "2025-11-08T02:45:47.032Z",
+      "domain": "www.google-analytics.com",
+      "root": "google-analytics.com",
+      "tracker": "google_analytics",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:54:38.048Z",
-      "domain": "cde-ta-g7g.amazon.com",
-      "root": "amazon.com",
-      "tracker": "amazon",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:54:33.421Z",
-      "domain": "d1yprpojhqvser.cloudfront.net",
-      "root": "d1yprpojhqvser.cloudfront.net",
-      "tracker": "amazon_cloudfront",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:54:31.469Z",
-      "domain": "kinapp-notifications-na.amazon.com",
-      "root": "amazon.com",
-      "tracker": "amazon",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:54:31.437Z",
-      "domain": "todo-ta-g7g.amazon.com",
-      "root": "amazon.com",
-      "tracker": "amazon",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:54:30.149Z",
-      "domain": "co.kvaedit.site",
-      "root": "kvaedit.site",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:54:29.128Z",
-      "domain": "kca.amazon.com",
-      "root": "amazon.com",
-      "tracker": "amazon",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:54:29.047Z",
-      "domain": "int.kvaedit.site",
-      "root": "kvaedit.site",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:54:26.184Z",
-      "domain": "mobile.itau.com.br",
-      "root": "itau.com.br",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:54:25.045Z",
-      "domain": "mobilecartoes.itau.com.br",
-      "root": "itau.com.br",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:54:24.890Z",
-      "domain": "api.amazon.com",
-      "root": "amazon.com",
-      "tracker": "amazon",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:54:24.815Z",
-      "domain": "firs-ta-g7g.amazon.com",
-      "root": "amazon.com",
-      "tracker": "amazon",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:54:23.845Z",
-      "domain": "msh.amazon.com",
-      "root": "amazon.com",
-      "tracker": "amazon",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:54:20.996Z",
-      "domain": "firebase-settings.crashlytics.com",
-      "root": "crashlytics.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:54:20.290Z",
-      "domain": "prod.us-east-1.sonar.prime-video.amazon.dev",
-      "root": "amazon.dev",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:54:20.194Z",
-      "domain": "api.us-east-1.aiv-delivery.net",
-      "root": "aiv-delivery.net",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "blocklist:adaway",
-          "name": "AdAway"
-        }
-      ],
-      "matched": "global.telemetry.insights.video.a2z.com"
-    },
-    {
-      "timestamp": "2025-11-07T02:54:17.344Z",
-      "domain": "dcape-na.amazon.com",
-      "root": "amazon.com",
-      "tracker": "amazon",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:54:14.835Z",
-      "domain": "gru-col.eum-appdynamics.com",
-      "root": "eum-appdynamics.com",
-      "tracker": "appdynamics",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:54:13.333Z",
-      "domain": "www.amazon.com.br",
-      "root": "amazon.com.br",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:54:13.298Z",
-      "domain": "m.media-amazon.com",
-      "root": "media-amazon.com",
-      "tracker": "amazon_cdn",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:54:13.276Z",
-      "domain": "images-na.ssl-images-amazon.com",
-      "root": "ssl-images-amazon.com",
-      "tracker": "amazon_cdn",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:54:10.632Z",
-      "domain": "clients4.google.com",
-      "root": "google.com",
-      "tracker": "google",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:54:09.925Z",
-      "domain": "census-app.scorecardresearch.com",
-      "root": "scorecardresearch.com",
-      "tracker": "scorecard_research_beacon",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
+      "clientIp": "45.190.211.239",
       "device": {
         "id": "1SAQF",
         "name": "a"
@@ -379,13 +51,12 @@
       ]
     },
     {
-      "timestamp": "2025-11-07T02:54:09.145Z",
-      "domain": "z-m-gateway.facebook.com",
-      "root": "facebook.com",
-      "tracker": "facebook",
+      "timestamp": "2025-11-08T02:45:46.817Z",
+      "domain": "sdk-metrics.g.globo",
+      "root": "g.globo",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
+      "clientIp": "45.190.211.239",
       "device": {
         "id": "1SAQF",
         "name": "a"
@@ -394,12 +65,12 @@
       "reasons": []
     },
     {
-      "timestamp": "2025-11-07T02:54:06.570Z",
-      "domain": "abxc3apcastp.na.api.amazonvideo.com",
-      "root": "amazonvideo.com",
+      "timestamp": "2025-11-08T02:45:46.200Z",
+      "domain": "ab.g.globo",
+      "root": "g.globo",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
+      "clientIp": "45.190.211.239",
       "device": {
         "id": "1SAQF",
         "name": "a"
@@ -408,139 +79,13 @@
       "reasons": []
     },
     {
-      "timestamp": "2025-11-07T02:54:06.503Z",
-      "domain": "api.amazon.com",
-      "root": "amazon.com",
-      "tracker": "amazon",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:54:06.426Z",
-      "domain": "scontent.xx.fbcdn.net",
-      "root": "fbcdn.net",
-      "tracker": "facebook_cdn",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:54:06.381Z",
-      "domain": "firebaselogging.googleapis.com",
-      "root": "firebaselogging.googleapis.com",
-      "tracker": "googleapis.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:54:06.002Z",
-      "domain": "api.wattpad.com",
-      "root": "wattpad.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:54:04.989Z",
-      "domain": "gateway-b.offerwall.unity3d.com",
-      "root": "unity3d.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:54:04.421Z",
-      "domain": "track.wattpad.com",
-      "root": "wattpad.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "blocklist:adaway",
-          "name": "AdAway"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-11-07T02:54:02.425Z",
-      "domain": "global.telemetry.insights.video.a2z.com",
-      "root": "a2z.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "blocklist:adaway",
-          "name": "AdAway"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-11-07T02:54:01.164Z",
-      "domain": "t.co",
-      "root": "t.co",
-      "tracker": "twitter",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:54:01.125Z",
+      "timestamp": "2025-11-08T02:45:45.811Z",
       "domain": "clientservices.googleapis.com",
       "root": "clientservices.googleapis.com",
       "tracker": "googleapis.com",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
+      "clientIp": "45.190.211.239",
       "device": {
         "id": "1SAQF",
         "name": "a"
@@ -549,71 +94,13 @@
       "reasons": []
     },
     {
-      "timestamp": "2025-11-07T02:54:01.072Z",
-      "domain": "sdk-metrics.g.globo",
-      "root": "g.globo",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:53:59.986Z",
-      "domain": "msh.amazon.com",
-      "root": "amazon.com",
-      "tracker": "amazon",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:53:59.829Z",
-      "domain": "arcus-uswest.amazon.com",
-      "root": "amazon.com",
-      "tracker": "amazon",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:53:59.702Z",
-      "domain": "ab.g.globo",
-      "root": "g.globo",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:53:59.491Z",
-      "domain": "play-fe.googleapis.com",
-      "root": "play-fe.googleapis.com",
+      "timestamp": "2025-11-08T02:45:45.671Z",
+      "domain": "firebaseremoteconfig.googleapis.com",
+      "root": "firebaseremoteconfig.googleapis.com",
       "tracker": "googleapis.com",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
+      "clientIp": "45.190.211.239",
       "device": {
         "id": "1SAQF",
         "name": "a"
@@ -622,12 +109,13 @@
       "reasons": []
     },
     {
-      "timestamp": "2025-11-07T02:53:58.754Z",
-      "domain": "horizon-track.globo.com",
-      "root": "globo.com",
+      "timestamp": "2025-11-08T02:45:45.662Z",
+      "domain": "firebaseremoteconfigrealtime.googleapis.com",
+      "root": "firebaseremoteconfigrealtime.googleapis.com",
+      "tracker": "googleapis.com",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
+      "clientIp": "45.190.211.239",
       "device": {
         "id": "1SAQF",
         "name": "a"
@@ -636,12 +124,32 @@
       "reasons": []
     },
     {
-      "timestamp": "2025-11-07T02:53:58.727Z",
-      "domain": "horizon-schemas.globo.com",
-      "root": "globo.com",
+      "timestamp": "2025-11-08T02:45:45.517Z",
+      "domain": "config.mapbox.com",
+      "root": "mapbox.com",
+      "tracker": "mapbox",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "blocked",
+      "reasons": [
+        {
+          "id": "denylist",
+          "name": "Denylist"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-11-08T02:45:44.988Z",
+      "domain": "mobile-data.onetrust.io",
+      "root": "onetrust.io",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
       "device": {
         "id": "1SAQF",
         "name": "a"
@@ -650,12 +158,13 @@
       "reasons": []
     },
     {
-      "timestamp": "2025-11-07T02:53:57.814Z",
-      "domain": "www.wattpad.com",
-      "root": "wattpad.com",
+      "timestamp": "2025-11-08T02:45:44.711Z",
+      "domain": "geller-pa.googleapis.com",
+      "root": "geller-pa.googleapis.com",
+      "tracker": "googleapis.com",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
+      "clientIp": "45.190.211.239",
       "device": {
         "id": "1SAQF",
         "name": "a"
@@ -664,13 +173,41 @@
       "reasons": []
     },
     {
-      "timestamp": "2025-11-07T02:53:56.901Z",
-      "domain": "cdn.optimizely.com",
-      "root": "optimizely.com",
-      "tracker": "optimizely",
+      "timestamp": "2025-11-08T02:45:44.686Z",
+      "domain": "deo.shopeemobile.com",
+      "root": "shopeemobile.com",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:45:44.568Z",
+      "domain": "firebaselogging-pa.googleapis.com",
+      "root": "firebaselogging-pa.googleapis.com",
+      "tracker": "googleapis.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:45:44.459Z",
+      "domain": "api.iterable.com",
+      "root": "iterable.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
       "device": {
         "id": "1SAQF",
         "name": "a"
@@ -684,13 +221,13 @@
       ]
     },
     {
-      "timestamp": "2025-11-07T02:53:55.942Z",
-      "domain": "firebaseinstallations.googleapis.com",
-      "root": "firebaseinstallations.googleapis.com",
+      "timestamp": "2025-11-08T02:45:43.420Z",
+      "domain": "firebaselogging.googleapis.com",
+      "root": "firebaselogging.googleapis.com",
       "tracker": "googleapis.com",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
+      "clientIp": "45.190.211.239",
       "device": {
         "id": "1SAQF",
         "name": "a"
@@ -699,72 +236,13 @@
       "reasons": []
     },
     {
-      "timestamp": "2025-11-07T02:53:55.806Z",
-      "domain": "www.google.com",
-      "root": "google.com",
-      "tracker": "google",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:53:26.388Z",
-      "domain": "pool.ntp.org",
-      "root": "ntp.org",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:53:09.569Z",
-      "domain": "f8bba7f3-448f-43fe-be0d-254231fc49e8-netseer-ipaddr-assoc.xy.fbcdn.net",
-      "root": "fbcdn.net",
-      "tracker": "facebook_cdn",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:53:08.647Z",
-      "domain": "f8bba7f3-448f-43fe-be0d-254231fc49e8-netseer-ipaddr-assoc.xz.fbcdn.net",
-      "root": "fbcdn.net",
-      "tracker": "facebook_cdn",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2025-11-07T02:52:51.238Z",
+      "timestamp": "2025-11-08T02:45:43.319Z",
       "domain": "device-api.urbanairship.com",
       "root": "urbanairship.com",
       "tracker": "urban_airship",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
+      "clientIp": "45.190.211.239",
       "device": {
         "id": "1SAQF",
         "name": "a"
@@ -778,13 +256,551 @@
       ]
     },
     {
-      "timestamp": "2025-11-07T02:52:47.445Z",
-      "domain": "probe.twitter.com",
-      "root": "twitter.com",
-      "tracker": "twitter",
+      "timestamp": "2025-11-08T02:45:43.164Z",
+      "domain": "remote-data.urbanairship.com",
+      "root": "urbanairship.com",
+      "tracker": "urban_airship",
       "encrypted": true,
       "protocol": "DNS-over-TLS",
-      "clientIp": "2804:678c:c15e:5000:28ed:4e21:4b85:436e",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "blocked",
+      "reasons": [
+        {
+          "id": "blocklist:adaway",
+          "name": "AdAway"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-11-08T02:45:43.074Z",
+      "domain": "storage.googleapis.com",
+      "root": "storage.googleapis.com",
+      "tracker": "googleapis.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:45:43.048Z",
+      "domain": "cdn.permutive.app",
+      "root": "permutive.app",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "blocked",
+      "reasons": [
+        {
+          "id": "blocklist:adaway",
+          "name": "AdAway"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-11-08T02:45:43.044Z",
+      "domain": "mcjlrdbklvp3lq5f-tw-p5z6m184.device.marketingcloudapis.com",
+      "root": "marketingcloudapis.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "blocked",
+      "reasons": [
+        {
+          "id": "blocklist:adaway",
+          "name": "AdAway"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-11-08T02:45:43.032Z",
+      "domain": "llaqlq.cdn-settings.appsflyersdk.com",
+      "root": "appsflyersdk.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "blocked",
+      "reasons": [
+        {
+          "id": "blocklist:adaway",
+          "name": "AdAway"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-11-08T02:45:43.009Z",
+      "domain": "secreporter.susercontent.com",
+      "root": "susercontent.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:45:42.988Z",
+      "domain": "horizon-schemas.globo.com",
+      "root": "globo.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:45:42.977Z",
+      "domain": "horizon-track.globo.com",
+      "root": "globo.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:45:42.175Z",
+      "domain": "androidplatformbackuprestore-pa.googleapis.com",
+      "root": "androidplatformbackuprestore-pa.googleapis.com",
+      "tracker": "googleapis.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:45:41.514Z",
+      "domain": "filters.adtidy.org",
+      "root": "adtidy.org",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:45:41.356Z",
+      "domain": "beacons.gcp.gvt2.com",
+      "root": "gvt2.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:45:40.981Z",
+      "domain": "android.apis.google.com",
+      "root": "google.com",
+      "tracker": "google",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:45:40.690Z",
+      "domain": "api.wattpad.com",
+      "root": "wattpad.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:45:40.644Z",
+      "domain": "www.wattpad.com",
+      "root": "wattpad.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:45:40.114Z",
+      "domain": "cdn.optimizely.com",
+      "root": "optimizely.com",
+      "tracker": "optimizely",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "blocked",
+      "reasons": [
+        {
+          "id": "blocklist:adaway",
+          "name": "AdAway"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-11-08T02:45:39.263Z",
+      "domain": "www.google.com",
+      "root": "google.com",
+      "tracker": "google",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:45:39.099Z",
+      "domain": "crashlyticsreports-pa.googleapis.com",
+      "root": "crashlyticsreports-pa.googleapis.com",
+      "tracker": "googleapis.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:45:38.201Z",
+      "domain": "i.ytimg.com",
+      "root": "ytimg.com",
+      "tracker": "youtube",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:45:36.091Z",
+      "domain": "mobile.events.data.microsoft.com",
+      "root": "microsoft.com",
+      "tracker": "microsoft",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:45:36.090Z",
+      "domain": "firebaseinstallations.googleapis.com",
+      "root": "firebaseinstallations.googleapis.com",
+      "tracker": "googleapis.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:45:36.038Z",
+      "domain": "api.flickr.com",
+      "root": "flickr.com",
+      "tracker": "flickr_badge",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:45:36.037Z",
+      "domain": "c1.staticflickr.com",
+      "root": "staticflickr.com",
+      "tracker": "flickr_badge",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:45:36.037Z",
+      "domain": "in.appcenter.ms",
+      "root": "appcenter.ms",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:44:30.261Z",
+      "domain": "ap2.googleusercontent.com",
+      "root": "googleusercontent.com",
+      "tracker": "google_users",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:44:30.248Z",
+      "domain": "photosdata-pa.googleapis.com",
+      "root": "photosdata-pa.googleapis.com",
+      "tracker": "googleapis.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:44:27.647Z",
+      "domain": "intake-analytics.wikimedia.org",
+      "root": "wikimedia.org",
+      "tracker": "wikimedia.org",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:44:15.794Z",
+      "domain": "cdn.jsdelivr.net",
+      "root": "jsdelivr.net",
+      "tracker": "jsdelivr",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:44:15.184Z",
+      "domain": "www.linkedin.com",
+      "root": "linkedin.com",
+      "tracker": "linkedin",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:44:15.039Z",
+      "domain": "api.onesignal.com",
+      "root": "onesignal.com",
+      "tracker": "onesignal",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:44:10.204Z",
+      "domain": "graph-fallback.instagram.com",
+      "root": "instagram.com",
+      "tracker": "instagram_com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:44:10.200Z",
+      "domain": "graph-fallback.facebook.com",
+      "root": "facebook.com",
+      "tracker": "facebook",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:44:10.199Z",
+      "domain": "graph.instagram.com",
+      "root": "instagram.com",
+      "tracker": "instagram_com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:44:10.199Z",
+      "domain": "i-fallback.instagram.com",
+      "root": "instagram.com",
+      "tracker": "instagram_com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:44:09.725Z",
+      "domain": "beacons.gcp.gvt2.com",
+      "root": "gvt2.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:43:46.361Z",
+      "domain": "en.wikipedia.org",
+      "root": "wikipedia.org",
+      "tracker": "wikimedia.org",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
+      "device": {
+        "id": "1SAQF",
+        "name": "a"
+      },
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2025-11-08T02:43:35.700Z",
+      "domain": "pubsub.googleapis.com",
+      "root": "pubsub.googleapis.com",
+      "tracker": "googleapis.com",
+      "encrypted": true,
+      "protocol": "DNS-over-TLS",
+      "clientIp": "45.190.211.239",
       "device": {
         "id": "1SAQF",
         "name": "a"
