@@ -4,16 +4,23 @@ import { NextRequest, NextResponse } from 'next/server';
 async function logToKubiks(data: any) {
   try {
     const endpoint = process.env.OTEL_EXPORTER_OTLP_ENDPOINT || 'https://ingest.kubiks.app';
-    const headers = process.env.OTEL_EXPORTER_OTLP_HEADERS || 'x-kubiks-key=';
+    const headersEnv = process.env.OTEL_EXPORTER_OTLP_HEADERS || '';
     
-    const [key, value] = headers.split('=');
+    // Parse headers safely
+    const headersParsed: Record<string, string> = {
+      'Content-Type': 'application/json',
+    };
+    
+    if (headersEnv) {
+      const [key, value] = headersEnv.split('=');
+      if (key && value) {
+        headersParsed[key] = value;
+      }
+    }
     
     await fetch(`${endpoint}/v1/logs`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        [key]: value,
-      },
+      headers: headersParsed,
       body: JSON.stringify({
         resourceLogs: [{
           resource: {
