@@ -1,833 +1,539 @@
 {
   "metadata": {
-    "timestamp": "2025-11-16T03:03:09.555733",
+    "timestamp": "2026-03-01T03:58:58.914458",
     "total_entries": 100,
     "profile_id": "85d564",
     "date_range": {
-      "start": "2025-11-13T12:23:35.310Z",
-      "end": "2025-11-13T12:29:43.403Z"
+      "start": "2025-12-01T02:18:32.022Z",
+      "end": "2026-03-01T02:19:26.234Z"
     }
   },
   "statistics": {
     "by_status": {
-      "default": 66,
-      "blocked": 33,
-      "allowed": 1
+      "default": 100
     },
     "by_type": {
       "unknown": 100
     },
     "by_client": {
-      "45.190.211.239": 100
+      "45.190.211.223": 6,
+      "2604:a880:400:d1:0:3:cb14:4001": 4,
+      "45.190.211.252": 3,
+      "2001:470:2cc:1::264": 2,
+      "2001:470:1:fb5::195": 2,
+      "2001:470:2cc:1::204": 1,
+      "2001:470:1:332::2e": 1,
+      "2001:470:1:fb5::14c": 1,
+      "2001:470:1:c84::2aa": 1,
+      "2001:470:1:c84::de": 1
     },
-    "blocked_percentage": 33.0
+    "blocked_percentage": 0.0
   },
   "top_domains": {
     "all": {
       "unknown": 100
     },
-    "blocked": {
-      "null": 33
-    }
+    "blocked": {}
   },
   "recent_logs": [
     {
-      "timestamp": "2025-11-13T12:29:43.403Z",
-      "domain": "i.instagram.com",
-      "root": "instagram.com",
-      "tracker": "instagram_com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-03-01T02:19:26.234Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:2cc:1::204",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:29:40.968Z",
-      "domain": "spot-pa.googleapis.com",
-      "root": "spot-pa.googleapis.com",
-      "tracker": "googleapis.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-28T04:28:27.304Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:332::2e",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:57.060Z",
-      "domain": "federatedcompute-pa.googleapis.com",
-      "root": "federatedcompute-pa.googleapis.com",
-      "tracker": "googleapis.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-27T08:34:34.383Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:fb5::14c",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:55.736Z",
-      "domain": "www.facebook.com",
-      "root": "facebook.com",
-      "tracker": "facebook",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-26T07:06:15.794Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:c84::2aa",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:54.773Z",
-      "domain": "satellite-android.ifttt.com",
-      "root": "ifttt.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-25T02:55:15.244Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:c84::de",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:54.590Z",
-      "domain": "play-fe.googleapis.com",
-      "root": "play-fe.googleapis.com",
-      "tracker": "googleapis.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-24T08:15:20.261Z",
+      "domain": "pah3eeraephe0jae.com",
+      "root": "pah3eeraephe0jae.com",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2604:a880:400:d1:0:3:ea7b:c001",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:54.228Z",
-      "domain": "api.medium.com",
-      "root": "medium.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-24T02:51:46.415Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:332::15e",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:54.182Z",
-      "domain": "medium.com",
-      "root": "medium.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-23T07:31:03.785Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:c84::2b4",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:54.090Z",
-      "domain": "crashlyticsreports-pa.googleapis.com",
-      "root": "crashlyticsreports-pa.googleapis.com",
-      "tracker": "googleapis.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-22T07:21:51.457Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:c84::2db",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:54.065Z",
-      "domain": "0.datadog.pool.ntp.org",
-      "root": "ntp.org",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-21T04:14:36.762Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:332::16c",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:46.136Z",
-      "domain": "device-api.urbanairship.com",
-      "root": "urbanairship.com",
-      "tracker": "urban_airship",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "blocklist:adaway",
-          "name": "AdAway"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-11-13T12:28:43.042Z",
-      "domain": "api-stream.twitter.com",
-      "root": "twitter.com",
-      "tracker": "twitter",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-20T00:51:37.043Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:332::17f",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:32.929Z",
-      "domain": "youtubei.googleapis.com",
-      "root": "youtubei.googleapis.com",
-      "tracker": "googleapis.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-19T05:36:22.106Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:2cc:1::1a8",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:14.276Z",
-      "domain": "sgp-howl.api.intl.miui.com",
-      "root": "miui.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-18T07:35:27.619Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:332::15",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:14.021Z",
-      "domain": "firebaseremoteconfig.googleapis.com",
-      "root": "firebaseremoteconfig.googleapis.com",
-      "tracker": "googleapis.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-17T14:34:45.208Z",
+      "domain": "pah3eeraephe0jae.com",
+      "root": "pah3eeraephe0jae.com",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2604:a880:400:d1:0:3:de08:b001",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:13.608Z",
-      "domain": "firebase-settings.crashlytics.com",
-      "root": "crashlytics.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-17T00:54:09.877Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:2cc:1::264",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:10.045Z",
-      "domain": "config-proxy-bak.kwd.inkuai.com",
-      "root": "inkuai.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "denylist",
-          "name": "Denylist"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-11-13T12:28:10.045Z",
-      "domain": "config-proxy.kwd.100.app",
-      "root": "100.app",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "denylist",
-          "name": "Denylist"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-11-13T12:28:10.037Z",
-      "domain": "config-proxy.kwd.inkuai.com",
-      "root": "inkuai.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "denylist",
-          "name": "Denylist"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-11-13T12:28:05.792Z",
-      "domain": "ws-pro-pull.kwai.net",
-      "root": "kwai.net",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "denylist",
-          "name": "Denylist"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-11-13T12:28:05.670Z",
-      "domain": "bs-pro-origin-pull.kwai.net",
-      "root": "kwai.net",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "denylist",
-          "name": "Denylist"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-11-13T12:28:05.647Z",
-      "domain": "zt-live.kwaipros.com",
-      "root": "kwaipros.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "denylist",
-          "name": "Denylist"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-11-13T12:28:05.641Z",
-      "domain": "zt-live.kwai-pro.com",
-      "root": "kwai-pro.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-16T08:13:47.405Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:332::11b",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:05.641Z",
-      "domain": "ulog.kwai-pro.com",
-      "root": "kwai-pro.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-15T01:38:37.540Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:2cc:1::25d",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:05.635Z",
-      "domain": "tx-pro-pull.kwai.net",
-      "root": "kwai.net",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "denylist",
-          "name": "Denylist"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-11-13T12:28:05.615Z",
-      "domain": "t-ulogl2.kwaipros.com",
-      "root": "kwaipros.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "denylist",
-          "name": "Denylist"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-11-13T12:28:05.610Z",
-      "domain": "t-ulogl2.kwai-pro.com",
-      "root": "kwai-pro.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-14T07:49:15.907Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:332::cd",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:05.605Z",
-      "domain": "t-apil2.kwai-pro.com",
-      "root": "kwai-pro.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-13T05:20:02.871Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:c84::66",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:05.605Z",
-      "domain": "t-ulog-pro.kwai-pro.com",
-      "root": "kwai-pro.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-12T03:06:06.035Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:2cc:1::198",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:05.605Z",
-      "domain": "t-ulog-pro.kwaipros.com",
-      "root": "kwaipros.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "denylist",
-          "name": "Denylist"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-11-13T12:28:05.593Z",
-      "domain": "t-api-pro.kwai-pro.com",
-      "root": "kwai-pro.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-11T08:18:57.078Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:c84::2cf",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:05.588Z",
-      "domain": "txv2-br-cdn.kwai.net",
-      "root": "kwai.net",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "denylist",
-          "name": "Denylist"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-11-13T12:28:05.588Z",
-      "domain": "tx-br-cdn.kwai.net",
-      "root": "kwai.net",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "denylist",
-          "name": "Denylist"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-11-13T12:28:05.577Z",
-      "domain": "t-api-pro.adaether.com",
-      "root": "adaether.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-10T08:18:03.338Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:c84::176",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:05.573Z",
-      "domain": "kix-apil2.kwai-pro.com",
-      "root": "kwai-pro.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-09T06:10:43.831Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:2cc:1::24e",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:05.573Z",
-      "domain": "kix-ulogl2.kwaipros.com",
-      "root": "kwaipros.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "denylist",
-          "name": "Denylist"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-11-13T12:28:05.568Z",
-      "domain": "k-ulog.kwai-pro.com",
-      "root": "kwai-pro.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-08T08:18:55.826Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:332::148",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:05.568Z",
-      "domain": "k-ulogl2.kwai-pro.com",
-      "root": "kwai-pro.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-07T03:02:39.605Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:fb5::1d3",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:05.568Z",
-      "domain": "k-ulog.kwaipros.com",
-      "root": "kwaipros.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "denylist",
-          "name": "Denylist"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-11-13T12:28:05.555Z",
-      "domain": "k-apil2.kwaipros.com",
-      "root": "kwaipros.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "denylist",
-          "name": "Denylist"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-11-13T12:28:05.550Z",
-      "domain": "k-api.mythad.com",
-      "root": "mythad.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "denylist",
-          "name": "Denylist"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-11-13T12:28:05.550Z",
-      "domain": "k-api.kwai-pro.com",
-      "root": "kwai-pro.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-06T18:10:20.912Z",
+      "domain": "www.dnssec-tools.org",
+      "root": "dnssec-tools.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2604:a880:400:d1:0:3:cb14:4001",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:05.542Z",
-      "domain": "az3-apil2-txpro.kwai-pro.com",
-      "root": "kwai-pro.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-06T18:10:20.911Z",
+      "domain": "xyz.example.org",
+      "root": "example.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2604:a880:400:d1:0:3:cb14:4001",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:05.542Z",
-      "domain": "g-zt.kwai-pro.com",
-      "root": "kwai-pro.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-06T18:10:20.911Z",
+      "domain": "wikileaks.org",
+      "root": "wikileaks.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2604:a880:400:d1:0:3:cb14:4001",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:05.542Z",
-      "domain": "cdn-static.ap4r.com",
-      "root": "ap4r.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-06T18:10:20.911Z",
+      "domain": "google.com",
+      "root": "google.com",
+      "tracker": "google",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2604:a880:400:d1:0:3:cb14:4001",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:05.542Z",
-      "domain": "cdn-static.kwai.net",
-      "root": "kwai.net",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "denylist",
-          "name": "Denylist"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-11-13T12:28:05.537Z",
-      "domain": "az3-apil2-kixpro.kwai-pro.com",
-      "root": "kwai-pro.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-06T14:49:06.521Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:332::f5",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:05.507Z",
-      "domain": "az3-apil2-akpro.kwaipros.com",
-      "root": "kwaipros.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
-      "status": "blocked",
-      "reasons": [
-        {
-          "id": "denylist",
-          "name": "Denylist"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-11-13T12:28:05.503Z",
-      "domain": "az2-apil2-kixpro.kwai-pro.com",
-      "root": "kwai-pro.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-05T03:31:32.683Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:c84::19f",
       "status": "default",
       "reasons": []
     },
     {
-      "timestamp": "2025-11-13T12:28:05.503Z",
-      "domain": "az2-apil2-txpro.kwai-pro.com",
-      "root": "kwai-pro.com",
-      "encrypted": true,
-      "protocol": "DNS-over-TLS",
-      "clientIp": "45.190.211.239",
-      "device": {
-        "id": "1SAQF",
-        "name": "a"
-      },
+      "timestamp": "2026-02-04T04:03:28.055Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:332::84",
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2026-02-03T08:44:35.477Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:2cc:1::264",
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2026-02-02T07:15:33.833Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:2cc:1::105",
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2026-02-01T07:31:47.364Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:2cc:1::1d5",
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2026-01-31T02:08:55.462Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:c84::164",
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2026-01-30T07:30:48.546Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:c84::191",
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2026-01-29T04:17:45.044Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:c84::1d9",
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2026-01-28T00:09:19.427Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:2cc:1::1b8",
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2026-01-27T08:08:26.696Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:c84::10d",
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2026-01-26T04:35:06.358Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:fb5::1ca",
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2026-01-25T09:22:37.647Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:fb5::14e",
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2026-01-24T09:34:48.173Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:fb5::2a6",
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2026-01-23T08:18:56.237Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:c84::19d",
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2026-01-22T06:21:34.803Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:2cc:1::294",
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2026-01-21T09:38:22.841Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:2cc:1::288",
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2026-01-20T01:57:44.497Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:2cc:1::1b0",
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2026-01-19T05:33:43.538Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:332::ff",
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2026-01-18T09:39:24.601Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:fb5::2b3",
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2026-01-17T08:17:59.317Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:c84::2d9",
       "status": "default",
       "reasons": []
     }
