@@ -1,10 +1,10 @@
 ---
 title: "Estatísticas de Logs"
-date: 2026-03-04T03:35:18.328474
+date: 2026-03-05T03:39:18.709913
 draft: false
 ---
 # Estatísticas NextDNS
-**Última atualização:** 2026-03-04T03:35:16.519002
+**Última atualização:** 2026-03-05T03:39:17.833662
 ## Resumo Geral
 - **Total de consultas:** 100
 - **Consultas bloqueadas:** 0
