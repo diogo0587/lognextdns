@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 /**
  * API Route para receber histórico do Chrome
- * POST /api/chrome-history
+  POST /api/chrome-history
  */
 export async function POST(request: NextRequest) {
   try {
@@ -87,7 +87,7 @@ export async function POST(request: NextRequest) {
 }
 
 /**
- * GET /api/chrome-history - Info
+  GET /api/chrome-history - Info
  */
 export async function GET() {
   return NextResponse.json({
