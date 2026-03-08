@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "timestamp": "2026-03-07T03:27:44.603738",
+    "timestamp": "2026-03-08T03:39:50.509024",
     "total_entries": 100,
     "profile_id": "85d564",
     "date_range": {
-      "start": "2025-12-01T02:18:37.896Z",
-      "end": "2026-03-06T04:26:06.766Z"
+      "start": "2025-12-01T12:52:35.507Z",
+      "end": "2026-03-07T06:00:17.224Z"
     }
   },
   "statistics": {
@@ -20,12 +20,12 @@
       "45.190.211.252": 3,
       "2001:470:2cc:1::264": 2,
       "2001:470:1:fb5::195": 2,
+      "2001:470:1:fb5::2af": 1,
       "2001:470:1:c84::16a": 1,
       "2001:470:1:c84::224": 1,
       "2001:470:2cc:1::127": 1,
       "2001:470:2cc:1::12a": 1,
-      "2001:470:1:fb5::17b": 1,
-      "2001:470:2cc:1::204": 1
+      "2001:470:1:fb5::17b": 1
     },
     "blocked_percentage": 0.0
   },
@@ -36,6 +36,16 @@
     "blocked": {}
   },
   "recent_logs": [
+    {
+      "timestamp": "2026-03-07T06:00:17.224Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:fb5::2af",
+      "status": "default",
+      "reasons": []
+    },
     {
       "timestamp": "2026-03-06T04:26:06.766Z",
       "domain": "dnsscan.shadowserver.org",
@@ -524,16 +534,6 @@
       "encrypted": false,
       "protocol": "UDP",
       "clientIp": "2001:470:1:c84::19d",
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2026-01-22T06:21:34.803Z",
-      "domain": "dnsscan.shadowserver.org",
-      "root": "shadowserver.org",
-      "encrypted": false,
-      "protocol": "UDP",
-      "clientIp": "2001:470:2cc:1::294",
       "status": "default",
       "reasons": []
     }
