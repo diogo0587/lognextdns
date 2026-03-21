@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "timestamp": "2026-03-20T03:40:25.225269",
+    "timestamp": "2026-03-21T03:31:58.633391",
     "total_entries": 100,
     "profile_id": "85d564",
     "date_range": {
-      "start": "2025-12-19T15:05:12.992Z",
-      "end": "2026-03-19T02:55:43.593Z"
+      "start": "2025-12-21T16:20:53.692Z",
+      "end": "2026-03-21T00:09:13.484Z"
     }
   },
   "statistics": {
@@ -20,12 +20,12 @@
       "2604:a880:400:d1:0:3:cb14:4001": 4,
       "45.190.211.252": 3,
       "2001:470:2cc:1::264": 2,
-      "2001:470:1:fb5::195": 2,
+      "2001:470:2cc:1::ff": 1,
+      "2001:470:1:c84::127": 1,
       "2001:470:2cc:1::c3": 1,
       "2001:470:1:332::2c": 1,
       "2001:470:1:c84::6d": 1,
-      "2001:470:1:332::111": 1,
-      "2001:470:1:fb5::1aa": 1
+      "2001:470:1:332::111": 1
     },
     "blocked_percentage": 0.0
   },
@@ -36,6 +36,26 @@
     "blocked": {}
   },
   "recent_logs": [
+    {
+      "timestamp": "2026-03-21T00:09:13.484Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:2cc:1::ff",
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2026-03-20T05:57:12.405Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:c84::127",
+      "status": "default",
+      "reasons": []
+    },
     {
       "timestamp": "2026-03-19T02:55:43.593Z",
       "domain": "dnsscan.shadowserver.org",
@@ -515,26 +535,6 @@
       "encrypted": false,
       "protocol": "UDP",
       "clientIp": "2001:470:1:fb5::1d3",
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2026-02-06T18:10:20.912Z",
-      "domain": "www.dnssec-tools.org",
-      "root": "dnssec-tools.org",
-      "encrypted": false,
-      "protocol": "UDP",
-      "clientIp": "2604:a880:400:d1:0:3:cb14:4001",
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2026-02-06T18:10:20.911Z",
-      "domain": "xyz.example.org",
-      "root": "example.org",
-      "encrypted": false,
-      "protocol": "UDP",
-      "clientIp": "2604:a880:400:d1:0:3:cb14:4001",
       "status": "default",
       "reasons": []
     }
