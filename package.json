@@ -12,10 +12,7 @@
   "author": "diogo0587",
   "license": "ISC",
   "dependencies": {
-    "@opentelemetry/api": "^1.8.0",
-    "@opentelemetry/sdk-node": "^0.50.0",
-    "@opentelemetry/auto-instrumentations-node": "^0.46.0",
-    "@opentelemetry/exporter-trace-otlp-http": "^0.50.0"
+    
   },
   "devDependencies": {
     "next": "^14.0.0",
