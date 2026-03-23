@@ -1,85 +1,65 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse, NextFetchEvent } from 'next/server';
 
-// Função para enviar logs para Kubiks
 async function logToKubiks(data: any) {
   try {
     const endpoint = process.env.OTEL_EXPORTER_OTLP_ENDPOINT || 'https://ingest.kubiks.app';
-    const headers = process.env.OTEL_EXPORTER_OTLP_HEADERS || 'x-kubiks-key=';
-    
-    const [key, value] = headers.split('=');
-    
+    const rawHeaders = process.env.OTEL_EXPORTER_OTLP_HEADERS || '';
+
+    // Parsing robusto do header
+    if (!rawHeaders.includes('=')) return;
+    const [key, ...valueParts] = rawHeaders.split('=');
+    const value = valueParts.join('=');
+
     await fetch(`${endpoint}/v1/logs`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        [key]: value,
+        [key.trim()]: value.trim(),
       },
       body: JSON.stringify({
         resourceLogs: [{
           resource: {
-            attributes: [
-              { key: 'service.name', value: { stringValue: 'lognextdns' } },
-            ],
+            attributes: [{ key: 'service.name', value: { stringValue: 'lognextdns' } }],
           },
           scopeLogs: [{
             scope: { name: 'vercel-network-logger' },
             logRecords: [{
               timeUnixNano: Date.now() * 1000000,
               body: { stringValue: JSON.stringify(data) },
-              severityNumber: 9, // INFO
+              severityNumber: 9,
               severityText: 'INFO',
               attributes: [
-                { key: 'environment', value: { stringValue: process.env.VERCEL_ENV || 'unknown' } },
-                { key: 'deployment', value: { stringValue: process.env.VERCEL_DEPLOYMENT_ID || 'unknown' } },
+                { key: 'environment', value: { stringValue: process.env.VERCEL_ENV || 'production' } },
               ],
             }],
           }],
         }],
       }),
-    }).catch((err) => {
-      console.error('Failed to log to Kubiks:', err);
     });
   } catch (error) {
-    console.error('Error in logToKubiks:', error);
+    console.error('Logging failed:', error);
   }
 }
 
-export async function middleware(request: NextRequest) {
-  // Capturar informações do request
-  const clientIp = request.headers.get('x-forwarded-for') || 
-                   request.headers.get('x-real-ip') || 
-                   'unknown';
-  
+// Adicione o parâmetro 'event' aqui
+export async function middleware(request: NextRequest, event: NextFetchEvent) {
+  const clientIp = request.headers.get('x-forwarded-for') || 'unknown';
+
   const networkData = {
     timestamp: new Date().toISOString(),
     method: request.method,
     url: request.url,
     path: request.nextUrl.pathname,
-    host: request.headers.get('host'),
     userAgent: request.headers.get('user-agent'),
     clientIp: clientIp,
-    referer: request.headers.get('referer') || 'direct',
-    contentType: request.headers.get('content-type'),
-    contentLength: request.headers.get('content-length'),
-    acceptEncoding: request.headers.get('accept-encoding'),
-    acceptLanguage: request.headers.get('accept-language'),
   };
 
-  // Enviar log para Kubiks de forma assíncrona
-  logToKubiks(networkData);
+  // event.waitUntil mantém a função viva após o retorno da resposta
+  event.waitUntil(logToKubiks(networkData));
 
-  // Continuar com o request normal
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     */
-    '/((?!_next/static|_next/image|favicon.ico).*)',
-  ],
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
 };
