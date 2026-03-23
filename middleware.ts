@@ -1,15 +1,24 @@
-import { NextRequest, NextResponse, NextFetchEvent } from 'next/server';
+import { NextRequest, NextResponse, type NextFetchEvent } from 'next/server';
 
-export const runtime = 'edge'; // Garante que o Node.js não seja usado
+export const runtime = 'edge';
 
 async function logToKubiks(data: any) {
-  try {
-    const endpoint = process.env.OTEL_EXPORTER_OTLP_ENDPOINT || 'https://ingest.kubiks.app';
-    const rawHeaders = process.env.OTEL_EXPORTER_OTLP_HEADERS || '';
+  // 1. Verificação ultra-segura das envs
+  const endpoint = process.env.OTEL_EXPORTER_OTLP_ENDPOINT;
+  const rawHeaders = process.env.OTEL_EXPORTER_OTLP_HEADERS;
 
-    if (!rawHeaders.includes('=')) return;
+  if (!endpoint || !rawHeaders || !rawHeaders.includes('=')) {
+    console.warn('Kubiks: Configurações ausentes ou inválidas.');
+    return;
+  }
+
+  try {
     const [key, ...valueParts] = rawHeaders.split('=');
     const value = valueParts.join('=');
+
+    // 2. Timeout para não travar a execução
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 2000);
 
     await fetch(`${endpoint}/v1/logs`, {
       method: 'POST',
@@ -36,29 +45,42 @@ async function logToKubiks(data: any) {
           }],
         }],
       }),
-    });
+      signal: controller.signal,
+    }).finally(() => clearTimeout(timeout));
+
   } catch (error) {
-    console.error('Logging failed:', error);
+    // Silencia o erro para não derrubar o middleware
+    console.error('Kubiks silent error:', error);
   }
 }
 
 export async function middleware(request: NextRequest, event: NextFetchEvent) {
-  const clientIp = request.headers.get('x-forwarded-for') || 'unknown';
+  try {
+    const clientIp = request.headers.get('x-forwarded-for') || 'unknown';
 
-  const networkData = {
-    timestamp: new Date().toISOString(),
-    method: request.method,
-    url: request.url,
-    path: request.nextUrl.pathname,
-    userAgent: request.headers.get('user-agent'),
-    clientIp: clientIp,
-  };
+    const networkData = {
+      timestamp: new Date().toISOString(),
+      method: request.method,
+      url: request.url,
+      path: request.nextUrl.pathname,
+      userAgent: request.headers.get('user-agent'),
+      clientIp: clientIp,
+    };
 
-  event.waitUntil(logToKubiks(networkData));
+    // Usa waitUntil para rodar em background
+    event.waitUntil(logToKubiks(networkData));
 
+  } catch (e) {
+    console.error('Middleware internal error:', e);
+  }
+
+  // SEMPRE retorna o next(), independente de erro no log
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+  matcher: [
+    // Garante que não capture arquivos estáticos nem a própria API
+    '/((?!api|_next/static|_next/image|favicon.ico|robots.txt).*)',
+  ],
 };
