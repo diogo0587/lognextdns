@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse, NextFetchEvent } from 'next/server';
 
+export const runtime = 'edge'; // Garante que o Node.js não seja usado
+
 async function logToKubiks(data: any) {
   try {
     const endpoint = process.env.OTEL_EXPORTER_OTLP_ENDPOINT || 'https://ingest.kubiks.app';
     const rawHeaders = process.env.OTEL_EXPORTER_OTLP_HEADERS || '';
 
-    // Parsing robusto do header
     if (!rawHeaders.includes('=')) return;
     const [key, ...valueParts] = rawHeaders.split('=');
     const value = valueParts.join('=');
@@ -41,7 +42,6 @@ async function logToKubiks(data: any) {
   }
 }
 
-// Adicione o parâmetro 'event' aqui
 export async function middleware(request: NextRequest, event: NextFetchEvent) {
   const clientIp = request.headers.get('x-forwarded-for') || 'unknown';
 
@@ -54,7 +54,6 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
     clientIp: clientIp,
   };
 
-  // event.waitUntil mantém a função viva após o retorno da resposta
   event.waitUntil(logToKubiks(networkData));
 
   return NextResponse.next();
