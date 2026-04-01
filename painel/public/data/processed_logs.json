@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "timestamp": "2026-03-31T04:10:22.806860",
+    "timestamp": "2026-04-01T04:24:23.770744",
     "total_entries": 100,
     "profile_id": "85d564",
     "date_range": {
-      "start": "2026-01-02T17:48:29.479Z",
-      "end": "2026-03-31T02:31:40.901Z"
+      "start": "2026-01-04T17:35:58.918Z",
+      "end": "2026-04-01T00:54:38.340Z"
     }
   },
   "statistics": {
@@ -21,11 +21,11 @@
       "2001:470:1:fb5::20d": 2,
       "2001:470:1:332::17b": 2,
       "2001:470:2cc:1::264": 2,
+      "2001:470:1:332::3e": 1,
+      "2001:470:1:fb5::1a1": 1,
       "2604:a880:400:d1:0:4:2aee:2001": 1,
       "2001:470:1:c84::82": 1,
-      "2001:470:1:332::29": 1,
-      "2001:470:1:fb5::218": 1,
-      "2001:470:1:fb5::a0": 1
+      "2001:470:1:332::29": 1
     },
     "blocked_percentage": 0.0
   },
@@ -36,6 +36,26 @@
     "blocked": {}
   },
   "recent_logs": [
+    {
+      "timestamp": "2026-04-01T00:54:38.340Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:332::3e",
+      "status": "default",
+      "reasons": []
+    },
+    {
+      "timestamp": "2026-03-31T08:10:00.018Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:fb5::1a1",
+      "status": "default",
+      "reasons": []
+    },
     {
       "timestamp": "2026-03-31T02:31:40.901Z",
       "domain": "pah3eeraephe0jae.com",
@@ -515,26 +535,6 @@
       "encrypted": false,
       "protocol": "UDP",
       "clientIp": "2001:470:2cc:1::1a8",
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2026-02-18T07:35:27.619Z",
-      "domain": "dnsscan.shadowserver.org",
-      "root": "shadowserver.org",
-      "encrypted": false,
-      "protocol": "UDP",
-      "clientIp": "2001:470:1:332::15",
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2026-02-17T14:34:45.208Z",
-      "domain": "pah3eeraephe0jae.com",
-      "root": "pah3eeraephe0jae.com",
-      "encrypted": false,
-      "protocol": "UDP",
-      "clientIp": "2604:a880:400:d1:0:3:de08:b001",
       "status": "default",
       "reasons": []
     }
