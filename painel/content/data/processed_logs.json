@@ -1,16 +1,17 @@
 {
   "metadata": {
-    "timestamp": "2026-04-01T04:24:23.770744",
+    "timestamp": "2026-04-02T04:03:01.731039",
     "total_entries": 100,
     "profile_id": "85d564",
     "date_range": {
-      "start": "2026-01-04T17:35:58.918Z",
-      "end": "2026-04-01T00:54:38.340Z"
+      "start": "2026-01-05T18:06:03.253Z",
+      "end": "2026-04-02T00:57:04.235Z"
     }
   },
   "statistics": {
     "by_status": {
-      "default": 100
+      "blocked": 1,
+      "default": 99
     },
     "by_type": {
       "unknown": 100
@@ -21,21 +22,38 @@
       "2001:470:1:fb5::20d": 2,
       "2001:470:1:332::17b": 2,
       "2001:470:2cc:1::264": 2,
+      "2001:470:1:c84::2e6": 1,
       "2001:470:1:332::3e": 1,
       "2001:470:1:fb5::1a1": 1,
       "2604:a880:400:d1:0:4:2aee:2001": 1,
-      "2001:470:1:c84::82": 1,
-      "2001:470:1:332::29": 1
+      "2001:470:1:c84::82": 1
     },
-    "blocked_percentage": 0.0
+    "blocked_percentage": 1.0
   },
   "top_domains": {
     "all": {
       "unknown": 100
     },
-    "blocked": {}
+    "blocked": {
+      "null": 1
+    }
   },
   "recent_logs": [
+    {
+      "timestamp": "2026-04-02T00:57:04.235Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:c84::2e6",
+      "status": "blocked",
+      "reasons": [
+        {
+          "id": "denylist",
+          "name": "Denylist"
+        }
+      ]
+    },
     {
       "timestamp": "2026-04-01T00:54:38.340Z",
       "domain": "dnsscan.shadowserver.org",
@@ -525,16 +543,6 @@
       "encrypted": false,
       "protocol": "UDP",
       "clientIp": "2001:470:1:332::17f",
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2026-02-19T05:36:22.106Z",
-      "domain": "dnsscan.shadowserver.org",
-      "root": "shadowserver.org",
-      "encrypted": false,
-      "protocol": "UDP",
-      "clientIp": "2001:470:2cc:1::1a8",
       "status": "default",
       "reasons": []
     }
