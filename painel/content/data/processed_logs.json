@@ -1,17 +1,17 @@
 {
   "metadata": {
-    "timestamp": "2026-04-03T04:04:03.421409",
+    "timestamp": "2026-04-04T03:44:14.065587",
     "total_entries": 100,
     "profile_id": "85d564",
     "date_range": {
-      "start": "2026-01-05T18:06:03.253Z",
-      "end": "2026-04-02T00:57:04.235Z"
+      "start": "2026-01-06T14:16:55.828Z",
+      "end": "2026-04-03T06:19:17.111Z"
     }
   },
   "statistics": {
     "by_status": {
-      "blocked": 1,
-      "default": 99
+      "blocked": 2,
+      "default": 98
     },
     "by_type": {
       "unknown": 100
@@ -22,23 +22,38 @@
       "2001:470:1:fb5::20d": 2,
       "2001:470:1:332::17b": 2,
       "2001:470:2cc:1::264": 2,
+      "2001:470:1:c84::1f3": 1,
       "2001:470:1:c84::2e6": 1,
       "2001:470:1:332::3e": 1,
       "2001:470:1:fb5::1a1": 1,
-      "2604:a880:400:d1:0:4:2aee:2001": 1,
-      "2001:470:1:c84::82": 1
+      "2604:a880:400:d1:0:4:2aee:2001": 1
     },
-    "blocked_percentage": 1.0
+    "blocked_percentage": 2.0
   },
   "top_domains": {
     "all": {
       "unknown": 100
     },
     "blocked": {
-      "null": 1
+      "null": 2
     }
   },
   "recent_logs": [
+    {
+      "timestamp": "2026-04-03T06:19:17.111Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:c84::1f3",
+      "status": "blocked",
+      "reasons": [
+        {
+          "id": "denylist",
+          "name": "Denylist"
+        }
+      ]
+    },
     {
       "timestamp": "2026-04-02T00:57:04.235Z",
       "domain": "dnsscan.shadowserver.org",
@@ -533,16 +548,6 @@
       "encrypted": false,
       "protocol": "UDP",
       "clientIp": "2001:470:1:332::16c",
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2026-02-20T00:51:37.043Z",
-      "domain": "dnsscan.shadowserver.org",
-      "root": "shadowserver.org",
-      "encrypted": false,
-      "protocol": "UDP",
-      "clientIp": "2001:470:1:332::17f",
       "status": "default",
       "reasons": []
     }
