@@ -1,0 +1,1 @@
+{\n  "compilerOptions": {\n    "target": "ES2020",\n    "lib": ["ES2020", "DOM"],\n    "strict": true,\n    "baseUrl": ".",\n    "paths": {\n      "@/*": ["*"]\n    }\n  }\n}
