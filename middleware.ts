@@ -1,18 +1,16 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse, NextFetchEvent } from 'next/server';
 
 export const runtime = 'edge';
 
-export async function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest, event: NextFetchEvent) {
   const endpoint = process.env.OTEL_EXPORTER_OTLP_ENDPOINT;
   const rawHeaders = process.env.OTEL_EXPORTER_OTLP_HEADERS;
 
-  // Só tenta logar se as variáveis existirem e não for um arquivo estático
-  if (endpoint && rawHeaders && rawHeaders.includes('=')) {
+  if (endpoint && rawHeaders?.includes('=')) {
     const [key, ...valueParts] = rawHeaders.split('=');
     const value = valueParts.join('=');
 
-    // Executa o fetch sem "await" para não atrasar a resposta ao usuário
-    fetch(`${endpoint}/v1/logs`, {
+    const logPromise = fetch(`${endpoint}/v1/logs`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -33,7 +31,10 @@ export async function middleware(request: NextRequest) {
           }]
         }]
       }),
-    }).catch(() => {}); // Ignora erros de rede silenciosamente
+    }).catch(() => {});
+
+    // ESSENCIAL: Mantém a execução viva no Edge sem travar a resposta
+    event.waitUntil(logPromise);
   }
 
   return NextResponse.next();
