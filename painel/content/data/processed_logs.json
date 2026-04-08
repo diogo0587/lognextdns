@@ -1,17 +1,17 @@
 {
   "metadata": {
-    "timestamp": "2026-04-07T04:08:09.994959",
+    "timestamp": "2026-04-08T04:10:52.883463",
     "total_entries": 100,
     "profile_id": "85d564",
     "date_range": {
-      "start": "2026-01-10T18:55:24.915Z",
-      "end": "2026-04-07T01:38:55.324Z"
+      "start": "2026-01-11T18:17:52.352Z",
+      "end": "2026-04-07T08:15:27.575Z"
     }
   },
   "statistics": {
     "by_status": {
-      "blocked": 6,
-      "default": 94
+      "blocked": 7,
+      "default": 93
     },
     "by_type": {
       "unknown": 100
@@ -19,26 +19,41 @@
     "by_client": {
       "2604:a880:400:d1:0:4:298:9001": 4,
       "2604:a880:400:d1:0:3:cb14:4001": 4,
-      "2001:470:1:fb5::20d": 2,
       "2001:470:1:332::17b": 2,
       "2001:470:2cc:1::264": 2,
+      "2001:470:1:332::13a": 1,
       "2604:a880:400:d1:0:4:3624:4001": 1,
       "2001:470:1:332::49": 1,
       "2001:470:1:fb5::2bb": 1,
       "2001:470:1:c84::1e9": 1,
       "2001:470:1:c84::1f3": 1
     },
-    "blocked_percentage": 6.0
+    "blocked_percentage": 7.0
   },
   "top_domains": {
     "all": {
       "unknown": 100
     },
     "blocked": {
-      "null": 6
+      "null": 7
     }
   },
   "recent_logs": [
+    {
+      "timestamp": "2026-04-07T08:15:27.575Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:332::13a",
+      "status": "blocked",
+      "reasons": [
+        {
+          "id": "denylist",
+          "name": "Denylist"
+        }
+      ]
+    },
     {
       "timestamp": "2026-04-07T01:38:55.324Z",
       "domain": "pah3eeraephe0jae.com",
@@ -562,16 +577,6 @@
       "encrypted": false,
       "protocol": "UDP",
       "clientIp": "2001:470:1:c84::de",
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2026-02-24T08:15:20.261Z",
-      "domain": "pah3eeraephe0jae.com",
-      "root": "pah3eeraephe0jae.com",
-      "encrypted": false,
-      "protocol": "UDP",
-      "clientIp": "2604:a880:400:d1:0:3:ea7b:c001",
       "status": "default",
       "reasons": []
     }
