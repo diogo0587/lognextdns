@@ -1,17 +1,17 @@
 {
   "metadata": {
-    "timestamp": "2026-04-09T04:06:03.072286",
+    "timestamp": "2026-04-10T04:21:34.634779",
     "total_entries": 100,
     "profile_id": "85d564",
     "date_range": {
-      "start": "2026-01-14T15:43:40.858Z",
-      "end": "2026-04-09T00:08:19.667Z"
+      "start": "2026-01-15T16:09:30.558Z",
+      "end": "2026-04-10T03:49:10.959Z"
     }
   },
   "statistics": {
     "by_status": {
-      "blocked": 9,
-      "default": 91
+      "blocked": 10,
+      "default": 90
     },
     "by_type": {
       "unknown": 100
@@ -21,24 +21,39 @@
       "2604:a880:400:d1:0:3:cb14:4001": 4,
       "2001:470:1:332::17b": 2,
       "2001:470:2cc:1::264": 2,
+      "2001:470:2cc:1::230": 1,
       "2001:470:1:c84::2ad": 1,
       "2001:470:1:fb5::1eb": 1,
       "2001:470:1:332::13a": 1,
       "2604:a880:400:d1:0:4:3624:4001": 1,
-      "2001:470:1:332::49": 1,
-      "2001:470:1:fb5::2bb": 1
+      "2001:470:1:332::49": 1
     },
-    "blocked_percentage": 9.0
+    "blocked_percentage": 10.0
   },
   "top_domains": {
     "all": {
       "unknown": 100
     },
     "blocked": {
-      "null": 9
+      "null": 10
     }
   },
   "recent_logs": [
+    {
+      "timestamp": "2026-04-10T03:49:10.959Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:2cc:1::230",
+      "status": "blocked",
+      "reasons": [
+        {
+          "id": "denylist",
+          "name": "Denylist"
+        }
+      ]
+    },
     {
       "timestamp": "2026-04-09T00:08:19.667Z",
       "domain": "dnsscan.shadowserver.org",
@@ -577,16 +592,6 @@
       "encrypted": false,
       "protocol": "UDP",
       "clientIp": "2001:470:1:332::2e",
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2026-02-27T08:34:34.383Z",
-      "domain": "dnsscan.shadowserver.org",
-      "root": "shadowserver.org",
-      "encrypted": false,
-      "protocol": "UDP",
-      "clientIp": "2001:470:1:fb5::14c",
       "status": "default",
       "reasons": []
     }
