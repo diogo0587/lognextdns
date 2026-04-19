@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse, NextFetchEvent } from 'next/server';
 
-export const runtime = 'edge';
+export const runtime = 'experimental-edge';
 
 export async function middleware(request: NextRequest, event: NextFetchEvent) {
   const endpoint = process.env.OTEL_EXPORTER_OTLP_ENDPOINT;
