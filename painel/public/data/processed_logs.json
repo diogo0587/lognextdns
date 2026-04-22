@@ -1,17 +1,17 @@
 {
   "metadata": {
-    "timestamp": "2026-04-21T04:23:38.540666",
+    "timestamp": "2026-04-22T04:22:01.790394",
     "total_entries": 100,
     "profile_id": "85d564",
     "date_range": {
-      "start": "2026-01-26T04:35:06.358Z",
-      "end": "2026-04-20T09:07:24.066Z"
+      "start": "2026-01-27T08:08:26.696Z",
+      "end": "2026-04-21T06:30:31.703Z"
     }
   },
   "statistics": {
     "by_status": {
-      "blocked": 21,
-      "default": 79
+      "blocked": 22,
+      "default": 78
     },
     "by_type": {
       "unknown": 100
@@ -21,24 +21,39 @@
       "2604:a880:400:d1:0:3:cb14:4001": 4,
       "2001:470:1:332::17b": 2,
       "2001:470:2cc:1::264": 2,
+      "2001:470:1:fb5::162": 1,
       "2001:470:2cc:1::258": 1,
       "2001:470:1:c84::26f": 1,
       "2001:470:1:fb5::17a": 1,
       "2001:470:1:fb5::ba": 1,
-      "2001:470:1:c84::6b": 1,
-      "2001:470:2cc:1::140": 1
+      "2001:470:1:c84::6b": 1
     },
-    "blocked_percentage": 21.0
+    "blocked_percentage": 22.0
   },
   "top_domains": {
     "all": {
       "unknown": 100
     },
     "blocked": {
-      "null": 21
+      "null": 22
     }
   },
   "recent_logs": [
+    {
+      "timestamp": "2026-04-21T06:30:31.703Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:fb5::162",
+      "status": "blocked",
+      "reasons": [
+        {
+          "id": "denylist",
+          "name": "Denylist"
+        }
+      ]
+    },
     {
       "timestamp": "2026-04-20T09:07:24.066Z",
       "domain": "dnsscan.shadowserver.org",
@@ -636,17 +651,6 @@
       "timestamp": "2026-03-10T00:25:02.534Z",
       "domain": "wikileaks.org",
       "root": "wikileaks.org",
-      "encrypted": false,
-      "protocol": "UDP",
-      "clientIp": "2604:a880:400:d1:0:4:298:9001",
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2026-03-10T00:25:02.534Z",
-      "domain": "google.com",
-      "root": "google.com",
-      "tracker": "google",
       "encrypted": false,
       "protocol": "UDP",
       "clientIp": "2604:a880:400:d1:0:4:298:9001",
