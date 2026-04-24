@@ -1,17 +1,17 @@
 {
   "metadata": {
-    "timestamp": "2026-04-23T04:26:12.944649",
+    "timestamp": "2026-04-24T04:30:01.388288",
     "total_entries": 100,
     "profile_id": "85d564",
     "date_range": {
-      "start": "2026-01-29T04:17:45.044Z",
-      "end": "2026-04-23T03:19:26.372Z"
+      "start": "2026-01-30T07:30:48.546Z",
+      "end": "2026-04-24T04:03:43.042Z"
     }
   },
   "statistics": {
     "by_status": {
-      "blocked": 24,
-      "default": 76
+      "blocked": 25,
+      "default": 75
     },
     "by_type": {
       "unknown": 100
@@ -21,24 +21,39 @@
       "2604:a880:400:d1:0:3:cb14:4001": 4,
       "2001:470:1:332::17b": 2,
       "2001:470:2cc:1::264": 2,
+      "2001:470:2cc:1::1ab": 1,
       "2001:470:1:c84::1a6": 1,
       "2001:470:2cc:1:225:b5ff:fe11:c7": 1,
       "2001:470:1:fb5::162": 1,
       "2001:470:2cc:1::258": 1,
-      "2001:470:1:c84::26f": 1,
-      "2001:470:1:fb5::17a": 1
+      "2001:470:1:c84::26f": 1
     },
-    "blocked_percentage": 24.0
+    "blocked_percentage": 25.0
   },
   "top_domains": {
     "all": {
       "unknown": 100
     },
     "blocked": {
-      "null": 24
+      "null": 25
     }
   },
   "recent_logs": [
+    {
+      "timestamp": "2026-04-24T04:03:43.042Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:2cc:1::1ab",
+      "status": "blocked",
+      "reasons": [
+        {
+          "id": "denylist",
+          "name": "Denylist"
+        }
+      ]
+    },
     {
       "timestamp": "2026-04-23T03:19:26.372Z",
       "domain": "dnsscan.shadowserver.org",
@@ -654,16 +669,6 @@
       "encrypted": false,
       "protocol": "UDP",
       "clientIp": "2001:470:1:332::17b",
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2026-03-10T00:25:02.535Z",
-      "domain": "www.dnssec-tools.org",
-      "root": "dnssec-tools.org",
-      "encrypted": false,
-      "protocol": "UDP",
-      "clientIp": "2604:a880:400:d1:0:4:298:9001",
       "status": "default",
       "reasons": []
     }
