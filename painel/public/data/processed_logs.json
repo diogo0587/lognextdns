@@ -1,17 +1,17 @@
 {
   "metadata": {
-    "timestamp": "2026-04-26T04:37:02.514536",
+    "timestamp": "2026-04-27T04:44:47.190759",
     "total_entries": 100,
     "profile_id": "85d564",
     "date_range": {
-      "start": "2026-02-01T07:31:47.364Z",
-      "end": "2026-04-26T01:43:40.799Z"
+      "start": "2026-02-02T07:15:33.833Z",
+      "end": "2026-04-27T02:29:16.552Z"
     }
   },
   "statistics": {
     "by_status": {
-      "blocked": 27,
-      "default": 73
+      "blocked": 28,
+      "default": 72
     },
     "by_type": {
       "unknown": 100
@@ -21,24 +21,39 @@
       "2604:a880:400:d1:0:3:cb14:4001": 4,
       "2001:470:1:332::17b": 2,
       "2001:470:2cc:1::264": 2,
+      "2001:470:1:c84::2e0": 1,
       "2001:470:1:fb5::253": 1,
       "2001:470:1:fb5::2b3": 1,
       "2001:470:2cc:1::1ab": 1,
       "2001:470:1:c84::1a6": 1,
-      "2001:470:2cc:1:225:b5ff:fe11:c7": 1,
-      "2001:470:1:fb5::162": 1
+      "2001:470:2cc:1:225:b5ff:fe11:c7": 1
     },
-    "blocked_percentage": 27.0
+    "blocked_percentage": 28.0
   },
   "top_domains": {
     "all": {
       "unknown": 100
     },
     "blocked": {
-      "null": 27
+      "null": 28
     }
   },
   "recent_logs": [
+    {
+      "timestamp": "2026-04-27T02:29:16.552Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:c84::2e0",
+      "status": "blocked",
+      "reasons": [
+        {
+          "id": "denylist",
+          "name": "Denylist"
+        }
+      ]
+    },
     {
       "timestamp": "2026-04-26T01:43:40.799Z",
       "domain": "dnsscan.shadowserver.org",
@@ -669,16 +684,6 @@
       "encrypted": false,
       "protocol": "UDP",
       "clientIp": "2001:470:2cc:1::234",
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2026-03-12T08:41:16.684Z",
-      "domain": "dnsscan.shadowserver.org",
-      "root": "shadowserver.org",
-      "encrypted": false,
-      "protocol": "UDP",
-      "clientIp": "2001:470:1:c84::1c8",
       "status": "default",
       "reasons": []
     }
