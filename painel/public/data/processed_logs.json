@@ -1,17 +1,17 @@
 {
   "metadata": {
-    "timestamp": "2026-04-28T04:48:28.781870",
+    "timestamp": "2026-04-29T04:43:51.159347",
     "total_entries": 100,
     "profile_id": "85d564",
     "date_range": {
-      "start": "2026-02-02T07:15:33.833Z",
-      "end": "2026-04-27T02:29:16.552Z"
+      "start": "2026-02-04T04:03:28.055Z",
+      "end": "2026-04-29T00:09:48.426Z"
     }
   },
   "statistics": {
     "by_status": {
-      "blocked": 28,
-      "default": 72
+      "blocked": 30,
+      "default": 70
     },
     "by_type": {
       "unknown": 100
@@ -20,25 +20,55 @@
       "2604:a880:400:d1:0:4:298:9001": 4,
       "2604:a880:400:d1:0:3:cb14:4001": 4,
       "2001:470:1:332::17b": 2,
-      "2001:470:2cc:1::264": 2,
+      "2001:470:1:332::6": 1,
+      "2001:470:1:c84::196": 1,
       "2001:470:1:c84::2e0": 1,
       "2001:470:1:fb5::253": 1,
       "2001:470:1:fb5::2b3": 1,
       "2001:470:2cc:1::1ab": 1,
-      "2001:470:1:c84::1a6": 1,
-      "2001:470:2cc:1:225:b5ff:fe11:c7": 1
+      "2001:470:1:c84::1a6": 1
     },
-    "blocked_percentage": 28.0
+    "blocked_percentage": 30.0
   },
   "top_domains": {
     "all": {
       "unknown": 100
     },
     "blocked": {
-      "null": 28
+      "null": 30
     }
   },
   "recent_logs": [
+    {
+      "timestamp": "2026-04-29T00:09:48.426Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:332::6",
+      "status": "blocked",
+      "reasons": [
+        {
+          "id": "denylist",
+          "name": "Denylist"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-04-28T08:23:56.418Z",
+      "domain": "dnsscan.shadowserver.org",
+      "root": "shadowserver.org",
+      "encrypted": false,
+      "protocol": "UDP",
+      "clientIp": "2001:470:1:c84::196",
+      "status": "blocked",
+      "reasons": [
+        {
+          "id": "denylist",
+          "name": "Denylist"
+        }
+      ]
+    },
     {
       "timestamp": "2026-04-27T02:29:16.552Z",
       "domain": "dnsscan.shadowserver.org",
@@ -664,26 +694,6 @@
       "encrypted": false,
       "protocol": "UDP",
       "clientIp": "2001:470:1:fb5::1aa",
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2026-03-14T00:10:32.605Z",
-      "domain": "dnsscan.shadowserver.org",
-      "root": "shadowserver.org",
-      "encrypted": false,
-      "protocol": "UDP",
-      "clientIp": "2001:470:1:c84::2c3",
-      "status": "default",
-      "reasons": []
-    },
-    {
-      "timestamp": "2026-03-13T00:55:51.209Z",
-      "domain": "dnsscan.shadowserver.org",
-      "root": "shadowserver.org",
-      "encrypted": false,
-      "protocol": "UDP",
-      "clientIp": "2001:470:2cc:1::234",
       "status": "default",
       "reasons": []
     }
