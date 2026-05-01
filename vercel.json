@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "hugo",
-  "installCommand": "",
+  "installCommand": "cd painel && git submodule update --init --recursive || true",
   "buildCommand": "cd painel && hugo --gc --minify --destination public",
   "outputDirectory": "painel/public",
   "build": {

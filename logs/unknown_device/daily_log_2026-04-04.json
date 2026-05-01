@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-01-11T18:17:52.352Z",
+  "source": "NextDNS",
+  "client_ip": "2001:470:1:fb5::2c0",
+  "client_name": null,
+  "domain": "dnsscan.shadowserver.org",
+  "query_type": null,
+  "status": "default",
+  "resolver": null,
+  "protocol": "UDP",
+  "elapsed": null,
+  "metadata": null,
+  "response_flags": null,
+  "upstream": null,
+  "location": null,
+  "device_name": null,
+  "tags": null
+}
